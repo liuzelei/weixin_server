@@ -34,7 +34,7 @@ END_TEXT
 
   private
   def signature_valid?(signature,timestamp,nonce)
-    token = YAML.load(File.read(File.join(File.dirname(__FILE__),"config/config.yml")))["token"]
+    token = YAML.load(File.read(File.join(Rails.root,"config/weixin.yml")))["token"]
 
     if token.present? and signature.present? and timestamp.present? and nonce.present?
       guess_signature = generate_signature(token,timestamp,nonce)
