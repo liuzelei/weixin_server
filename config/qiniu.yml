@@ -1,0 +1,17 @@
+defaults: &defaults
+  access_key: "eePG33EPxBQEYeuPbzQ8siZfi-pklcvzocOt1XPm"
+  secret_key: "X3uKbyXGXnl9EMmElKGBCRTb2VzaAiBVBetmUn7O"
+
+development:
+  <<: *defaults
+  bucket: "testimages"
+
+test:
+  <<: *defaults
+  bucket: "testimages"
+
+production:
+  access_key: "FgYzPpClDPAuPk4oAioBnm9Id5oEazWwwVyQlyTp"
+  secret_key: "J3Jd-Z-uUa9nsEB451wuXpK4JKOw2qqxZLGc7zxf"
+  bucket: "guanxingtang"
+
