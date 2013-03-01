@@ -28,7 +28,7 @@ class MessageController < ApplicationController
 END_TEXT
     logger.info res 
     logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    res 
+    render text: res 
   end
 
   private
