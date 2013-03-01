@@ -5,7 +5,7 @@ class MessageController < ApplicationController
 
   def auth
     if signature_valid?(signature= params[:signature], timestamp = params[:timestamp], nonce= params[:nonce] )
-      Log.info("signature is ok and return #{params[:echostr]}")
+      logger.info("signature is ok and return #{params[:echostr]}")
       puts "signature is ok and return #{params[:echostr]}"
       params[:echostr]
     end
