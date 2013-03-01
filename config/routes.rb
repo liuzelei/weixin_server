@@ -1,5 +1,9 @@
 DemoWeixin::Application.routes.draw do
+
   get "welcome/index"
+
+  get "message/io"   => "message#auth"
+  post "message/io"  => "message#talk"
 
   root to: 'welcome#index'
 
