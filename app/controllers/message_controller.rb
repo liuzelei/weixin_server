@@ -12,14 +12,19 @@ class MessageController < ApplicationController
   end
 
   def reply_text
-    uri = URI "http://dict.youdao.com"
-    opts = {headers: {"Accept-Encoding"=>'gzip'}}
+    uri = URI "http://fanyi.youdao.com/openapi.do"
+    #opts = {headers: {"Accept-Encoding"=>'gzip'}}
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
 
-    uri.query = {ue: "utf8", q: params[:xml][:MsgType].to_s}.to_query
-    response = HTTParty.get uri.to_s, opts
+    uri.query = {keyfrom: "as181920", key: "1988647871", type: "data", doctype: "json", version: "1.1", q: params[:xml][:Content].to_s}.to_query
+    response = HTTParty.get(uri.to_s).parsed_response
 
-    @content = Sanitize.clean response
+    @content  = response["translation"].join(",")
+    @content += response["basic"]["explains"].join("; ")
+    @content += response["web"].collect{|w| w["key"]+": ["+w['value'].join(' ')+"] "}
+    
+
+    logger.info @content
 
     render "text", formats: :xml
   end
