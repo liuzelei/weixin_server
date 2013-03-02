@@ -9,7 +9,7 @@ class MessageController < ApplicationController
 
   def talk
     if params[:xml][:MsgType] == "text"
-      render "message", :formats => :xml
+      render "reply", :formats => :xml
     end
   end
 
