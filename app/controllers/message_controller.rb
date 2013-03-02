@@ -1,5 +1,7 @@
 # encoding: utf-8
 class MessageController < ApplicationController
+  include Weixin::Plugins
+
   skip_before_filter :verify_authenticity_token
   before_filter :check_weixin_legality, :save_request
 
@@ -12,21 +14,17 @@ class MessageController < ApplicationController
   end
 
   def reply_text
-    uri = URI "http://fanyi.youdao.com/openapi.do"
-    #opts = {headers: {"Accept-Encoding"=>'gzip'}}
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
-
-    uri.query = {keyfrom: "as181920", key: "1988647871", type: "data", doctype: "json", version: "1.1", q: params[:xml][:Content].to_s}.to_query
-    response = HTTParty.get(uri.to_s).parsed_response
-
-    @content  = response["translation"].join(",")
-    @content += "\n"
-    @content += response["basic"]["explains"].join("; ")
-    @content += "\n"
-    @content += (response["web"].collect{|w| w["key"]+": ["+w['value'].join(' ')+"] "}).join("; ")
-    
-
-    logger.info @content
+    req_content = params[:xml][:Content].to_s
+    @content = \
+      case req_content
+      when "Hello2BizUser"
+        "欢迎关注哦，输[文字]翻译，输[?文字]提问:)"
+      when /^?/
+        "xxx"
+      else
+        translate_word req_content
+      end
 
     render "text", formats: :xml
   end
