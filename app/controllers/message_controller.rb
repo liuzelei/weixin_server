@@ -1,15 +1,19 @@
 # encoding: utf-8
 class MessageController < ApplicationController
-  require 'rexml/document'
-  require "yaml"
+  skip_before_filter :verify_authenticity_token
+  before_filter :check_weixin_legality
 
   def auth
-    if signature_valid?(signature= params[:signature], timestamp = params[:timestamp], nonce= params[:nonce] )
-      logger.info("signature is ok and return #{params[:echostr]}")
-      render text: params[:echostr]
+    render :text => params[:echostr]
+  end
+
+  def talk
+    if params[:xml][:MsgType] == "text"
+      render "message", :formats => :xml
     end
   end
 
+=begin
   def talk
     request.body.rewind
     body_data =  Hash.from_xml request.body.read
@@ -30,21 +34,14 @@ END_TEXT
     logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     render text: res 
   end
+=end
 
   private
-  def signature_valid?(signature,timestamp,nonce)
+  # 根据参数校验请求是否合法，如果非法返回错误页面
+  def check_weixin_legality
     token = YAML.load(File.read(File.join(Rails.root,"config/weixin.yml")))["token"]
-
-    if token.present? and signature.present? and timestamp.present? and nonce.present?
-      guess_signature = generate_signature(token,timestamp,nonce)
-      guess_signature.eql? signature
-    end
+    array = [token, params[:timestamp], params[:nonce]].sort
+    render :text => "Forbidden", :status => 403 if params[:signature] != Digest::SHA1.hexdigest(array.join)
   end
-
-  def generate_signature(token,timestamp,nonce)
-    signature = [token.to_s,timestamp.to_s,nonce.to_s].sort.join("")
-    Digest::SHA1.hexdigest(signature)
-  end
-
 end
 
