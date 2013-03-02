@@ -30,10 +30,11 @@ gem 'kaminari'
 #gem 'paperclip'
 
 #gem 'qiniu-rs'
-#gem 'sanitize'
 #gem 'cancan'
 #gem 'tire'
 #gem 'acts-as-taggable-on'
 gem 'rack-mini-profiler'
+gem 'httparty'
+gem 'sanitize'
 
 

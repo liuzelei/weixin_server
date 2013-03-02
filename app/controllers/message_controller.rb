@@ -12,26 +12,40 @@ class MessageController < ApplicationController
   end
 
   def reply_text
+    uri = URI "http://dict.youdao.com"
+    opts = {headers: {"Accept-Encoding"=>'gzip'}}
+    #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
+
+    uri.query = {ue: "utf8", q: params[:xml][:MsgType].to_s}.to_query
+    response = HTTParty.get uri.to_s, opts
+
+    @content = Sanitize.clean response
+
     render "text", formats: :xml
   end
 
   def reply_image
+    render "reply", formats: :xml
   end
 
   def reply_location
+    render "reply", formats: :xml
   end
 
   def reply_link
+    render "reply", formats: :xml
   end
 
   def reply_event
+    render "reply", formats: :xml
   end
 
   def reply_music
+    render "reply", formats: :xml
   end
 
   def reply_news
-    render "news", formats: :xml
+    render "reply", formats: :xml
   end
 
   private
