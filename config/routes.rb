@@ -1,9 +1,34 @@
+class DemoWeixin::Router
+  def initialize(type="text")
+    @message_type = type
+  end
+
+  def matches?(request)
+    xml_data = request.params[:xml]
+    if xml_data and xml_data.is_a?(Hash)
+      @message_type == request.params[:xml][:MsgType]
+    end
+  end
+end
+
 DemoWeixin::Application.routes.draw do
 
   get "welcome/index"
 
   get "message/io"   => "message#auth"
-  post "message/io"  => "message#talk"
+  #post "message/io"  => "message#talk"
+  scope "/", via: :post do
+    #match "message/io" => "message#reply_text", constraints: lambda {|request| request.params[:xml].nil? }
+    #match "message/io" => "message#reply_image", constraints: lambda {|request| request.params[:xml] && request.params[:xml][:MsgType] == "text"}
+    match "message/io" => "message#reply_text", constraints: DemoWeixin::Router.new("text")
+    match "message/io" => "message#reply_image", constraints: DemoWeixin::Router.new("image")
+    match "message/io" => "message#reply_location", constraints: DemoWeixin::Router.new("location")
+    match "message/io" => "message#reply_link", constraints: DemoWeixin::Router.new("link")
+    match "message/io" => "message#reply_event", constraints: DemoWeixin::Router.new("event")
+    match "message/io" => "message#reply_music", constraints: DemoWeixin::Router.new("music")
+    match "message/io" => "message#reply_news", constraints: DemoWeixin::Router.new("news")
+    match "message/io" => "message#reply_news", constraints: lambda {|r| r.params}
+  end
 
   root to: 'welcome#index'
 
