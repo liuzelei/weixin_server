@@ -20,8 +20,10 @@ class MessageController < ApplicationController
     response = HTTParty.get(uri.to_s).parsed_response
 
     @content  = response["translation"].join(",")
+    @content += "\n"
     @content += response["basic"]["explains"].join("; ")
-    @content += response["web"].collect{|w| w["key"]+": ["+w['value'].join(' ')+"] "}
+    @content += "\n"
+    @content += (response["web"].collect{|w| w["key"]+": ["+w['value'].join(' ')+"] "}).join("; ")
     
 
     logger.info @content
