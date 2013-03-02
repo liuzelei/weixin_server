@@ -20,7 +20,7 @@ module Weixin
       #opts = {headers: {"Accept-Encoding"=>'gzip'}}
       uri.query = {size: 1, pretty: "true", q: term}.to_query
       response = HTTParty.get(uri.to_s).parsed_response
-      response["hits"]["hits"] ? response["hits"]["hits"].first["_source"]["content"] : "没找到答案哦，试试其它问题？"
+      (response["hits"] and response["hits"]["hits"]) ? response["hits"]["hits"].first["_source"]["content"] : "没找到答案哦，试试其它问题？"
     end
   end
 end
