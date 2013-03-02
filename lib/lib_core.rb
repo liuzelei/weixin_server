@@ -2,10 +2,10 @@
 
 module Weixin
   module Plugins
-    def translate(word)
+    def translate_word(word)
       uri = URI "http://fanyi.youdao.com/openapi.do"
       #opts = {headers: {"Accept-Encoding"=>'gzip'}}
-      uri.query = {keyfrom: "as181920", key: "1988647871", type: "data", doctype: "json", version: "1.1", q: req_content}.to_query
+      uri.query = {keyfrom: "as181920", key: "1988647871", type: "data", doctype: "json", version: "1.1", q: word}.to_query
       response = HTTParty.get(uri.to_s).parsed_response
 
       content  = response["translation"].join(",")
