@@ -21,7 +21,7 @@ class MessageController < ApplicationController
       when "Hello2BizUser"
         "欢迎关注哦，输[文字]翻译，输[?文字]提问:)"
       when /^\?/
-        "xxx"
+        answer_question req_content.to_search_string
       else
         translate_word req_content
       end
