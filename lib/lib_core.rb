@@ -10,13 +10,13 @@ module Weixin
 
       content  = response["translation"].join(",")
       content += "\n"
-      content += response["basic"]["explains"].join("; ")
+      content += response["basic"]["explains"].join("; ") if response["basic"]
       content += "\n"
-      content += (response["web"].collect{|w| w["key"]+": ["+w['value'].join(' ')+"]"}).join("\n")
+      content += (response["web"].to_a.collect{|w| w["key"]+": ["+w['value'].join(' ')+"]"}).join("\n")
     end
 
     def answer_question(term)
-      uri = URI "http://localhost:9200/questions/_search"
+      uri = URI "http://localhost:9200/knowledges/_search"
       #opts = {headers: {"Accept-Encoding"=>'gzip'}}
       uri.query = {size: 1, pretty: "true", q: term}.to_query
       response = HTTParty.get(uri.to_s).parsed_response
