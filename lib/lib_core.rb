@@ -8,7 +8,7 @@ module Weixin
       uri.query = {keyfrom: "as181920", key: "1988647871", type: "data", doctype: "json", version: "1.1", q: word}.to_query
       response = HTTParty.get(uri.to_s).parsed_response
 
-      content  = response["translation"].join(",")
+      content  = response["translation"].is_a?(Array) ? response["translation"].join(",") : ""
       content += "\n"
       content += response["basic"]["explains"].join("; ") if response["basic"]
       content += "\n"
