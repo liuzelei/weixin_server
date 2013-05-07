@@ -1,0 +1,30 @@
+<% content_for :header_menu do %>
+  <ul class="nav">
+    <li> <%=link_to "xxx", root_path%> </li>
+  </ul>
+<% end %>
+
+<div class="container">
+  <table class="table table-bordered">
+    <tr>
+      <th>用户ID</th>
+      <th>用户微信ID</th>
+      <th>性别</th>
+      <th>年龄</th>
+      <th>地址</th>
+      <th></th>
+    </tr>
+    <% @users.each do |it| %>
+    <tr>
+      <td><%=it.id%></td>
+      <td><%=it.weixin_id%></td>
+      <td><%=it.sex%></td>
+      <td><%=it.age%></td>
+      <td><%=it.address%></td>
+			<td>
+			</td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+
