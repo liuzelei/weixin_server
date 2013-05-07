@@ -20,6 +20,8 @@ class MessageController < ApplicationController
       content: req_content
     @content = \
       case req_content
+      when "ZL"
+        "请输入您的微信号"
       when "Hello2BizUser"
         "欢迎关注哦，输[文字]翻译，输[?文字]提问:)"
       when /^\?|^？|？$|\?$/
@@ -27,6 +29,8 @@ class MessageController < ApplicationController
       else
         translate_word req_content
       end
+   ResponseMessage.create \
+     content: @content
 
     render "text", formats: :xml
   end
