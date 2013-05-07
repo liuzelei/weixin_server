@@ -1,0 +1,22 @@
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<ul class="nav nav-pills">
+			<li>
+				<%=link_to raw("<i class='icon-home icon-black'></i>"), root_path%>
+			</li>
+			<li class="dropdown">
+				<%=link_to raw("<i class='icon-chevron-down icon-black'></i>"), "#", data: {toggle: "dropdown"}, class: "dropdown-toggle"%>
+				<ul class="dropdown-menu">
+					<li></li>
+				</ul>
+			</li>
+		</ul>
+
+    <%= yield :header_menu %>
+
+		<ul class="nav hidden">
+			<li> <%=link_to "menu", "#"%> </li>
+			<li> <%=link_to "menu", "#"%> </li>
+		</ul>
+	</div>
+</div>

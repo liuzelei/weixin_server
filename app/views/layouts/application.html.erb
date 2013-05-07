@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>DemoWeixin</title>
+  <title>WeiXin</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+	<header>
+		<%= render "shared/header"%>
+	</header>
+
+	<section id="main">
+		<%= yield %>
+	</section>
+
+	<footer>
+		<%= render "shared/footer"%>
+	</footer>
 
 </body>
 </html>
+<!DOCTYPE html>
+<html>
+

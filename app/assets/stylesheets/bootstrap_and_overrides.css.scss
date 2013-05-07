@@ -1,0 +1,21 @@
+$navbarHeight: 55px;
+@import "bootstrap";
+@import "bootstrap-responsive";
+
+
+article, section, aside, hgroup, nav, header, footer, figure, figcaption {
+	display: block;
+}
+
+.right {
+	float: right;
+}
+
+.hidden {
+  display: none;
+}
+
+.big_textarea {
+  width: 900px;
+  height: 300px;
+}

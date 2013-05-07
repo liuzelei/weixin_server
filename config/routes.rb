@@ -15,6 +15,8 @@ DemoWeixin::Application.routes.draw do
 
   get "welcome/index"
 
+  get "stat/keywords"
+
   get "message/io"   => "message#auth"
   #post "message/io"  => "message#talk"
   scope "/", via: :post do
