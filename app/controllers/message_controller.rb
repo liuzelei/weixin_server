@@ -16,7 +16,7 @@ class MessageController < ApplicationController
   def reply_text
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
     req_content = params[:xml][:Content].to_s
-    @user.wx_textcreate \
+    @user.wx_texts.create \
       content: req_content
     @content = \
       case req_content
