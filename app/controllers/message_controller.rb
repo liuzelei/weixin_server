@@ -44,7 +44,7 @@ class MessageController < ApplicationController
         "继续吧"
       else
         case req_content
-        when "ZL"
+        when "ZL","zl"
           "请输入您的微信号"
         when "Hello2BizUser"
           "欢迎关注哦，输[文字]翻译，输[?文字]提问,输[ZL]填写资料:)"
