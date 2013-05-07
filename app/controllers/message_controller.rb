@@ -47,7 +47,7 @@ class MessageController < ApplicationController
         when "ZL"
           "请输入您的微信号"
         when "Hello2BizUser"
-          "欢迎关注哦，输[文字]翻译，输[?文字]提问:)"
+          "欢迎关注哦，输[文字]翻译，输[?文字]提问,输[ZL]填写资料:)"
         when /^\?|^？|？$|\?$/
           answer_question req_content.to_search_string
         else
