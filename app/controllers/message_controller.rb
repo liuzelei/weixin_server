@@ -77,7 +77,7 @@ class MessageController < ApplicationController
   # 保存请求客户OpenID
   def save_from_user
     req_user_id = params[:xml][:FromUserName]
-    @user = User.find_by_id(req_user_id) || User.create(open_id: req_user_id)
+    @user = User.find_by_open_id(req_user_id) || User.create(open_id: req_user_id)
   end
 
   # 保存数据到数据库
