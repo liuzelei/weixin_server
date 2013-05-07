@@ -1,2 +1,2 @@
   <MsgType><![CDATA[text]]></MsgType>
-  <Content><![CDATA[回声：<%= params[:xml][:Content] if params[:xml] %>]]></Content>
+  <Content><![CDATA[<%=@content.truncate(500)%>]]></Content>

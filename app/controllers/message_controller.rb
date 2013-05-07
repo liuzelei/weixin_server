@@ -3,7 +3,7 @@ class MessageController < ApplicationController
   include Weixin::Plugins
 
   skip_before_filter :verify_authenticity_token
-  before_filter :check_weixin_legality, :save_request
+  before_filter :check_weixin_legality, :save_request, :save_from_user
 
   def auth
     render :text => params[:echostr]
@@ -16,6 +16,8 @@ class MessageController < ApplicationController
   def reply_text
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
     req_content = params[:xml][:Content].to_s
+    @user.wx_textcreate \
+      content: req_content
     @content = \
       case req_content
       when "Hello2BizUser"
@@ -42,7 +44,18 @@ class MessageController < ApplicationController
   end
 
   def reply_event
-    render "reply", formats: :xml
+    req_event = params[:xml][:Event].to_s
+    @content = \
+      case req_content
+      when "subscribe"
+        "欢迎关注哦，输[文字]翻译，输[?文字]提问:)"
+      when /unsubscribe/
+        "怎么退订了呢，好伤心哦:("
+      else
+        "Unknown"
+      end
+
+    render "event", formats: :xml
   end
 
   def reply_music
@@ -59,6 +72,12 @@ class MessageController < ApplicationController
     token = YAML.load(File.read(File.join(Rails.root,"config/weixin.yml")))["token"]
     array = [token, params[:timestamp], params[:nonce]].sort
     render :text => "Forbidden", :status => 403 if params[:signature] != Digest::SHA1.hexdigest(array.join)
+  end
+
+  # 保存请求客户OpenID
+  def save_from_user
+    @user = User.create \
+      open_id: params[:xml][:FromUserName]
   end
 
   # 保存数据到数据库
