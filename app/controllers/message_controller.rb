@@ -16,18 +16,37 @@ class MessageController < ApplicationController
   def reply_text
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
     req_content = params[:xml][:Content].to_s
+    last_response_message = ResponseMessage.find_by_user_id(@user.id).try :content
     @user.wx_texts.create \
       content: req_content
     @content = \
-      case req_content
-      when "ZL"
-        "请输入您的微信号"
-      when "Hello2BizUser"
-        "欢迎关注哦，输[文字]翻译，输[?文字]提问:)"
-      when /^\?|^？|？$|\?$/
-        answer_question req_content.to_search_string
+      case last_response_message
+      when "请输入您的微信号"
+        @user.update_attributes weixin_id: req_content
+        "请选择您的性别"
+      when "请选择您的性别"
+        sex = \
+          case req_content
+          when 0
+            true
+          when 1
+            false
+          else
+            nil
+          end
+        @user.update_attributes sex: sex
+        "请选择您的年龄"
       else
-        translate_word req_content
+        case req_content
+        when "ZL"
+          "请输入您的微信号"
+        when "Hello2BizUser"
+          "欢迎关注哦，输[文字]翻译，输[?文字]提问:)"
+        when /^\?|^？|？$|\?$/
+          answer_question req_content.to_search_string
+        else
+          translate_word req_content
+        end
       end
    ResponseMessage.create \
      content: @content
