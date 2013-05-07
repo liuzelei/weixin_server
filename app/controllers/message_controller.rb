@@ -38,6 +38,9 @@ class MessageController < ApplicationController
         "请选择您的年龄"
       when "请选择您的年龄"
         @user.update_attributes age: req_content
+        "请输入您的地址"
+      when "请输入您的地址"
+        @user.update_attributes address: req_content
         "继续吧"
       else
         case req_content

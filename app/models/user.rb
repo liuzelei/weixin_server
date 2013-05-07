@@ -4,4 +4,15 @@ class User < ActiveRecord::Base
   has_many :wx_texts
   has_many :event
 
+  def gender_name
+    case sex
+    when true
+      "男"
+    when false
+      "女"
+    else
+      "未知"
+    end
+  end
+
 end
