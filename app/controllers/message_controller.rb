@@ -37,7 +37,7 @@ class MessageController < ApplicationController
         @user.update_attributes sex: sex
         "请选择您的年龄"
       when "请选择您的年龄"
-        @user.update_attributes sex: last_response_message
+        @user.update_attributes age: last_response_message
         "继续吧"
       else
         case req_content
