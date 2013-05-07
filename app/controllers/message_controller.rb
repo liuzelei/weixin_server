@@ -27,15 +27,18 @@ class MessageController < ApplicationController
       when "请选择您的性别"
         sex = \
           case req_content
-          when 0
+          when 0,"0"
             true
-          when 1
+          when 1,"1"
             false
           else
             nil
           end
         @user.update_attributes sex: sex
         "请选择您的年龄"
+      when "请选择您的年龄"
+        @user.update_attributes sex: last_response_message
+        "继续吧"
       else
         case req_content
         when "ZL"
