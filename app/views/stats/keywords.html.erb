@@ -1,0 +1,24 @@
+<% content_for :header_menu do %>
+  <ul class="nav">
+    <li> <%=link_to "xxx", root_path%> </li>
+  </ul>
+<% end %>
+
+<div class="container">
+  <table class="table table-bordered">
+    <tr>
+      <th>用户提交文本</th>
+      <th>统计</th>
+      <th></th>
+    </tr>
+    <% @wx_texts.each do |it| %>
+    <tr>
+      <td><%=it.content%></td>
+      <td><%=it.count%></td>
+			<td>
+			</td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+

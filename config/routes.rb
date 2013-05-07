@@ -15,7 +15,7 @@ DemoWeixin::Application.routes.draw do
 
   get "welcome/index"
 
-  get "stat/keywords"
+  get "stats/keywords"
 
   get "message/io"   => "message#auth"
   #post "message/io"  => "message#talk"
