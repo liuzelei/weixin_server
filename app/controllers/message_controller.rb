@@ -16,7 +16,7 @@ class MessageController < ApplicationController
   def reply_text
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
     req_content = params[:xml][:Content].to_s
-    last_response_message = ResponseMessage.find_by_user_id(@user.id).try :content
+    last_response_message = ResponseMessage.where(user_id: @user.id).order("id desc").first.try :content
     @user.wx_texts.create \
       content: req_content
     @content = \
@@ -48,8 +48,10 @@ class MessageController < ApplicationController
           translate_word req_content
         end
       end
-   ResponseMessage.create \
-     content: @content
+    ResponseMessage.create \
+      content: @content,
+      user_id: @user.id
+
 
     render "text", formats: :xml
   end
