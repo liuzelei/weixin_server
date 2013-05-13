@@ -21,16 +21,16 @@ DemoWeixin::Application.routes.draw do
   get "message/io"   => "message#auth"
   #post "message/io"  => "message#talk"
   scope "/", via: :post do
-    #match "message/io" => "message#reply_text", constraints: lambda {|request| request.params[:xml].nil? }
-    #match "message/io" => "message#reply_image", constraints: lambda {|request| request.params[:xml] && request.params[:xml][:MsgType] == "text"}
-    match "message/io" => "message#reply_text", constraints: DemoWeixin::Router.new("text")
-    match "message/io" => "message#reply_image", constraints: DemoWeixin::Router.new("image")
-    match "message/io" => "message#reply_location", constraints: DemoWeixin::Router.new("location")
-    match "message/io" => "message#reply_link", constraints: DemoWeixin::Router.new("link")
-    match "message/io" => "message#reply_event", constraints: DemoWeixin::Router.new("event")
-    match "message/io" => "message#reply_music", constraints: DemoWeixin::Router.new("music")
-    match "message/io" => "message#reply_news", constraints: DemoWeixin::Router.new("news")
-    match "message/io" => "message#reply_news", constraints: lambda {|r| r.params}
+    #match "message/io" => "message#input_text", constraints: lambda {|request| request.params[:xml].nil? }
+    #match "message/io" => "message#input_image", constraints: lambda {|request| request.params[:xml] && request.params[:xml][:MsgType] == "text"}
+    match "message/io" => "message#input_text", constraints: DemoWeixin::Router.new("text")
+    match "message/io" => "message#input_image", constraints: DemoWeixin::Router.new("image")
+    match "message/io" => "message#input_location", constraints: DemoWeixin::Router.new("location")
+    match "message/io" => "message#input_link", constraints: DemoWeixin::Router.new("link")
+    match "message/io" => "message#input_event", constraints: DemoWeixin::Router.new("event")
+    match "message/io" => "message#input_music", constraints: DemoWeixin::Router.new("music")
+    match "message/io" => "message#input_news", constraints: DemoWeixin::Router.new("news")
+    match "message/io" => "message#input_news", constraints: lambda {|r| r.params}
   end
 
   root to: 'welcome#index'

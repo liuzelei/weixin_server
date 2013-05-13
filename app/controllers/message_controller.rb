@@ -3,7 +3,7 @@ class MessageController < ApplicationController
   include Weixin::Plugins
 
   skip_before_filter :verify_authenticity_token
-  before_filter :check_weixin_legality, :save_request, :save_from_user
+  before_filter :check_weixin_legality, :save_request, :current_weixin_user
 
   def auth
     render :text => params[:echostr]
@@ -13,16 +13,16 @@ class MessageController < ApplicationController
     render "reply", formats: :xml
   end
 
-  def reply_text
+  def input_text
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
     req_content = params[:xml][:Content].to_s
-    last_response_message = ResponseMessage.where(user_id: @user.id).order("id desc").first.try :content
-    @user.wx_texts.create \
+    last_response_message = ResponseMessage.where(user_id: @current_weixin_user.id).order("id desc").first.try :content
+    @current_weixin_user.wx_texts.create \
       content: req_content
     @content = \
       case last_response_message
       when "请输入您的微信号"
-        @user.update_attributes weixin_id: req_content
+        @current_weixin_user.update_attributes weixin_id: req_content
         "请选择您的性别"
       when "请选择您的性别"
         sex = \
@@ -34,13 +34,13 @@ class MessageController < ApplicationController
           else
             nil
           end
-        @user.update_attributes sex: sex
+        @current_weixin_user.update_attributes sex: sex
         "请选择您的年龄"
       when "请选择您的年龄"
-        @user.update_attributes age: req_content
+        @current_weixin_user.update_attributes age: req_content
         "请输入您的地址"
       when "请输入您的地址"
-        @user.update_attributes address: req_content
+        @current_weixin_user.update_attributes address: req_content
         "继续吧"
       else
         case req_content
@@ -56,25 +56,25 @@ class MessageController < ApplicationController
       end
     ResponseMessage.create \
       content: @content,
-      user_id: @user.id
+      user_id: @current_weixin_user.id
 
 
     render "text", formats: :xml
   end
 
-  def reply_image
+  def input_image
     render "reply", formats: :xml
   end
 
-  def reply_location
+  def input_location
     render "reply", formats: :xml
   end
 
-  def reply_link
+  def input_link
     render "reply", formats: :xml
   end
 
-  def reply_event
+  def input_event
     req_event = params[:xml][:Event].to_s
     @content = \
       case req_content
@@ -89,26 +89,25 @@ class MessageController < ApplicationController
     render "event", formats: :xml
   end
 
-  def reply_music
+  def input_music
     render "reply", formats: :xml
   end
 
-  def reply_news
+  def input_news
     render "reply", formats: :xml
   end
 
   private
   # 根据参数校验请求是否合法，如果非法返回错误页面
   def check_weixin_legality
-    token = YAML.load(File.read(File.join(Rails.root,"config/weixin.yml")))["token"]
-    array = [token, params[:timestamp], params[:nonce]].sort
+    array = [WEIXIN_TOKEN, params[:timestamp], params[:nonce]].sort
     render :text => "Forbidden", :status => 403 if params[:signature] != Digest::SHA1.hexdigest(array.join)
   end
 
   # 保存请求客户OpenID
-  def save_from_user
+  def current_weixin_user
     req_user_id = params[:xml][:FromUserName]
-    @user = User.find_by_open_id(req_user_id) || User.create(open_id: req_user_id)
+    @current_weixin_user ||= (User.find_by_open_id(req_user_id) || User.create(open_id: req_user_id))
   end
 
   # 保存数据到数据库
