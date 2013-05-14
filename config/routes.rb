@@ -33,6 +33,10 @@ DemoWeixin::Application.routes.draw do
     match "message/io" => "message#input_news", constraints: lambda {|r| r.params}
   end
 
+  resources :qa_steps
+
+  resources :keyword_replies
+
   root to: 'welcome#index'
 
   # The priority is based upon order of creation:

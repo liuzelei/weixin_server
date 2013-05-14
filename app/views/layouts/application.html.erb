@@ -12,9 +12,18 @@
 		<%= render "shared/header"%>
 	</header>
 
-	<section id="main">
-		<%= yield %>
-	</section>
+  <section id="main">
+    <div class="container-fluid">
+      <div class="span2 bs-docs-sidenav">
+        <%= yield :menu %>
+        a
+      </div>
+
+      <div class="span10">
+        <%= yield %>
+      </div>
+    </div>
+  </section>
 
 	<footer>
 		<%= render "shared/footer"%>
