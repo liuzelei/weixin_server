@@ -2,7 +2,7 @@
 class KeywordRepliesController < ApplicationController
 
   def index
-    @keyword_replies = KeywordReply.all
+    @keyword_replies = KeywordReply.order("updated_at desc")
   end
 
   def show

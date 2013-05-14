@@ -12,7 +12,10 @@ end
 group :development do
   gem 'quiet_assets', git: 'git://github.com/AgilionApps/quiet_assets.git', tag: 'v0.1.0'
   gem 'thin'
-  gem "debugger"
+  #gem "debugger"
+  gem 'pry-rails'
+  gem 'pry-remote'
+  gem 'pry-nav'
 end
 
 group :test do
