@@ -1,0 +1,41 @@
+<%= form_for @qa_step, html: {class: "form-horizontal"} do |f| %>
+  <% if @qa_step.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@qa_step.errors.count, "error") %> prohibited this qa_step from being saved:</h2>
+
+      <ul>
+      <% @qa_step.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<fieldset>
+
+    <div class="control-group">
+      <%= f.label :keyword, "关键词", class: "control-label"  %>
+      <div class="controls">
+        <%= f.text_field :keyword %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :question, "提问内容", class: "control-label"  %>
+      <div class="controls">
+        <%= f.text_area :question, class: "big_textarea" %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :priority, "提问排序", class: "control-label"  %>
+      <div class="controls">
+        <%= f.number_field :priority, class: "" %>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <%= f.submit "提交", class: "btn btn-primary" %>
+      </div>
+    </div>
+	</fieldset>
+<% end %>
+

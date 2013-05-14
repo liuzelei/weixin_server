@@ -1,0 +1,19 @@
+
+<%= render "shared/qa_steps_menu" %>
+
+<p>
+  <strong>关键词:</strong>
+  <%= @qa_step.keyword %>
+</p>
+
+<p>
+  <strong>提问内容:</strong>
+	<pre><%= @qa_step.question %></pre>
+</p>
+<p>
+  <strong>提问顺序:</strong>
+  <%= @qa_step.priority %>
+</p>
+
+<%= link_to 'Edit', edit_qa_step_path(@qa_step) %> |
+<%= link_to 'Back', qa_steps_path %>

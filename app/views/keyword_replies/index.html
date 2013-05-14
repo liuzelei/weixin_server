@@ -15,7 +15,7 @@
     <% @keyword_replies.each do |keyword_reply| %>
       <tr>
         <td><%= keyword_reply.keyword %></td>
-        <td><%= keyword_reply.reply_content %></td>
+        <td><pre><%= keyword_reply.reply_content %></pre></td>
         <td><%= link_to raw("<i class='icon-search'></i>"), keyword_reply %>&nbsp;<%= link_to raw("<i class='icon-edit'></i>"), edit_keyword_reply_path(keyword_reply) %>&nbsp;<%= link_to raw("<i class='icon-remove'></i>"), keyword_reply, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

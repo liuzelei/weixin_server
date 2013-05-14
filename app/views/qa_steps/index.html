@@ -1,0 +1,28 @@
+<%= render "shared/qa_steps_menu" %>
+
+<!-- <legend>关键词回复内容列表</legend> -->
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>关键词</th>
+      <th>提问内容</th>
+      <th>录入顺序</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <% @qa_steps.each do |qa_step| %>
+      <tr>
+        <td><%= qa_step.keyword %></td>
+        <td><pre><%= qa_step.question %></pre></td>
+        <td><%= qa_step.priority %></td>
+        <td><%= link_to raw("<i class='icon-search'></i>"), qa_step %>&nbsp;<%= link_to raw("<i class='icon-edit'></i>"), edit_qa_step_path(qa_step) %>&nbsp;<%= link_to raw("<i class='icon-remove'></i>"), qa_step, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    </tr>
+  </tbody>
+</table>
+
+

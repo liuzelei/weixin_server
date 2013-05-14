@@ -1,0 +1,7 @@
+<% content_for :menu do %>
+  <ul class="nav nav-list bs-docs-sidenav affix">
+    <li><%=link_to raw(" 用户录入管理 "), "#", class: "nav-header"%></li>
+    <li class="<%=current_menu_item_state('index')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>录入信息列表 "), qa_steps_path, class: ""%></li>
+		<li class="<%=current_menu_item_state('new')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>新增录入信息 "), new_qa_step_path, class: ""%></li>
+  </ul>
+<% end %>
