@@ -1,7 +1,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: demo_weixin_development
+  database: weixin_server_development
   pool: 5
   username: dbuser
   password: db.password
@@ -9,7 +9,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: demo_weixin_test
+  database: weixin_server_test
   pool: 5
   username: dbuser
   password: db.password
@@ -17,7 +17,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: demo_weixin_production
+  database: weixin_server_production
   pool: 5
   username: dbuser
   password: db.password

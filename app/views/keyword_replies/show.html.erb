@@ -1,0 +1,15 @@
+
+<%= render "shared/keyword_replies_menu" %>
+
+<p>
+  <strong>关键词:</strong>
+  <%= @keyword_reply.keyword %>
+</p>
+
+<p>
+  <strong>回复内容:</strong>
+  <%= @keyword_reply.reply_content %>
+</p>
+
+<%= link_to 'Edit', edit_keyword_reply_path(@keyword_reply) %> |
+<%= link_to 'Back', keyword_replies_path %>

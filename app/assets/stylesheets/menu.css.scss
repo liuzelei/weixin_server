@@ -1,0 +1,36 @@
+.bs-docs-sidenav li a {
+	border: 1px solid #E5E5E5;
+	display: block;
+	margin: 0 0 -1px;
+	padding: 8px 14px;
+}
+
+.bs-docs-sidenav {
+	background-color: #FFFFFF;
+	border-radius: 6px 6px 6px 6px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+	margin: 0px 0 0;
+	padding: 0;
+	width: 170px;
+}
+.nav-list li a, .nav-list .nav-header {
+	margin-left: 0px;
+	margin-right: 0px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.affix {
+	position: fixed;
+}
+
+
+.bs-docs-sidenav .icon-chevron-right {
+	float: right;
+	//margin-right: -6px;
+	margin-right: 0px;
+	margin-top: 2px;
+	opacity: 0.25;
+}
+
+.bs-docs-sidenav li a {
+	font-size: large;
+}

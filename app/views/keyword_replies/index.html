@@ -1,0 +1,26 @@
+<%= render "shared/keyword_replies_menu" %>
+
+<legend>关键词回复内容列表</legend>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>关键词</th>
+      <th>回复内容</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <% @keyword_replies.each do |keyword_reply| %>
+      <tr>
+        <td><%= keyword_reply.keyword %></td>
+        <td><%= keyword_reply.reply_content %></td>
+        <td><%= link_to raw("<i class='icon-search'></i>"), keyword_reply %>&nbsp;<%= link_to raw("<i class='icon-edit'></i>"), edit_keyword_reply_path(keyword_reply) %>&nbsp;<%= link_to raw("<i class='icon-remove'></i>"), keyword_reply, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    </tr>
+  </tbody>
+</table>
+
+
