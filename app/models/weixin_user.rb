@@ -5,12 +5,29 @@ class WeixinUser < ActiveRecord::Base
   has_many :wx_texts
   has_many :event
 
-  def gender_name
+  def sex_name
     case sex
-    when true
-      "男"
-    when false
+    when "0", 0
       "女"
+    when "1", 1
+      "男"
+    else
+      "未知"
+    end
+  end
+
+  def age_range
+    case age
+    when "0", 0
+      "< 20"
+    when "1", 1
+      "20-30"
+    when "2", 2
+      "30-40"
+    when "3", 3
+      "40-50"
+    when "4", 4
+      "> 50"
     else
       "未知"
     end

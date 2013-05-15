@@ -27,11 +27,10 @@ class MessageController < ApplicationController
     #else
     #handle_smart_talk
     #end
-    qa_step = QaStep.where(question: last_response_message).first
-    keyword_reply = KeywordReply.where(keyword: @request_content).first unless qa_step
-    if qa_step
-      @content = "qa_step handling."
-      logger.info "qa_step handling."
+    @qa_step = QaStep.where(question: last_response_message).first
+    keyword_reply = KeywordReply.where(keyword: @request_content).first unless @qa_step
+    if @qa_step.present?
+      @content = weixin_user_info_recording
     elsif keyword_reply
       @content = keyword_reply.reply_content
     else
@@ -142,6 +141,23 @@ class MessageController < ApplicationController
     ResponseMessage.create \
       content: @content,
       weixin_user_id: @current_weixin_user.id
+  end
+
+  def weixin_user_info_recording
+    keyword = @qa_step.keyword
+    case keyword
+    when "zh"
+      WeixinUser.update_attributes weixin_id: @request_content
+    when "xb"
+      WeixinUser.update_attributes sex: @request_content
+    when "nl"
+      WeixinUser.update_attributes age: @request_content
+    when "dz"
+      logger.info params[:xml]
+    else
+      logger.info params[:xml]
+    end
+    next_step = QaStep.where("priority > ?", @qa_step.priority).order("priority").first.question
   end
 end
 
