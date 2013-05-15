@@ -3,7 +3,7 @@ class MessageController < ApplicationController
   include Weixin::Plugins
 
   skip_before_filter :verify_authenticity_token
-  before_filter :current_weixin_user
+  prepend_before_filter :current_weixin_user
   before_filter :check_weixin_legality, :save_request
 
   after_filter :save_response
