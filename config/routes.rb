@@ -13,10 +13,8 @@ end
 
 DemoWeixin::Application.routes.draw do
 
-  get "welcome/index"
 
-  get "stats/keywords"
-  get "stats/weixin_users"
+  get "welcome/index"
 
   get "message/io"   => "message#auth"
   #post "message/io"  => "message#talk"
@@ -34,8 +32,12 @@ DemoWeixin::Application.routes.draw do
   end
 
   resources :qa_steps
-
   resources :keyword_replies
+  resources :items
+  resources :news
+
+  get "stats/keywords"
+  get "stats/weixin_users"
 
   root to: 'welcome#index'
 

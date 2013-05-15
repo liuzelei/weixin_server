@@ -109,6 +109,7 @@ class MessageController < ApplicationController
 
   # 保存响应数据到数据库
   def save_response
+    #TODO 处理非文字回复内容的保存
     ResponseMessage.create \
       content: @content,
       weixin_user_id: @current_weixin_user.id

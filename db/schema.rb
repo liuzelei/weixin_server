@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130515071330) do
+ActiveRecord::Schema.define(:version => 20130515093539) do
 
   create_table "events", :force => true do |t|
     t.integer  "weixin_user_id"
@@ -20,11 +20,30 @@ ActiveRecord::Schema.define(:version => 20130515071330) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "items", :force => true do |t|
+    t.integer  "news_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "pic_url"
+    t.string   "url"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "keyword_replies", :force => true do |t|
     t.string   "keyword"
     t.text     "reply_content"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "news", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "pic_url"
+    t.string   "url"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "qa_steps", :force => true do |t|
