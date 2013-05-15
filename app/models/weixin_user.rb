@@ -1,5 +1,5 @@
 # encoding: utf-8
-class User < ActiveRecord::Base
+class WeixinUser < ActiveRecord::Base
   attr_accessible :open_id, :weixin_id, :sex, :age, :address
 
   has_many :wx_texts

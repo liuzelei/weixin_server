@@ -3,7 +3,10 @@ class MessageController < ApplicationController
   include Weixin::Plugins
 
   skip_before_filter :verify_authenticity_token
-  before_filter :check_weixin_legality, :save_request, :current_weixin_user
+  before_filter :current_weixin_user
+  before_filter :check_weixin_legality, :save_request
+
+  after_filter :save_response
 
   def auth
     render :text => params[:echostr]
@@ -25,8 +28,20 @@ class MessageController < ApplicationController
     #else
     #handle_smart_talk
     #end
-    @current_weixin_user.wx_texts.create \
-      content: req_content
+    qa_step = QaStep.where(question: last_response_message).first
+    keyword_reply = KeywordReply.where(keyword: req_content).first unless qa_step
+    if qa_step
+      @content = "qa_step handling."
+      logger.info "qa_step handling."
+    elsif keyword_reply
+      @content = "keyword_reply handling.."
+      logger.info "keyword_reply handling.."
+    else
+      @content = "smart_talk handling..."
+      logger.info "smart_talk handling..."
+    end
+
+=begin
     @content = \
       case last_response_message
       when "请输入您的微信号"
@@ -62,9 +77,7 @@ class MessageController < ApplicationController
           translate_word req_content
         end
       end
-    ResponseMessage.create \
-      content: @content,
-      user_id: @current_weixin_user.id
+=end
 
 
     render "text", formats: :xml
@@ -115,13 +128,22 @@ class MessageController < ApplicationController
   # 保存请求客户OpenID
   def current_weixin_user
     req_user_id = params[:xml][:FromUserName]
-    @current_weixin_user ||= (User.find_by_open_id(req_user_id) || User.create(open_id: req_user_id))
+    @current_weixin_user ||= (WeixinUser.find_by_open_id(req_user_id) || WeixinUser.create(open_id: req_user_id))
   end
 
-  # 保存数据到数据库
+  # 保存请求数据到数据库
   def save_request
     RequestMessage.create \
       xml: params[:xml]
+    @current_weixin_user.wx_texts.create \
+      content: req_content
+  end
+
+  # 保存响应数据到数据库
+  def save_response
+    ResponseMessage.create \
+      content: @content,
+      user_id: @current_weixin_user.id
   end
 end
 

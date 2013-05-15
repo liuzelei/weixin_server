@@ -4,6 +4,6 @@ class StatsController < ApplicationController
   end
 
   def users
-    @users = User.all
+    @users = WeixinUser.all
   end
 end
