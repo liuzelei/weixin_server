@@ -143,7 +143,7 @@ class MessageController < ApplicationController
   def save_response
     ResponseMessage.create \
       content: @content,
-      user_id: @current_weixin_user.id
+      weixin_user_id: @current_weixin_user.id
   end
 end
 
