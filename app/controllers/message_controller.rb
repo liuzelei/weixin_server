@@ -33,8 +33,8 @@ class MessageController < ApplicationController
   end
 
   def input_image
-    #render "reply", formats: :xml
-    render "news", formats: :xml
+    render "reply", formats: :xml
+    #render "news", formats: :xml
   end
 
   def input_location
