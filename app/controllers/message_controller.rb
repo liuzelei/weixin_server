@@ -19,14 +19,6 @@ class MessageController < ApplicationController
   def input_text
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
     last_response_message = ResponseMessage.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
-    #TODO
-    #if response_message match qa_steps
-    #handle_info_steps #record the user info into db
-    #elsif response_message match keyword_replies
-    #handle_keyword_replies
-    #else
-    #handle_smart_talk
-    #end
     @qa_step = QaStep.where(question: last_response_message).first
     keyword_reply = KeywordReply.where(keyword: @request_content).first unless @qa_step
     if @qa_step.present?
@@ -37,45 +29,6 @@ class MessageController < ApplicationController
       @content = @request_content
     end
 
-=begin
-    @content = \
-      case last_response_message
-      when "请输入您的微信号"
-        @current_weixin_user.update_attributes weixin_id: @request_content
-        "请选择您的性别"
-      when "请选择您的性别"
-        sex = \
-          case @request_content
-          when 0,"0"
-            true
-          when 1,"1"
-            false
-          else
-            nil
-          end
-        @current_weixin_user.update_attributes sex: sex
-        "请选择您的年龄"
-      when "请选择您的年龄"
-        @current_weixin_user.update_attributes age: @request_content
-        "请输入您的地址"
-      when "请输入您的地址"
-        @current_weixin_user.update_attributes address: @request_content
-        "继续吧"
-      else
-        case @request_content
-        when "ZL","zl"
-          "请输入您的微信号"
-        when "Hello2BizUser"
-          "欢迎关注哦，输[文字]翻译，输[?文字]提问,输[ZL]填写资料:)"
-        when /^\?|^？|？$|\?$/
-          answer_question @request_content.to_search_string
-        else
-          translate_word @request_content
-        end
-      end
-=end
-
-
     render "text", formats: :xml
   end
 
@@ -84,7 +37,15 @@ class MessageController < ApplicationController
   end
 
   def input_location
-    render "reply", formats: :xml
+    last_response_message = ResponseMessage.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
+    @qa_step = QaStep.where(question: last_response_message).first
+    if @qa_step.present?
+      @content = weixin_user_info_recording
+    else
+      @content = @request_content
+    end
+
+    render "text", formats: :xml
   end
 
   def input_link
@@ -131,9 +92,18 @@ class MessageController < ApplicationController
   def save_request
     RequestMessage.create \
       xml: params[:xml]
-    @request_content = params[:xml][:Content].to_s
-    @current_weixin_user.wx_texts.create \
-      content: @request_content
+    case params[:xml][:MsgType]
+    when "text"
+      @request_content = params[:xml][:Content].to_s
+      @current_weixin_user.wx_texts.create \
+        content: @request_content
+    when "location"
+      @current_weixin_user.wx_locations.create \
+        location_x: params[:xml][:Location_X],
+        location_y: params[:xml][:Location_Y],
+        scale: params[:xml][:Scale]
+    else
+    end
   end
 
   # 保存响应数据到数据库
@@ -153,7 +123,11 @@ class MessageController < ApplicationController
     when "nl"
       @current_weixin_user.update_attributes age: @request_content
     when "dz"
-      logger.info params[:xml]
+      #address = params[:xml].keep_if {|k,v| ["Location_X","Location_Y","Scale"].include? k}
+      @current_weixin_user.update_attributes \
+        location_x: params[:xml][:Location_X],
+        location_y: params[:xml][:Location_Y],
+        scale: params[:xml][:Scale]
     else
       logger.info params[:xml]
     end

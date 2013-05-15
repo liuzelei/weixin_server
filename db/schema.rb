@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130515041451) do
+ActiveRecord::Schema.define(:version => 20130515071330) do
 
   create_table "events", :force => true do |t|
     t.integer  "weixin_user_id"
@@ -55,7 +55,18 @@ ActiveRecord::Schema.define(:version => 20130515041451) do
     t.string   "weixin_id"
     t.boolean  "sex"
     t.string   "age"
-    t.string   "address"
+    t.string   "location_x"
+    t.string   "location_y"
+    t.string   "scale"
+  end
+
+  create_table "wx_locations", :force => true do |t|
+    t.integer  "weixin_user_id"
+    t.string   "location_x"
+    t.string   "location_y"
+    t.integer  "scale"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "wx_texts", :force => true do |t|

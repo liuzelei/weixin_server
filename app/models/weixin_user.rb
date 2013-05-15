@@ -3,6 +3,7 @@ class WeixinUser < ActiveRecord::Base
   attr_accessible :open_id, :weixin_id, :sex, :age, :address
 
   has_many :wx_texts
+  has_many :wx_locations
   has_many :event
 
   def sex_name
