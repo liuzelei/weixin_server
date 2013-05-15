@@ -33,11 +33,9 @@ class MessageController < ApplicationController
       @content = "qa_step handling."
       logger.info "qa_step handling."
     elsif keyword_reply
-      @content = "keyword_reply handling.."
-      logger.info "keyword_reply handling.."
+      @content = keyword_reply.reply_content
     else
-      @content = "smart_talk handling..."
-      logger.info "smart_talk handling..."
+      @content = @request_content
     end
 
 =begin
