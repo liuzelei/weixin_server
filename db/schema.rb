@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130515030411) do
+ActiveRecord::Schema.define(:version => 20130515041451) do
 
   create_table "events", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "weixin_user_id"
     t.string   "event"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "keyword_replies", :force => true do |t|
@@ -43,9 +43,9 @@ ActiveRecord::Schema.define(:version => 20130515030411) do
 
   create_table "response_messages", :force => true do |t|
     t.text     "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "user_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "weixin_user_id"
   end
 
   create_table "weixin_users", :force => true do |t|
@@ -59,10 +59,10 @@ ActiveRecord::Schema.define(:version => 20130515030411) do
   end
 
   create_table "wx_texts", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "weixin_user_id"
     t.string   "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
 end
