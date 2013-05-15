@@ -31,7 +31,7 @@ class MessageController < ApplicationController
     keyword_reply = KeywordReply.where(keyword: @request_content).first unless @qa_step
     if @qa_step.present?
       @content = weixin_user_info_recording
-    elsif keyword_reply
+    elsif keyword_reply.present?
       @content = keyword_reply.reply_content
     else
       @content = @request_content
@@ -157,7 +157,7 @@ class MessageController < ApplicationController
     else
       logger.info params[:xml]
     end
-    next_step = QaStep.where("priority > ?", @qa_step.priority).order("priority").first.try (:content) || "信息录入完成\n输入cd获取菜单"
+    next_step = QaStep.where("priority > ?", @qa_step.priority).order("priority").first.try(:question) || "信息录入完成\n输入cd获取菜单"
   end
 end
 
