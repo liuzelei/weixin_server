@@ -18,7 +18,7 @@ class MessageController < ApplicationController
 
   def input_text
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
-    last_response_message = ResponseMessage.where(user_id: @current_weixin_user.id).order("created_at desc").first.try :content
+    last_response_message = ResponseMessage.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
     #TODO
     #if response_message match qa_steps
     #handle_info_steps #record the user info into db
