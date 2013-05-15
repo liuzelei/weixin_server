@@ -157,7 +157,7 @@ class MessageController < ApplicationController
     else
       logger.info params[:xml]
     end
-    next_step = QaStep.where("priority > ?", @qa_step.priority).order("priority").first.question
+    next_step = QaStep.where("priority > ?", @qa_step.priority).order("priority").first.try (:content) || "信息录入完成\n输入cd获取菜单"
   end
 end
 
