@@ -15,13 +15,13 @@
     <%= yield :header_menu %>
 
 		<ul class="nav">
-			<li> <%=link_to "用户管理", stats_weixin_users_path%> </li>
-			<li> <%=link_to "用户信息采集", qa_steps_path%> </li>
-			<li> <%=link_to "关键词回复库", keyword_replies_path%> </li>
-			<li> <%=link_to "素材管理", news_index_path%> </li>
-			<li> <%=link_to "盟店管理", "#"%> </li>
-			<li> <%=link_to "统计", stats_keywords_path%> </li>
-			<li> <%=link_to "设置", "#"%> </li>
+			<li class="<%=current_nav_item_state('weixin_users')%>"> <%=link_to "用户管理", stats_weixin_users_path%> </li>
+			<li class="<%=current_nav_item_state('qa_steps')%>"> <%=link_to "用户信息采集", qa_steps_path%> </li>
+			<li class="<%=current_nav_item_state('keyword_replies')%>"> <%=link_to "关键词回复库", keyword_replies_path%> </li>
+      <li class="<%=current_nav_item_state('news')%>"> <%=link_to "素材管理", news_index_path%> </li>
+			<li class="<%=current_nav_item_state('shops')%>"> <%=link_to "盟店管理", "#"%> </li>
+			<li class="<%=current_nav_item_state('statistics')%>"> <%=link_to "统计", stats_keywords_path%> </li>
+			<li class="<%=current_nav_item_state('settings')%>"> <%=link_to "设置", "#"%> </li>
 		</ul>
 	</div>
 </div>

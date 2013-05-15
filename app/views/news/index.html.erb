@@ -1,29 +1,28 @@
-<h1>Listing news</h1>
+<%= render "shared/news_menu" %>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Pic url</th>
-    <th>Url</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @news.each do |news| %>
-  <tr>
-    <td><%= news.title %></td>
-    <td><%= news.description %></td>
-    <td><%= news.pic_url %></td>
-    <td><%= news.url %></td>
-    <td><%= link_to 'Show', news %></td>
-    <td><%= link_to 'Edit', edit_news_path(news) %></td>
-    <td><%= link_to 'Destroy', news, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
+<%=link_to raw(" <i class='icon-plus'></i>新增 "), new_news_path, class: "btn btn-primary right"%>
 <br />
+<br />
+<div style="clear:both;"></div>
 
-<%= link_to 'New News', new_news_path %>
+<div class="row-fluid">
+  <ul class="thumbnails">
+    <% @news.each do |it| %>
+      <li class="span4">
+        <div class="thumbnail">
+          <%= image_tag it.pic_url, data: {src: "holder.js/200x300"}, alt: ""%>
+          <h3><%=link_to it.title, it.url%></h3>
+          <table class="table table-bordered">
+            <% it.items.each do |itt| %>
+              <tr>
+                <td><%=link_to itt.title, itt.url%></td>
+                <td><%= image_tag itt.pic_url, data: {src: "holder.js/10x10"}, alt: ""%></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
