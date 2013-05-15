@@ -147,11 +147,11 @@ class MessageController < ApplicationController
     keyword = @qa_step.keyword
     case keyword
     when "zh"
-      WeixinUser.update_attributes weixin_id: @request_content
+      @current_weixin_user.update_attributes weixin_id: @request_content
     when "xb"
-      WeixinUser.update_attributes sex: @request_content
+      @current_weixin_user.update_attributes sex: @request_content
     when "nl"
-      WeixinUser.update_attributes age: @request_content
+      @current_weixin_user.update_attributes age: @request_content
     when "dz"
       logger.info params[:xml]
     else
