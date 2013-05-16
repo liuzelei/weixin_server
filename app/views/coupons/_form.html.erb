@@ -1,4 +1,4 @@
-<%= form_for(@coupon) do |f| %>
+<%= form_for @coupon, html: {class: "form-inline"} do |f| %>
   <% if @coupon.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@coupon.errors.count, "error") %> prohibited this coupon from being saved:</h2>
@@ -11,23 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :sn_code %><br />
-    <%= f.text_field :sn_code %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br />
-    <%= f.text_field :status %>
-  </div>
-  <div class="field">
-    <%= f.label :expired_at %><br />
-    <%= f.datetime_select :expired_at %>
-  </div>
-  <div class="field">
-    <%= f.label :used_at %><br />
-    <%= f.datetime_select :used_at %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<fieldset>
+		SN优惠码 <%= f.text_field :sn_code, readonly: "true" %>
+		&nbsp; &nbsp; &nbsp; &nbsp;
+		客户ID <%= text_field_tag "weixin_user_id", @coupon.weixin_user_id, readonly: "true" %>
+		&nbsp; &nbsp; &nbsp; &nbsp;
+		微信帐号 <%= text_field_tag "weixin_id", @coupon.weixin_user.try(:weixin_id), readonly: "true" %>
+		<br />
+		<br />
+
+		使用时间 <%= text_field_tag "used_at", (@coupon.used_at ? @coupon.used_at.strftime("%Y-%m-%d %H:%M") : "未使用"), readonly: "true" %><%#= f.datetime_select :used_at %>
+		<br />
+		<br />
+		
+		<%= f.label :status, "状态" %> <%= f.select :status, options_for_select(["已派发","已使用"], @coupon.status) %>
+		<br />
+		<br />
+
+		<div class="actions">
+			<%= f.submit "提交", class: "btn btn-primary"%>
+		</div>
+	</fieldset>
 <% end %>

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class CouponsController < ApplicationController
   # GET /coupons
   # GET /coupons.json
@@ -57,6 +58,7 @@ class CouponsController < ApplicationController
   # PUT /coupons/1.json
   def update
     @coupon = Coupon.find(params[:id])
+    params[:coupon][:used_at] = DateTime.now if params[:coupon][:status]=="已使用"
 
     respond_to do |format|
       if @coupon.update_attributes(params[:coupon])

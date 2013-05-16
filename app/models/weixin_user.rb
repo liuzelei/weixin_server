@@ -4,7 +4,8 @@ class WeixinUser < ActiveRecord::Base
 
   has_many :wx_texts
   has_many :wx_locations
-  has_many :event
+  has_many :events
+  has_many :coupons
 
   def sex_name
     case sex

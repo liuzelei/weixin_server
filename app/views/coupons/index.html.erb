@@ -22,7 +22,7 @@
         <td><%= it.created_at.strftime("%Y-%m-%d %H:%M") %></td>
         <td><%= it.used_at.strftime("%Y-%m-%d %H:%M") if it.used_at %></td>
         <td><%= it.status %></td>
-        <td><%= link_to raw("<i class='icon-search'></i>"), it %></td>
+        <td><%= link_to raw("<i class='icon-search'></i>"), it %>&nbsp;<%= link_to raw("<i class='icon-edit'></i>"), edit_coupon_path(it) %></td>
       </tr>
     <% end %>
     </tr>
