@@ -25,8 +25,8 @@ class MessageController < ApplicationController
       @content = weixin_user_info_recording
       render "text", formats: :xml
     elsif keyword_reply.present?
-      if keyword.news_id.present?
-        @news = News.find keyword.news_id
+      if keyword_reply.news_id.present?
+        @news = News.find keyword_reply.news_id
         render "news", formats: :xml
       else
         @content = keyword_reply.reply_content
