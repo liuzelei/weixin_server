@@ -27,7 +27,8 @@ class MessageController < ApplicationController
     elsif keyword_reply.present?
       if keyword_reply.coupon
         @news = News.find keyword_reply.news_id
-        @sn_code = Random.rand(1000000...10000000).to_s
+        @coupon = Coupon.where(weixin_user_id: @current_weixin_id.id).first
+        @sn_code = @coupon.try(:sn_code) || Random.rand(1000000...10000000).to_s
         save_coupon_info
         render "news_coupon", formats: :xml
       elsif keyword_reply.news_id.present?
@@ -128,10 +129,14 @@ class MessageController < ApplicationController
 
   # 保存派发的优惠码信息
   def save_coupon_info
-    Coupon.create \
-      weixin_user_id: @current_weixin_user.id,
-      sn_code: @sn_code,
-      status: "已派发"
+    if @coupon
+      Coupon.create \
+        weixin_user_id: @current_weixin_user.id,
+        sn_code: @sn_code,
+        status: "已派发"
+    else
+      Coupon.update_attribute(:updated_at, DateTime.now)
+    end
   end
 
   def weixin_user_info_recording

@@ -16,7 +16,7 @@
     <% @coupons.each do |it| %>
       <tr>
         <td><%= it.sn_code %></td>
-        <td><%= it.weixin_user_id %></td>
+        <td><%= WeixinUser.find_by_id(it.weixin_user_id).try(:weixin_id) || it.weixin_user_id %></td>
         <td><%= it.created_at.strftime("%Y-%m-%d %H:%M") %></td>
         <td><%= it.used_at.strftime("%Y-%m-%d %H:%M") if it.used_at %></td>
         <td><%= it.status %></td>
