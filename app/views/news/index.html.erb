@@ -25,6 +25,7 @@
 						<li><%=link_to "编辑", edit_news_path(it)%></li>
 						<li><%=link_to "删除", it, method: :delete, data: {confirm: "确认删除？"} %></li>
 					</ul>
+					<p> ID: <%=it.id%></p>
         </div>
       </li>
     <% end %>
