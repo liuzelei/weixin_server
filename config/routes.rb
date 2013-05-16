@@ -34,7 +34,11 @@ DemoWeixin::Application.routes.draw do
   resources :keyword_replies
   resources :items
   resources :news
-  resources :coupons
+  resources :coupons do
+    collection  do
+      get :search
+    end
+  end
 
   get "stats/keywords"
   get "stats/weixin_users"

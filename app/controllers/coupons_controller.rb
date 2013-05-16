@@ -11,6 +11,14 @@ class CouponsController < ApplicationController
     end
   end
 
+  def search
+    if params[:term].present?
+      @coupons = Coupon.where sn_code: params[:term]
+    else
+      @coupons = Coupon.all
+    end
+  end
+
   # GET /coupons/1
   # GET /coupons/1.json
   def show
