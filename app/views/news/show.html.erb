@@ -1,25 +1,18 @@
-<p id="notice"><%= notice %></p>
+<%= render "shared/news_menu" %>
 
-<p>
-  <b>Title:</b>
-  <%= @news.title %>
-</p>
+<div class="thumbnail">
+	<%= image_tag @news.pic_url, data: {src: "holder.js/200x300"}, alt: ""%>
+	<h3><%=link_to @news.title, @news.url%></h3>
+	<p><%=@news.description%></p>
+	<table class="table table-bordered">
+		<% @news.items.each do |itt| %>
+			<tr>
+				<td><%=link_to itt.title, itt.url%></td>
+				<td><%= image_tag itt.pic_url, data: {src: "holder.js/10x10"}, alt: "", class: "mini_img"%></td>
+			</tr>
+		<% end %>
+	</table>
+</div>
 
-<p>
-  <b>Description:</b>
-  <%= @news.description %>
-</p>
-
-<p>
-  <b>Pic url:</b>
-  <%= @news.pic_url %>
-</p>
-
-<p>
-  <b>Url:</b>
-  <%= @news.url %>
-</p>
-
-
-<%= link_to 'Edit', edit_news_path(@news) %> |
-<%= link_to 'Back', news_index_path %>
+<%#= link_to 'Edit', edit_news_path(@news) %> |
+<%#= link_to 'Back', news_index_path %>
