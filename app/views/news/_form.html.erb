@@ -1,4 +1,4 @@
-<%= form_for @news, html: {class: "form-horizontal"} do |f| %>
+<%= nested_form_for @news, html: {class: "form-horizontal"} do |f| %>
   <% if @news.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@news.errors.count, "error") %> prohibited this news from being saved:</h2>
@@ -36,11 +36,42 @@
         <%= f.text_field :url%>
       </div>
     </div>
+
+    <%= f.fields_for :items do |ff| %>
+      <div class="control-group">
+        <%= ff.label :title, "标题", class: "control-label" %>
+        <div class="controls">
+          <%= ff.text_field :title %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= ff.label :pic, "图片地址", class: "control-label"%>
+        <div class="controls">
+          <%= ff.file_field :pic%>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= ff.label :description, "正文", class: "control-label"%>
+        <div class="controls">
+          <%= ff.text_area :description, class: "big_textarea kindeditor"%>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= ff.label :url, "链接", class: "control-label"%>
+        <div class="controls">
+          <%= ff.text_field :url%>
+        </div>
+      </div>
+      <%= ff.link_to_remove "删除该子图文" %>
+    <% end %>
+
     <div class="control-group">
       <div class="controls">
-        <%= f.submit "完成", class: "btn btn-primary btn-large" %>
+        <%= f.link_to_add "添加子图文", :items, class: "btn"%>
         &nbsp; &nbsp;
         <%= link_to '取消', news_index_path, class: "btn" %>
+        &nbsp; &nbsp;
+        <%= f.submit "完成", class: "btn btn-primary btn-large" %>
       </div>
     </div>
   </fieldset>

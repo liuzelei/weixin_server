@@ -29,6 +29,7 @@ gem 'capistrano'
 gem 'rvm-capistrano'
 
 gem 'kaminari'
+gem "nested_form"
 gem 'carrierwave'
 gem 'rails_kindeditor', '~> 0.3.18'
 #gem 'rails_kindeditor_qiniu'

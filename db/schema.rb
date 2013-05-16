@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130516025055) do
+ActiveRecord::Schema.define(:version => 20130516031633) do
 
   create_table "events", :force => true do |t|
     t.integer  "weixin_user_id"
@@ -24,10 +24,10 @@ ActiveRecord::Schema.define(:version => 20130516025055) do
     t.integer  "news_id"
     t.string   "title"
     t.text     "description"
-    t.string   "pic_url"
     t.string   "url"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "pic"
   end
 
   create_table "keyword_replies", :force => true do |t|
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20130516025055) do
     t.text     "reply_content"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "news_id"
   end
 
   create_table "kindeditor_assets", :force => true do |t|
