@@ -130,7 +130,7 @@ class MessageController < ApplicationController
   # 保存派发的优惠码信息
   def save_coupon_info
     if @coupon
-      Coupon.update_attribute(:updated_at, DateTime.now)
+      @coupon.update_attribute(:updated_at, DateTime.now)
     else
       Coupon.create \
         weixin_user_id: @current_weixin_user.id,
