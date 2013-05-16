@@ -8,7 +8,8 @@
     <tr>
       <th>关键词</th>
       <th>回复文字</th>
-      <th>回复图文ID</th>
+      <th>图文ID</th>
+      <th>优惠活动</th>
       <th></th>
     </tr>
   </thead>
@@ -19,6 +20,7 @@
         <td><%= keyword_reply.keyword %></td>
         <td><pre><%= keyword_reply.reply_content %></pre></td>
         <td><%= keyword_reply.news_id %></td>
+        <td><%= raw("<i class='icon-ok'></i>") if keyword_reply.coupon %></td>
         <td><%= link_to raw("<i class='icon-search'></i>"), keyword_reply %>&nbsp;<%= link_to raw("<i class='icon-edit'></i>"), edit_keyword_reply_path(keyword_reply) %>&nbsp;<%= link_to raw("<i class='icon-remove'></i>"), keyword_reply, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

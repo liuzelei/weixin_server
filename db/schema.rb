@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130516073939) do
+ActiveRecord::Schema.define(:version => 20130516082947) do
 
   create_table "coupons", :force => true do |t|
     t.integer  "weixin_user_id"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20130516073939) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "news_id"
+    t.boolean  "coupon"
   end
 
   create_table "kindeditor_assets", :force => true do |t|
