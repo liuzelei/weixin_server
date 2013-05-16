@@ -19,15 +19,15 @@
       </div>
     </div>
     <div class="control-group">
-      <%= f.label :pic_url, "图片地址", class: "control-label"%>
+      <%= f.label :pic, "图片地址", class: "control-label"%>
       <div class="controls">
-        <%= f.text_field :pic_url%>
+        <%= f.file_field :pic%>
       </div>
     </div>
     <div class="control-group">
       <%= f.label :description, "正文", class: "control-label"%>
       <div class="controls">
-        <%= f.text_area :description, class: "big_textarea"%>
+        <%= f.kindeditor :description, class: "big_textarea"%>
       </div>
     </div>
     <div class="control-group">

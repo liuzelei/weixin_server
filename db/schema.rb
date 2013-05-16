@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130515093539) do
+ActiveRecord::Schema.define(:version => 20130516025055) do
 
   create_table "events", :force => true do |t|
     t.integer  "weixin_user_id"
@@ -37,13 +37,21 @@ ActiveRecord::Schema.define(:version => 20130515093539) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "kindeditor_assets", :force => true do |t|
+    t.string   "asset"
+    t.integer  "file_size"
+    t.string   "file_type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "news", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.string   "pic_url"
     t.string   "url"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "pic"
   end
 
   create_table "qa_steps", :force => true do |t|

@@ -29,6 +29,8 @@ gem 'capistrano'
 gem 'rvm-capistrano'
 
 gem 'kaminari'
+gem 'carrierwave'
+gem 'rails_kindeditor', '~> 0.3.18'
 #gem 'rails_kindeditor_qiniu'
 #gem 'rails_kindeditor_qiniu', path: "/home/as/as_projects/rails_kindeditor_qiniu"
 #gem 'paperclip'
