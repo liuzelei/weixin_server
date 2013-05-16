@@ -13,7 +13,6 @@ end
 
 DemoWeixin::Application.routes.draw do
 
-
   get "welcome/index"
 
   get "message/io"   => "message#auth"
@@ -35,6 +34,7 @@ DemoWeixin::Application.routes.draw do
   resources :keyword_replies
   resources :items
   resources :news
+  resources :coupons
 
   get "stats/keywords"
   get "stats/weixin_users"

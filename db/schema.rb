@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130516031633) do
+ActiveRecord::Schema.define(:version => 20130516073939) do
+
+  create_table "coupons", :force => true do |t|
+    t.integer  "weixin_user_id"
+    t.string   "sn_code"
+    t.string   "status"
+    t.datetime "expired_at"
+    t.datetime "used_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "events", :force => true do |t|
     t.integer  "weixin_user_id"
