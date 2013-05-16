@@ -1,22 +1,18 @@
   <MsgType><![CDATA[news]]></MsgType>
-  <ArticleCount>3</ArticleCount>
+  <ArticleCount><%=@news.items.count+1%></ArticleCount>
   <Articles>
     <item>
-      <Title><![CDATA[title1]]></Title> 
-      <Description><![CDATA[description1]]></Description>
-      <PicUrl><![CDATA[http://images.bbtang.com/uploads/image/body/1641/15.jpg]]></PicUrl>
-      <Url><![CDATA[http://www.baidu.com]]></Url>
+      <Title><![CDATA[<%=@news.title%>]]></Title> 
+      <Description><![CDATA[<%=@news.description.truncate(100)%>]]></Description>
+      <PicUrl><![CDATA[<%=@news.pic_url%>]]></PicUrl>
+      <Url><![CDATA[<%=@news.url%>]]></Url>
     </item>
-    <item>
-      <Title><![CDATA[title1]]></Title> 
-      <Description><![CDATA[description1]]></Description>
-      <PicUrl><![CDATA[http://images.bbtang.com/uploads/image/body/1641/15.jpg]]></PicUrl>
-      <Url><![CDATA[http://www.baidu.com]]></Url>
-    </item>
-    <item>
-      <Title><![CDATA[title1]]></Title> 
-      <Description><![CDATA[description1]]></Description>
-      <PicUrl><![CDATA[http://images.bbtang.com/uploads/image/body/1641/15.jpg]]></PicUrl>
-      <Url><![CDATA[http://www.baidu.com]]></Url>
-    </item>
+    <% @news.items.each do |it| %>
+      <item>
+        <Title><![CDATA[<%=it.title%>]]></Title> 
+        <Description><![CDATA[<%=it.description.truncate(100)%>]]></Description>
+        <PicUrl><![CDATA[<%=it.pic_url%>]]></PicUrl>
+        <Url><![CDATA[<%=it.url%>]]></Url>
+      </item>
+    <% end %>
   </Articles>

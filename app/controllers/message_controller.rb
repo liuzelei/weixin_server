@@ -23,13 +23,19 @@ class MessageController < ApplicationController
     keyword_reply = KeywordReply.where(keyword: @request_content).first unless @qa_step
     if @qa_step.present?
       @content = weixin_user_info_recording
+      render "text", formats: :xml
     elsif keyword_reply.present?
-      @content = keyword_reply.reply_content
+      if keyword.news_id.present?
+        @news = News.find keyword.news_id
+        render "news", formats: :xml
+      else
+        @content = keyword_reply.reply_content
+        render "text", formats: :xml
+      end
     else
       @content = @request_content
+      render "text", formats: :xml
     end
-
-    render "text", formats: :xml
   end
 
   def input_image
