@@ -26,6 +26,12 @@
       </div>
     </div>
     <div class="control-group">
+      <%= f.label :news_id, "图文编号", class: "control-label"  %>
+      <div class="controls">
+        <%= f.number_field :news_id, class: "" %>
+      </div>
+    </div>
+    <div class="control-group">
       <div class="controls">
         <%= f.submit "提交", class: "btn btn-primary" %>
       </div>
