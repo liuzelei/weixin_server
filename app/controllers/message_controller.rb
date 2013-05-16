@@ -25,7 +25,11 @@ class MessageController < ApplicationController
       @content = weixin_user_info_recording
       render "text", formats: :xml
     elsif keyword_reply.present?
-      if keyword_reply.news_id.present?
+      if keyword_reply.coupon
+        @news = News.find keyword_reply.news_id
+        @sn_code = Random.rand(1000000...10000000).to_s
+        render "news_coupon", formats: :xml
+      elsif keyword_reply.news_id.present?
         @news = News.find keyword_reply.news_id
         render "news", formats: :xml
       else

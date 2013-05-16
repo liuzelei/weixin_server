@@ -1,0 +1,18 @@
+  <MsgType><![CDATA[news]]></MsgType>
+  <ArticleCount><%=@news.items.count+1%></ArticleCount>
+  <Articles>
+    <item>
+      <Title><![CDATA[<%=@sn_code%>]]></Title> 
+      <Description><![CDATA[<%=@news.description.truncate(100)%>]]></Description>
+      <PicUrl><![CDATA[<%=@news.pic_url%>]]></PicUrl>
+      <Url><![CDATA[<%=@news.url%>]]></Url>
+    </item>
+    <% @news.items.each do |it| %>
+      <item>
+        <Title><![CDATA[<%=it.title%>]]></Title> 
+        <Description><![CDATA[<%=it.description.truncate(100)%>]]></Description>
+        <PicUrl><![CDATA[<%=it.pic_url%>]]></PicUrl>
+        <Url><![CDATA[<%=it.url%>]]></Url>
+      </item>
+    <% end %>
+  </Articles>
