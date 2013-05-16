@@ -16,10 +16,15 @@
             <% it.items.each do |itt| %>
               <tr>
                 <td><%=link_to itt.title, itt.url%></td>
-                <td><%= image_tag itt.pic_url, data: {src: "holder.js/10x10"}, alt: ""%></td>
+                <td><%= image_tag itt.pic_url, data: {src: "holder.js/10x10"}, alt: "", class: "mini_img"%></td>
               </tr>
             <% end %>
           </table>
+					<ul class="nav nav-pills">
+						<li><%=link_to "查看", it%></li>
+						<li><%=link_to "编辑", edit_news_path(it)%></li>
+						<li><%=link_to "删除", it, method: :delete, data: {confirm: "确认删除？"} %></li>
+					</ul>
         </div>
       </li>
     <% end %>
