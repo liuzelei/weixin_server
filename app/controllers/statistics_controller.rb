@@ -1,4 +1,7 @@
 class StatisticsController < ApplicationController
+  def messages
+  end
+
   def keywords
     @wx_texts = WxText.select("content, count(content) as count").group(:content)
   end
@@ -6,18 +9,14 @@ class StatisticsController < ApplicationController
   def weixin_users
     @weixin_users = WeixinUser.all
   end
-=begin
+
   # GET /statistics
   # GET /statistics.json
   def index
-    @statistics = Statistic.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @statistics }
-    end
+    #@statistics = Statistic.all
   end
 
+=begin
   # GET /statistics/1
   # GET /statistics/1.json
   def show

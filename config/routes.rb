@@ -45,6 +45,7 @@ DemoWeixin::Application.routes.draw do
 
   resources :statistics, only: [:index] do
     collection do
+      get "messages"
       get "keywords"
       get "weixin_users"
     end
