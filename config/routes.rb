@@ -12,6 +12,9 @@ class DemoWeixin::Router
 end
 
 DemoWeixin::Application.routes.draw do
+  resources :settings
+
+
   resources :weixin_users
   get "welcome/index"
 
