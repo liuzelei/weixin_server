@@ -1,0 +1,21 @@
+<h1>Listing weixin_users</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @weixin_users.each do |weixin_user| %>
+  <tr>
+    <td><%= link_to 'Show', weixin_user %></td>
+    <td><%= link_to 'Edit', edit_weixin_user_path(weixin_user) %></td>
+    <td><%= link_to 'Destroy', weixin_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Weixin user', new_weixin_user_path %>

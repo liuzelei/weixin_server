@@ -12,7 +12,7 @@ class DemoWeixin::Router
 end
 
 DemoWeixin::Application.routes.draw do
-
+  resources :weixin_users
   get "welcome/index"
 
   get "message/io"   => "message#auth"
@@ -40,8 +40,12 @@ DemoWeixin::Application.routes.draw do
     end
   end
 
-  get "stats/keywords"
-  get "stats/weixin_users"
+  resources :statistics, only: [:index] do
+    collection do
+      get "keywords"
+      get "weixin_users"
+    end
+  end
 
   root to: 'welcome#index'
 

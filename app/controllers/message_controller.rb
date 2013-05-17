@@ -28,7 +28,7 @@ class MessageController < ApplicationController
       if keyword_reply.coupon
         @news = News.find keyword_reply.news_id
         @coupon = Coupon.where(weixin_user_id: @current_weixin_user.id).first
-        @sn_code = @coupon.try(:sn_code) || Random.rand(1000000...10000000).to_s
+        @sn_code = @coupon.try(:sn_code) || generate_new_sn_code
         save_coupon_info
         render "news_coupon", formats: :xml
       elsif keyword_reply.news_id.present?
@@ -137,6 +137,15 @@ class MessageController < ApplicationController
         sn_code: @sn_code,
         status: "已派发"
     end
+  end
+
+  def generate_new_sn_code
+    sn_code = Random.rand(1000000...10000000).to_s
+    loop do
+      break unless Coupon.where(sn_code: sn_code).present?
+      sn_code = Random.rand(1000000...10000000).to_s
+    end
+    sn_code
   end
 
   def weixin_user_info_recording
