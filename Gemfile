@@ -33,7 +33,7 @@ gem "nested_form"
 gem 'carrierwave'
 gem 'rails_kindeditor', '~> 0.3.18'
 gem 'googlecharts'
-#gem 'lazy_high_charts'
+gem 'lazy_high_charts'
 #gem 'rails_kindeditor_qiniu'
 #gem 'rails_kindeditor_qiniu', path: "/home/as/as_projects/rails_kindeditor_qiniu"
 #gem 'paperclip'

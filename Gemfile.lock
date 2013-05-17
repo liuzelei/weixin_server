@@ -64,6 +64,7 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     googlecharts (1.6.8)
+    hash-deep-merge (0.1.1)
     highline (1.6.15)
     hike (1.2.1)
     httparty (0.10.2)
@@ -78,6 +79,9 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    lazy_high_charts (1.4.2)
+      bundler (>= 1.0)
+      hash-deep-merge
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -184,6 +188,7 @@ DEPENDENCIES
   httparty
   jquery-rails
   kaminari
+  lazy_high_charts
   nested_form
   pg
   pry-nav

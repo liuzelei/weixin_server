@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery_nested_form
+//= require highcharts
 //= require kindeditor
 //= require bootstrap
 //= require_tree .
