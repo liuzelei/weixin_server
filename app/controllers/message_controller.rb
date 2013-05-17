@@ -143,7 +143,7 @@ class MessageController < ApplicationController
     sn_code = Random.rand(1000000...10000000).to_s
     loop do
       break unless Coupon.where(sn_code: sn_code).present?
-      sn_code = Random.rand(1000000...10000000).to_s
+      logger.info sn_code = Random.rand(1000000...10000000).to_s
     end
     sn_code
   end

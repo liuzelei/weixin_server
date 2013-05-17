@@ -2,7 +2,7 @@ class WeixinUsersController < ApplicationController
   # GET /weixin_users
   # GET /weixin_users.json
   def index
-    @weixin_users = WeixinUser.all
+    @weixin_users = WeixinUser.order("updated_at desc")
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,5 +1,29 @@
-<p id="notice"><%= notice %></p>
+<%= render "shared/weixin_users_menu" %>
 
+<p>
+  <b>用户ID:</b>
+  <%= @weixin_user.id %>
+</p>
 
-<%= link_to 'Edit', edit_weixin_user_path(@weixin_user) %> |
-<%= link_to 'Back', weixin_users_path %>
+<p>
+  <b>微信帐号:</b>
+  <%= @weixin_user.weixin_id %>
+</p>
+
+<p>
+  <b>性别:</b>
+  <%= @weixin_user.sex_name %>
+</p>
+
+<p>
+  <b>年龄:</b>
+  <%= @weixin_user.age_range %>
+</p>
+
+<p>
+  <b>地址:</b>
+  <%="x: #{@weixin_user.location_x}, y: #{@weixin_user.location_y}, s: #{@weixin_user.scale}"%>
+</p>
+
+<%= link_to 'Edit', edit_weixin_user_path(@weixin_user), class: "btn btn-primary" %> 
+<%= link_to 'Back', weixin_users_path, class: "btn" %>

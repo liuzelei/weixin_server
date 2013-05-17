@@ -1,5 +1,6 @@
 # encoding: utf-8
 class WeixinUser < ActiveRecord::Base
+
   attr_accessible :open_id, :weixin_id, :sex, :age, :location_x, :location_y, :scale
 
   has_many :wx_texts
@@ -7,11 +8,14 @@ class WeixinUser < ActiveRecord::Base
   has_many :events
   has_many :coupons
 
+  acts_as_taggable
+  acts_as_taggable_on :categories
+
   def sex_name
     case sex
-    when "0", 0
+    when "0", 0, false
       "女"
-    when "1", 1
+    when "1", 1, true
       "男"
     else
       "未知"
