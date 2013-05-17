@@ -1,7 +1,8 @@
 # encoding: utf-8
 class WeixinUser < ActiveRecord::Base
+  before_validation :repair_tags
 
-  attr_accessible :open_id, :weixin_id, :sex, :age, :location_x, :location_y, :scale
+  attr_accessible :open_id, :weixin_id, :sex, :age, :location_x, :location_y, :scale, :category_list, :tag_list
 
   has_many :wx_texts
   has_many :wx_locations
@@ -39,4 +40,9 @@ class WeixinUser < ActiveRecord::Base
     end
   end
 
+  private
+  def repair_tags
+    #self.category_list = self.category_list.join(",").split_all if self.category_list.present?
+    self.tag_list = self.tag_list.join(",").split_all if self.tag_list.present?
+  end
 end

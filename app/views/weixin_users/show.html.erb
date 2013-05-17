@@ -25,5 +25,15 @@
   <%="x: #{@weixin_user.location_x}, y: #{@weixin_user.location_y}, s: #{@weixin_user.scale}"%>
 </p>
 
+<p>
+  <b>用户类型:</b>
+  <%= @weixin_user.category_list %>
+</p>
+
+<p>
+  <b>用户标签:</b>
+  <%= @weixin_user.tag_list %>
+</p>
+
 <%= link_to 'Edit', edit_weixin_user_path(@weixin_user), class: "btn btn-primary" %> 
 <%= link_to 'Back', weixin_users_path, class: "btn" %>

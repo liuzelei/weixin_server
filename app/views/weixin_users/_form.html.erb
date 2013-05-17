@@ -14,11 +14,15 @@
   <fieldset>
     用户ID： <%= @weixin_user.id %>
     &nbsp; &nbsp; &nbsp; &nbsp;
-    微信帐号： <%= f.text_field :weixin_id%>
+		<%=f.label :weixin_id, "微信帐号："%> <%= f.text_field :weixin_id%>
     <br /> <br />
-    性别： <%= f.select :sex, options_for_select([["女",false],["男",true]],@weixin_user.sex), include_blank: true%>
+		<%=f.label :sex, "性别："%> <%= f.select :sex, options_for_select([["女",false],["男",true]],@weixin_user.sex), include_blank: true%>
     &nbsp; &nbsp; &nbsp; &nbsp;
-    年龄： <%= f.select :age, options_for_select([["小于20岁",0],["20-30岁",1],["30-40岁",2],["40-50岁",3],["大于50岁",4]],@weixin_user.age), include_blank: true%>
+		<%=f.label :age, "年龄："%> <%= f.select :age, options_for_select([["小于20岁",0],["20-30岁",1],["30-40岁",2],["40-50岁",3],["大于50岁",4]],@weixin_user.age), include_blank: true%>
+    <br /> <br />
+		<%=f.label :category_list, "用户类别："%> <%=f.select :category_list, options_for_select(["普通用户","VIP"],@weixin_user.category_list.join(",")), include_blank: true%>
+    &nbsp; &nbsp; &nbsp; &nbsp;
+		<%=f.label :tag_list, "用户标签："%> <%=f.text_field :tag_list, class: "input-large"%>
     <br /> <br />
 
     <div class="actions">
