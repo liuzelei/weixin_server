@@ -2,7 +2,11 @@ class WeixinUsersController < ApplicationController
   # GET /weixin_users
   # GET /weixin_users.json
   def index
-    @weixin_users = WeixinUser.order("updated_at desc")
+    if params[:term].present?
+      @weixin_users = WeixinUser.where("weixin_id like ?", "%#{params[:term]}%").order("updated_at desc")
+    else
+      @weixin_users = WeixinUser.order("updated_at desc")
+    end
 
     respond_to do |format|
       format.html # index.html.erb

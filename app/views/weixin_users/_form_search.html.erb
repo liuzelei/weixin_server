@@ -1,0 +1,8 @@
+<%= form_tag(weixin_users_path, method: "get", class: "form-search right") do %>
+	<div class="input-append">
+		<%=text_field_tag "term", params[:term], {class: "span2 search-query"}%>
+		<%=submit_tag "搜索", {class: "btn btn-primary",name: nil}%>
+	</div>
+<%end%>
+
+<div style="clear:both;"></div>
