@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130518064608) do
+ActiveRecord::Schema.define(:version => 20130518074201) do
 
   create_table "coupons", :force => true do |t|
     t.integer  "weixin_user_id"
@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(:version => 20130518064608) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "weixin_user_id"
+    t.string   "msg_type"
+    t.integer  "news_id"
   end
 
   create_table "taggings", :force => true do |t|

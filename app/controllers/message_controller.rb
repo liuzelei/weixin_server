@@ -22,7 +22,8 @@ class MessageController < ApplicationController
     @qa_step = QaStep.where(question: last_response_message).first
     keyword_reply = KeywordReply.where(keyword: @request_content).first unless @qa_step
     if @qa_step.present?
-      @content = weixin_user_info_recording
+      @response_text_content = weixin_user_info_recording
+      @response_msg_type = "text"
       render "text", formats: :xml
     elsif keyword_reply.present?
       if keyword_reply.coupon
@@ -30,16 +31,20 @@ class MessageController < ApplicationController
         @coupon = Coupon.where(weixin_user_id: @current_weixin_user.id).first
         @sn_code = @coupon.try(:sn_code) || generate_new_sn_code
         save_coupon_info
+        @response_msg_type = "news"
         render "news_coupon", formats: :xml
       elsif keyword_reply.news_id.present?
         @news = News.find keyword_reply.news_id
+        @response_msg_type = "news"
         render "news", formats: :xml
       else
-        @content = keyword_reply.reply_content
+        @response_text_content = keyword_reply.reply_content
+        @response_msg_type = "text"
         render "text", formats: :xml
       end
     else
-      @content = @request_content
+      @response_text_content = @request_content
+      @response_msg_type = "text"
       render "text", formats: :xml
     end
   end
@@ -53,9 +58,9 @@ class MessageController < ApplicationController
     last_response_message = ResponseMessage.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
     @qa_step = QaStep.where(question: last_response_message).first
     if @qa_step.present?
-      @content = weixin_user_info_recording
+      @response_text_content = weixin_user_info_recording
     else
-      @content = @request_content
+      @response_text_content = @request_content
     end
 
     render "text", formats: :xml
@@ -67,7 +72,7 @@ class MessageController < ApplicationController
 
   def input_event
     req_event = params[:xml][:Event].to_s
-    @content = \
+    @response_text_content = \
       case @request_content
       when "subscribe"
         "欢迎关注哦，输[文字]翻译，输[?文字]提问:)"
@@ -147,10 +152,21 @@ class MessageController < ApplicationController
 
   # 保存响应数据到数据库
   def save_response
-    #TODO 处理非文字回复内容的保存
-    ResponseMessage.create \
-      content: @content,
-      weixin_user_id: @current_weixin_user.id
+    res_msg = ResponseMessage.new \
+        weixin_user_id: @current_weixin_user.id,
+        msg_type: @response_msg_type
+    case @response_msg_type
+    when "text"
+        res_msg.content = @response_text_content
+    when "news"
+        res_msg.news_id = @news.id
+    when "music"
+      logger.info "response message type is music"
+    else
+      logger.info "did not know response message type"
+    end
+
+    res_msg.save
   end
 
   # 保存派发的优惠码信息
