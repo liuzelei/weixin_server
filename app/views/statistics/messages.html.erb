@@ -1,0 +1,17 @@
+<%= render "shared/statistics_menu" %>
+
+<table class="table table-bordered">
+  <tr>
+    <th>用户提交文本</th>
+    <th>统计</th>
+    <th></th>
+  </tr>
+  <% @wx_texts.each do |it| %>
+    <tr>
+      <td><%=it.content%></td>
+      <td><%=it.cnt%></td>
+      <td>
+      </td>
+    </tr>
+  <% end %>
+</table>

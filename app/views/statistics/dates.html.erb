@@ -1,0 +1,21 @@
+<%= render "shared/statistics_menu" %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>日期</th>
+      <th>消息数</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @req_stats.each do |it| %>
+      <tr>
+        <td><%=it.created_date%></td>
+        <td><%=it.cnt%></td>
+        <td>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,9 +1,20 @@
 # encoding: utf-8
 class StatisticsController < ApplicationController
-  def messages
+  def detail
+    @per_page = params[:per_page].present? ? params[:per_page].to_i : 10
+    # TODO search
+    if params[:term].present?
+      @request_messages = RequestMessage.order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+    else
+      @request_messages = RequestMessage.order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+    end
   end
 
-  def keywords
+  def dates
+    @req_stats = RequestMessage.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date desc")
+  end
+
+  def messages
     @wx_texts = WxText.select("content, count(content) as cnt").group(:content).order("cnt desc")
   end
 
