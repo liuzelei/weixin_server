@@ -60,7 +60,8 @@ class MessageController < ApplicationController
     if @qa_step.present?
       @response_text_content = weixin_user_info_recording
     else
-      @response_text_content = @request_content
+      # TODO 输入地址找门店或其它
+      @response_text_content = "附件没有找到什么哦"
     end
 
     @response_msg_type = "text"
