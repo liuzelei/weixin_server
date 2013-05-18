@@ -155,6 +155,7 @@ class MessageController < ApplicationController
   def save_response
     res_msg = ResponseMessage.new \
         weixin_user_id: @current_weixin_user.id,
+        request_message_id: @current_request_message.id,
         msg_type: @response_msg_type
     case @response_msg_type
     when "text"

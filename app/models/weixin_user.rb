@@ -10,6 +10,7 @@ class WeixinUser < ActiveRecord::Base
   has_many :wx_images
   has_many :wx_links
   has_many :wx_events
+  has_many :response_messages
 
   has_many :coupons
 

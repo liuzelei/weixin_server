@@ -6,6 +6,7 @@ class RequestMessage < ActiveRecord::Base
   has_one :wx_image
   has_one :wx_link
   has_one :wx_event
+  has_one :response_message
 
   belongs_to :weixin_user
 end
