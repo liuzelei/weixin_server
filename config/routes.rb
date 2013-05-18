@@ -31,6 +31,7 @@ DemoWeixin::Application.routes.draw do
     match "message/io" => "message#input_event", constraints: DemoWeixin::Router.new("event")
     match "message/io" => "message#input_music", constraints: DemoWeixin::Router.new("music")
     match "message/io" => "message#input_news", constraints: DemoWeixin::Router.new("news")
+    match "message/io" => "message#input_others"
     #match "message/io" => "message#input_text", constraints: lambda {|r| r.params}
   end
 

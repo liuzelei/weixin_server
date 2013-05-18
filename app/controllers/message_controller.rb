@@ -86,11 +86,7 @@ class MessageController < ApplicationController
     render "event", formats: :xml
   end
 
-  def input_music
-    render "reply", formats: :xml
-  end
-
-  def input_news
+  def input_others
     render "reply", formats: :xml
   end
 
