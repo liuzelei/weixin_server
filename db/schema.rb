@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130517074847) do
+ActiveRecord::Schema.define(:version => 20130518064608) do
 
   create_table "coupons", :force => true do |t|
     t.integer  "weixin_user_id"
@@ -76,8 +76,10 @@ ActiveRecord::Schema.define(:version => 20130517074847) do
 
   create_table "request_messages", :force => true do |t|
     t.text     "xml"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "msg_type"
+    t.integer  "weixin_user_id"
   end
 
   create_table "response_messages", :force => true do |t|
@@ -116,20 +118,49 @@ ActiveRecord::Schema.define(:version => 20130517074847) do
     t.string   "scale"
   end
 
+  create_table "wx_events", :force => true do |t|
+    t.integer  "weixin_user_id"
+    t.string   "event"
+    t.string   "event_key"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "request_message_id"
+  end
+
+  create_table "wx_images", :force => true do |t|
+    t.integer  "weixin_user_id"
+    t.string   "pic_url"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "request_message_id"
+  end
+
+  create_table "wx_links", :force => true do |t|
+    t.integer  "weixin_user_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "url"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "request_message_id"
+  end
+
   create_table "wx_locations", :force => true do |t|
     t.integer  "weixin_user_id"
     t.string   "location_x"
     t.string   "location_y"
     t.integer  "scale"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "request_message_id"
   end
 
   create_table "wx_texts", :force => true do |t|
     t.integer  "weixin_user_id"
     t.string   "content"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "request_message_id"
   end
 
 end

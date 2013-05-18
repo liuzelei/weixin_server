@@ -4,9 +4,7 @@ class WeixinUser < ActiveRecord::Base
 
   attr_accessible :open_id, :weixin_id, :sex, :age, :location_x, :location_y, :scale, :category_list, :tag_list
 
-  has_many :wx_texts
-  has_many :wx_locations
-  has_many :events
+  has_many :request_messages, :wx_texts, :wx_locations, :wx_images, :wx_links, :wx_events
   has_many :coupons
 
   acts_as_taggable

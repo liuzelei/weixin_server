@@ -103,19 +103,45 @@ class MessageController < ApplicationController
 
   # 保存请求数据到数据库
   def save_request
-    RequestMessage.create \
-      xml: params[:xml]
-    case params[:xml][:MsgType]
+    save_request_common_data
+    save_request_detail_data
+  end
+  def save_request_common_data
+    msg_type = params[:xml][:MsgType]
+    @current_request_message = @current_weixni_user.request_messages.create msg_type: msg_type, xml: params[:xml]
+  end
+  def save_request_detail_data
+    msg_type = params[:xml][:MsgType]
+    case msg_type
     when "text"
       @request_content = params[:xml][:Content].to_s
       @current_weixin_user.wx_texts.create \
+        request_message_id: @current_request_message.id,
         content: @request_content
+    when "image"
+      pic_url = params[:xml][:PicUrl]
+      @current_weixin_user.wx_images.create \
+        request_message_id: @current_request_message.id,
+        pic_url: pic_url
     when "location"
       @current_weixin_user.wx_locations.create \
+        request_message_id: @current_request_message.id,
         location_x: params[:xml][:Location_X],
         location_y: params[:xml][:Location_Y],
         scale: params[:xml][:Scale]
+    when "link"
+      @current_weixin_user.wx_links.create \
+        request_message_id: @current_request_message.id,
+        title: params[:xml][:Title],
+        description: params[:xml][:Description],
+        url: params[:xml][:Url]
+    when "event"
+      @current_weixin_user.wx_links.create \
+        request_message_id: @current_request_message.id,
+        event: params[:xml][:Event],
+        event_key: params[:xml][:EventKey]
     else
+      logger.info "did not save any detail data for request message"
     end
   end
 
