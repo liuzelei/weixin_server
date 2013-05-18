@@ -1,9 +1,10 @@
+# encoding: utf-8
 class StatisticsController < ApplicationController
   def messages
   end
 
   def keywords
-    @wx_texts = WxText.select("content, count(content) as count").group(:content)
+    @wx_texts = WxText.select("content, count(content) as count").group(:content).order("count desc")
   end
 
   def weixin_users
@@ -13,25 +14,18 @@ class StatisticsController < ApplicationController
   # GET /statistics
   # GET /statistics.json
   def index
-    #@statistics = Statistic.all
+    #follow_stats = 
 
-    @chart = LazyHighCharts::HighChart.new('graph') do |f|
-      f.title({ :text=>"Combination chart"})
-      f.options[:xAxis][:categories] = ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']
-      f.labels(:items=>[:html=>"Total fruit consumption", :style=>{:left=>"40px", :top=>"8px", :color=>"black"} ])      
-      f.series(:type=> 'column',:name=> 'Jane',:data=> [3, 2, 1, 3, 4])
-      f.series(:type=> 'column',:name=> 'John',:data=> [2, 3, 5, 7, 6])
-      f.series(:type=> 'column', :name=> 'Joe',:data=> [4, 3, 3, 9, 0])
-      f.series(:type=> 'column', :name=> 'Joe',:data=> [4, 3, 3, 9, 0])
-      f.series(:type=> 'spline',:name=> 'Average', :data=> [3, 2.67, 3, 6.33, 3.33])
-      f.series(:type=> 'pie',:name=> 'Total consumption', 
-               :data=> [
-                 {:name=> 'Jane', :y=> 13, :color=> 'red'}, 
-                 {:name=> 'John', :y=> 23,:color=> 'green'},
-                 {:name=> 'Joe', :y=> 19,:color=> 'blue'}
-      ],
-        :center=> [100, 80], :size=> 100, :showInLegend=> false)
+    req_stats = RequestMessage.group("date(created_at)").select("count(id) as count,date(created_at) as created_date").order("created_date")
+    req_dates = req_stats.map {|it| it.created_date}
+    req_data = req_stats.map {|it| it.count.to_i} #(&:count)
+    @req_stat_chart = LazyHighCharts::HighChart.new('graph') do |f|
+      f.legend(enabled: false)
+      f.title({ :text=>"每日接收消息数"})
+      f.options[:xAxis][:categories] = req_dates
+      f.series(:type=> 'spline',:name=> '消息数', :data=> req_data)
     end
+
   end
 
 =begin

@@ -2,5 +2,7 @@
   <ul class="nav nav-list bs-docs-sidenav">
     <li><%=link_to raw(" 统计 "), "#", class: "nav-header"%></li>
     <li class="<%=current_menu_item_state('index')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>概览 "), statistics_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('xx')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>消息记录详细 "), "#nogo", class: ""%></li>
+    <li class="<%=current_menu_item_state('keywords')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>消息记录汇总 "), keywords_statistics_path, class: ""%></li>
   </ul>
 <% end %>

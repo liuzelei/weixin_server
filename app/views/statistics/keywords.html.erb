@@ -1,10 +1,5 @@
-<% content_for :header_menu do %>
-  <!-- <ul class="nav">
-    <li> <%=link_to "xxx", root_path%> </li>
-  </ul> -->
-<% end %>
+<%= render "shared/statistics_menu" %>
 
-<div class="container">
   <table class="table table-bordered">
     <tr>
       <th>用户提交文本</th>
@@ -20,5 +15,3 @@
     </tr>
     <% end %>
   </table>
-</div>
-
