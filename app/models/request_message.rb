@@ -19,9 +19,9 @@ class RequestMessage < ActiveRecord::Base
     elsif wx_image
       wx_image.pic_url
     elsif wx_location
-      wx_location.location_x+":"+wx_location.location_y
+      "#{wx_location.location_x}:#{wx_location.location_y}"
     elsif wx_link
-      wx_link.title+":"+wx_link.url
+      "#{wx_link.title}:#{wx_link.url}"
     else
       "未知消息"
     end
