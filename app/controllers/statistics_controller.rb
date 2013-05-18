@@ -14,7 +14,7 @@ class StatisticsController < ApplicationController
   # GET /statistics
   # GET /statistics.json
   def index
-    follow_stats = WxEvent.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
+    follow_stats = WxEvent.where(event: "subscribe").group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
     follow_dates = follow_stats.map {|it| it.created_date}
     follow_data = follow_stats.map {|it| it.cnt.to_i}
     @follow_stat_chart = LazyHighCharts::HighChart.new("graph") do |f|
