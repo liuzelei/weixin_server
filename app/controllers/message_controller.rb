@@ -63,6 +63,7 @@ class MessageController < ApplicationController
       @response_text_content = @request_content
     end
 
+    @response_msg_type = "text"
     render "text", formats: :xml
   end
 
@@ -141,7 +142,7 @@ class MessageController < ApplicationController
         description: params[:xml][:Description],
         url: params[:xml][:Url]
     when "event"
-      @current_weixin_user.wx_links.create \
+      @current_weixin_user.wx_events.create \
         request_message_id: @current_request_message.id,
         event: params[:xml][:Event],
         event_key: params[:xml][:EventKey]
