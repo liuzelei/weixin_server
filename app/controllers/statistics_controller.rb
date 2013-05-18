@@ -4,7 +4,7 @@ class StatisticsController < ApplicationController
   end
 
   def keywords
-    @wx_texts = WxText.select("content, count(content) as count").group(:content).order("count desc")
+    @wx_texts = WxText.select("content, count(content) as cnt").group(:content).order("cnt desc")
   end
 
   def weixin_users
@@ -14,11 +14,19 @@ class StatisticsController < ApplicationController
   # GET /statistics
   # GET /statistics.json
   def index
-    #follow_stats = 
+    follow_stats = WxEvent.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
+    follow_dates = follow_stats.map {|it| it.created_date}
+    follow_data = follow_stats.map {|it| it.cnt.to_i}
+    @follow_stat_chart = LazyHighCharts::HighChart.new("graph") do |f|
+      f.legend(enabled: false)
+      f.title(text: "每日新增订阅人数")
+      f.options[:xAxis][:categories] = follow_dates
+      f.series(type: "spline", name: "新增订阅数", data: follow_data)
+    end
 
-    req_stats = RequestMessage.group("date(created_at)").select("count(id) as count,date(created_at) as created_date").order("created_date")
+    req_stats = RequestMessage.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
     req_dates = req_stats.map {|it| it.created_date}
-    req_data = req_stats.map {|it| it.count.to_i} #(&:count)
+    req_data = req_stats.map {|it| it.cnt.to_i} #(&:cnt)
     @req_stat_chart = LazyHighCharts::HighChart.new('graph') do |f|
       f.legend(enabled: false)
       f.title({ :text=>"每日接收消息数"})
