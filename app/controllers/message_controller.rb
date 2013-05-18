@@ -113,7 +113,7 @@ class MessageController < ApplicationController
   end
   def save_request_common_data
     msg_type = params[:xml][:MsgType]
-    @current_request_message = @current_weixni_user.request_messages.create msg_type: msg_type, xml: params[:xml]
+    @current_request_message = @current_weixin_user.request_messages.create msg_type: msg_type, xml: params[:xml]
   end
   def save_request_detail_data
     msg_type = params[:xml][:MsgType]
