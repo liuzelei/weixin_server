@@ -6,7 +6,7 @@ class WelcomeController < ApplicationController
 
   def test
     @abc = "dev"
-    logger.info request.location
+    logger.info request.location.latitude
     render :test_template, format: :html
   end
 
