@@ -3,14 +3,14 @@
   <Articles>
     <item>
       <Title><![CDATA[SN优惠码：<%=@sn_code%>]]></Title> 
-      <Description><![CDATA[<%=@news.description.truncate(100)%>]]></Description>
+      <Description><![CDATA[<%=@news.description.to_s.truncate(100)%>]]></Description>
       <PicUrl><![CDATA[<%=@news.pic_url%>]]></PicUrl>
       <Url><![CDATA[<%=@news.url%>]]></Url>
     </item>
     <% @news.items.each do |it| %>
       <item>
         <Title><![CDATA[<%=it.title%>]]></Title> 
-        <Description><![CDATA[<%=it.description.truncate(100)%>]]></Description>
+        <Description><![CDATA[<%=it.description.to_s.truncate(100)%>]]></Description>
         <PicUrl><![CDATA[<%=it.pic_url%>]]></PicUrl>
         <Url><![CDATA[<%=it.url%>]]></Url>
       </item>
