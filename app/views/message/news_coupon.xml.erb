@@ -5,7 +5,7 @@
       <Title><![CDATA[SN优惠码：<%=@sn_code%>]]></Title> 
       <Description><![CDATA[<%=@news.description.to_s.truncate(100)%>]]></Description>
       <PicUrl><![CDATA[<%=@news.pic_url%>]]></PicUrl>
-      <Url><![CDATA[<%=@news.url%>]]></Url>
+      <Url><![CDATA[<%=others_djq_path%>]]></Url>
     </item>
     <% @news.items.each do |it| %>
       <item>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WeiXin</title>
+  <%#= stylesheet_link_tag    "application", :media => "all" %>
+  <%#= javascript_include_tag "application" %>
+	<%= favicon_link_tag image_path('favicon.ico')%>
+  <%#= csrf_meta_tags %>
+	<style type="text/css">
+		* {margin:0;padding:0;}
+		img {border:0 none;vertical-align:top;}
+		.cash_box {position:relative;width:591px;height:1181px;background:url(<%=image_path "cash.jpg"%>) no-repeat;}
+		.cash_no {position:absolute;left:395px;top:688px;width:152px;height:30px;padding:0 5px;color:#fff;font-size:26px;line-height:30px;border:0 none;background:none;}
+	</style>
+</head>
+<body>
+
+	<%= yield %>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+

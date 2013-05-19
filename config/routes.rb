@@ -54,6 +54,8 @@ DemoWeixin::Application.routes.draw do
     end
   end
 
+  get "others/djq"
+
   #root to: 'welcome#index'
   root to: 'statistics#index'
 
