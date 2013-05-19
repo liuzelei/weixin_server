@@ -19,7 +19,7 @@ class RequestMessage < ActiveRecord::Base
     elsif wx_image
       wx_image.pic_url
     elsif wx_location
-      "#{wx_location.location_x}:#{wx_location.location_y}"
+      "#{wx_location.latitude}:#{wx_location.longitude}"
     elsif wx_link
       "#{wx_link.title}:#{wx_link.url}"
     else

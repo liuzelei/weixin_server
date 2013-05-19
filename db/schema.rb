@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130519075433) do
+ActiveRecord::Schema.define(:version => 20130519135332) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -135,8 +135,8 @@ ActiveRecord::Schema.define(:version => 20130519075433) do
     t.string   "weixin_id"
     t.boolean  "sex"
     t.string   "age"
-    t.string   "location_x"
-    t.string   "location_y"
+    t.string   "latitude"
+    t.string   "longitude"
     t.string   "scale"
   end
 

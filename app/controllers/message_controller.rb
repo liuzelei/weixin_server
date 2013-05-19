@@ -132,8 +132,8 @@ class MessageController < ApplicationController
     when "location"
       @current_weixin_user.wx_locations.create \
         request_message_id: @current_request_message.id,
-        location_x: params[:xml][:Location_X],
-        location_y: params[:xml][:Location_Y],
+        latitude: params[:xml][:Location_X],
+        longitude: params[:xml][:Location_Y],
         scale: params[:xml][:Scale]
     when "link"
       @current_weixin_user.wx_links.create \
@@ -197,8 +197,8 @@ class MessageController < ApplicationController
     when "dz"
       #address = params[:xml].keep_if {|k,v| ["Location_X","Location_Y","Scale"].include? k}
       @current_weixin_user.update_attributes \
-        location_x: params[:xml][:Location_X],
-        location_y: params[:xml][:Location_Y],
+        latitude: params[:xml][:Location_X],
+        longitude: params[:xml][:Location_Y],
         scale: params[:xml][:Scale]
     else
       logger.info params[:xml]

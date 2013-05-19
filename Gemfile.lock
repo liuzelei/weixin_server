@@ -63,6 +63,7 @@ GEM
     eventmachine (1.0.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    geocoder (1.1.8)
     googlecharts (1.6.8)
     hash-deep-merge (0.1.1)
     highline (1.6.15)
@@ -184,6 +185,7 @@ DEPENDENCIES
   capistrano
   carrierwave
   coffee-rails
+  geocoder
   googlecharts
   httparty
   jquery-rails

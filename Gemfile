@@ -45,5 +45,5 @@ gem 'acts-as-taggable-on'
 gem 'rack-mini-profiler'
 gem 'httparty'
 gem 'sanitize'
-
+gem 'geocoder'
 
