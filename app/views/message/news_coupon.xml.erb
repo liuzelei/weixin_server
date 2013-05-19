@@ -1,18 +1,10 @@
   <MsgType><![CDATA[news]]></MsgType>
-  <ArticleCount><%=@news.items.count+1%></ArticleCount>
+  <ArticleCount>1</ArticleCount>
   <Articles>
     <item>
-      <Title><![CDATA[SN优惠码：<%=@sn_code%>]]></Title> 
-      <Description><![CDATA[<%=@news.description.to_s.truncate(100)%>]]></Description>
-      <PicUrl><![CDATA[<%=@news.pic_url%>]]></PicUrl>
-      <Url><![CDATA[<%=others_djq_url(sn_code: @sn_code)%>]]></Url>
+      <Title><![CDATA[<%=@activity.title%>]]></Title> 
+      <Description><![CDATA[<%=@activity.description.to_s.truncate(100)%>]]></Description>
+      <PicUrl><![CDATA[<%=@activity.pic_url%>]]></PicUrl>
+      <Url><![CDATA[<%=others_djq_url(sn_code: @coupon.sn_code)%>]]></Url>
     </item>
-    <% @news.items.each do |it| %>
-      <item>
-        <Title><![CDATA[<%=it.title%>]]></Title> 
-        <Description><![CDATA[<%=it.description.to_s.truncate(100)%>]]></Description>
-        <PicUrl><![CDATA[<%=it.pic_url%>]]></PicUrl>
-        <Url><![CDATA[<%=it.url%>]]></Url>
-      </item>
-    <% end %>
   </Articles>

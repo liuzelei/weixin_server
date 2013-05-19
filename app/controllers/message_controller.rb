@@ -19,21 +19,12 @@ class MessageController < ApplicationController
   def input_text
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
     last_response_message = ResponseMessage.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
-    @qa_step = QaStep.where(question: last_response_message).first
-    keyword_reply = KeywordReply.where(keyword: @request_content).first unless @qa_step
-    if @qa_step.present?
+    if @qa_step = QaStep.where(question: last_response_message).first
       @response_text_content = weixin_user_info_recording
       @response_msg_type = "text"
       render "text", formats: :xml
-    elsif keyword_reply.present?
-      if keyword_reply.coupon
-        @news = News.find keyword_reply.news_id
-        @coupon = Coupon.where(weixin_user_id: @current_weixin_user.id).first
-        @sn_code = @coupon.try(:sn_code) || generate_new_sn_code
-        save_coupon_info
-        @response_msg_type = "news"
-        render "news_coupon", formats: :xml
-      elsif keyword_reply.news_id.present?
+    elsif keyword_reply = KeywordReply.where(keyword: @request_content).first
+      if keyword_reply.news_id.present?
         @news = News.find keyword_reply.news_id
         @response_msg_type = "news"
         render "news", formats: :xml
@@ -42,6 +33,11 @@ class MessageController < ApplicationController
         @response_msg_type = "text"
         render "text", formats: :xml
       end
+    elsif @activity = Activity.where("keyword like ?", "#{@request_content}%").first
+      @current_weixin_user.update_attributes weixin_id: @request_content.gsub(@activity.keyword,"").gsub('+',"")
+      @coupon = generate_coupon
+      @response_msg_type = "news"
+      render "news_coupon", formats: :xml
     else
       @response_text_content = @request_content
       @response_msg_type = "text"
@@ -169,24 +165,17 @@ class MessageController < ApplicationController
   end
 
   # 保存派发的优惠码信息
-  def save_coupon_info
-    if @coupon
-      @coupon.update_attribute(:updated_at, DateTime.now)
-    else
-      Coupon.create \
-        weixin_user_id: @current_weixin_user.id,
-        sn_code: @sn_code,
-        status: "已派发"
-    end
+  def generate_coupon
+    @coupon = Coupon.where(weixin_user_id: @current_weixin_user.id).first || Coupon.create(weixin_user_id: @current_weixin_user.id, sn_code: generate_new_sn_code, status: "已派发")
   end
 
   def generate_new_sn_code
-    sn_code = Random.rand(1000000...10000000).to_s
+    @sn_code = Random.rand(1000000...10000000).to_s
     loop do
-      break unless Coupon.where(sn_code: sn_code).present?
-      logger.info sn_code = Random.rand(1000000...10000000).to_s
+      break unless Coupon.where(sn_code: @sn_code).present?
+      logger.info @sn_code = Random.rand(1000000...10000000).to_s
     end
-    sn_code
+    @sn_code
   end
 
   def weixin_user_info_recording
