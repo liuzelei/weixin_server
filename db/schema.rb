@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130519135332) do
+ActiveRecord::Schema.define(:version => 20130519141752) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -130,14 +130,15 @@ ActiveRecord::Schema.define(:version => 20130519135332) do
 
   create_table "weixin_users", :force => true do |t|
     t.string   "open_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.string   "weixin_id"
     t.boolean  "sex"
     t.string   "age"
     t.string   "latitude"
     t.string   "longitude"
     t.string   "scale"
+    t.string   "geocoding_address"
   end
 
   create_table "wx_events", :force => true do |t|

@@ -17,6 +17,13 @@ class WeixinUser < ActiveRecord::Base
   acts_as_taggable
   acts_as_taggable_on :categories
 
+  geocoded_by :geocoding_address   # can also be an IP address
+  after_validation :geocode          # auto-fetch coordinates
+
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :reverse_geocode  # auto-fetch address
+
+
   def sex_name
     case sex
     when "0", 0, false
