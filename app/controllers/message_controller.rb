@@ -41,11 +41,12 @@ class MessageController < ApplicationController
       else
         @current_weixin_user.update_attributes weixin_id: @request_content.gsub(@activity.keyword,"").gsub('+',"")
         @coupon = generate_coupon
-        @response_msg_type = "news"
+        #@response_msg_type = "news"
         render "news_coupon", formats: :xml
       end
     else
-      @response_text_content = @request_content
+      #@response_text_content = @request_content
+      @response_text_content = "客服不知道了，输入【cd】查看菜单吧"
       @response_msg_type = "text"
       render "text", formats: :xml
     end
