@@ -1,0 +1,7 @@
+<% content_for :menu do %>
+  <ul class="nav nav-list bs-docs-sidenav affix">
+    <li><%=link_to raw(" 活动管理 "), "#", class: "nav-header"%></li>
+    <li class="<%=current_menu_item_state('index','activities')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>活动列表 "), activities_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('index','coupons')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>优惠券记录 "), coupons_path, class: ""%></li>
+  </ul>
+<% end %>

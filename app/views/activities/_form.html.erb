@@ -1,0 +1,45 @@
+<%= form_for @activity, html: {class: "form-horizontal"} do |f| %>
+	<% if @activity.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
+
+			<ul>
+				<% @activity.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<fieldset>
+		<div class="control-group">
+			<%= f.label :name, "活动名", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :name%>
+			</div>
+		</div>
+		<div class="control-group">
+			<%= f.label :keyword, "关键词", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :keyword%>
+			</div>
+		</div>
+		<div class="control-group">
+			<%= f.label :title, "标题", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :title%>
+			</div>
+		</div>
+		<div class="control-group">
+			<%= f.label :pic, "图片", class: "control-label" %>
+			<div class="controls">
+				<%= f.file_field :pic%>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<%= f.submit %>
+			</div>
+		</div>
+	</fieldset>
+<% end %>

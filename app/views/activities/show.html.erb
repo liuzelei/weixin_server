@@ -1,0 +1,25 @@
+<%= render "shared/activities_menu" %>
+
+<p>
+  <b>活动名:</b>
+  <%= @activity.name %>
+</p>
+
+<p>
+  <b>关键词:</b>
+  <%= @activity.keyword %>
+</p>
+
+<p>
+  <b>标题:</b>
+  <%= @activity.title %>
+</p>
+
+<p>
+  <b>图:</b>
+  <%=image_tag @activity.pic_url %>
+</p>
+
+
+<%= link_to 'Edit', edit_activity_path(@activity) %> |
+<%= link_to 'Back', activities_path %>

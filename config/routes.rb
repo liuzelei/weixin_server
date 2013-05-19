@@ -38,6 +38,7 @@ DemoWeixin::Application.routes.draw do
   resources :keyword_replies
   resources :items
   resources :news
+  resources :activities
   resources :coupons do
     collection  do
       get :search
