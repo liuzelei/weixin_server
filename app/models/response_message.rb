@@ -10,7 +10,7 @@ class ResponseMessage < ActiveRecord::Base
       content
     elsif news_id.present?
       news = News.find_by_id(news_id)
-      news.items.map(&:title).join(",\n") if news.present?
+      (news.title.to_s + news.items.map(&:title).join(",\n")) if news.present?
     else
       "未知消息"
     end
