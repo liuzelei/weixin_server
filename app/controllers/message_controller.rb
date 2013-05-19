@@ -2,11 +2,10 @@
 class MessageController < ApplicationController
   include Weixin::Plugins
 
-  skip_before_filter :verify_authenticity_token
-  prepend_before_filter :current_weixin_user
-  before_filter :check_weixin_legality, :save_request
-
-  after_filter :save_response
+  skip_before_filter :verify_authenticity_token, except: [:auth]
+  prepend_before_filter :current_weixin_user, except: [:auth]
+  before_filter :check_weixin_legality, :save_request, except: [:auth]
+  after_filter :save_response, except: [:auth]
 
   def auth
     render :text => params[:echostr]
@@ -80,7 +79,8 @@ class MessageController < ApplicationController
     @response_text_content = \
       case @request_content
       when "subscribe"
-        "欢迎关注哦，输[文字]翻译，输[?文字]提问:)"
+        "欢迎关注哦"
+        #"欢迎关注哦，输[文字]翻译，输[?文字]提问:)"
       when /unsubscribe/
         "怎么退订了呢，好伤心哦:("
       else
@@ -203,7 +203,7 @@ class MessageController < ApplicationController
     else
       logger.info params[:xml]
     end
-    next_step = QaStep.where("priority > ?", @qa_step.priority).order("priority").first.try(:question) || "信息录入完成\n输入cd获取菜单"
+    next_step = QaStep.where("priority > ?", @qa_step.priority).order("priority").first.try(:question) || "恭喜您已经成为我的忠实粉丝，会有更多惊喜等着你哦！发送【M】查看菜单"
   end
 end
 
