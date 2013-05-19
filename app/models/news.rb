@@ -7,5 +7,9 @@ class News < ActiveRecord::Base
 
   mount_uploader :pic, LocalImageUploader 
 
-  validates_presence_of :title, :pic, :url, :description
+  validates_presence_of :title#, :pic, :url, :description
+
+  validates_presence_of :pic, if: Proc.new { |n|
+    n.new_record?
+  }
 end

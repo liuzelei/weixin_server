@@ -12,7 +12,12 @@
 			</tr>
 		<% end %>
 	</table>
-	<p> ID: <%=@news.id%></p>
+  <ul class="nav nav-pills">
+    <li><%=link_to "查看", @news%></li>
+    <li><%=link_to "编辑", edit_news_path(@news)%></li>
+    <li><%=link_to "删除", @news, method: :delete, data: {confirm: "确认删除？"} %></li>
+  </ul>
+  <p> ID: <%=@news.id%></p>
 </div>
 
 <%#= link_to 'Edit', edit_news_path(@news) %> |

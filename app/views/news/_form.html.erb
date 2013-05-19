@@ -21,15 +21,18 @@
     <div class="control-group">
       <%= f.label :pic, "图片地址", class: "control-label"%>
       <div class="controls">
+        <%=image_tag @news.pic_url if @news.pic_url.present?%>
         <%= f.file_field :pic%>
       </div>
     </div>
+    <!--
     <div class="control-group">
-      <%= f.label :description, "正文", class: "control-label"%>
+      <%#= f.label :description, "正文", class: "control-label"%>
       <div class="controls">
-        <%= f.kindeditor :description, class: "big_textarea"%>
+        <%#= f.kindeditor :description, class: "big_textarea"%>
       </div>
     </div>
+    -->
     <div class="control-group">
       <%= f.label :url, "链接", class: "control-label"%>
       <div class="controls">
@@ -49,15 +52,18 @@
       <div class="control-group">
         <%= ff.label :pic, "图片地址", class: "control-label"%>
         <div class="controls">
+          <%=image_tag ff.object.pic_url if ff.object.pic_url.present?%>
           <%= ff.file_field :pic%>
         </div>
       </div>
+      <!--
       <div class="control-group">
-        <%= ff.label :description, "正文", class: "control-label"%>
+        <%#= ff.label :description, "正文", class: "control-label"%>
         <div class="controls">
-          <%= ff.text_area :description, class: "big_textarea kindeditor"%>
+          <%#= ff.text_area :description, class: "big_textarea kindeditor"%>
         </div>
       </div>
+      -->
       <div class="control-group">
         <%= ff.label :url, "链接", class: "control-label"%>
         <div class="controls">
