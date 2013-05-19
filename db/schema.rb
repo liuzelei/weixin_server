@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130519163010) do
+ActiveRecord::Schema.define(:version => 20130519165158) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -174,12 +174,13 @@ ActiveRecord::Schema.define(:version => 20130519163010) do
 
   create_table "wx_locations", :force => true do |t|
     t.integer  "weixin_user_id"
-    t.string   "location_x"
-    t.string   "location_y"
     t.integer  "scale"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.integer  "request_message_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "geocoding_address"
   end
 
   create_table "wx_texts", :force => true do |t|

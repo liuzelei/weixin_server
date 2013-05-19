@@ -62,8 +62,7 @@ class MessageController < ApplicationController
     if @qa_step.present?
       @response_text_content = weixin_user_info_recording
     else
-      # TODO 输入地址找门店或其它
-      @response_text_content = "附件没有找到什么哦"
+      @response_text_content = find_nearest_shop
     end
 
     @response_msg_type = "text"
@@ -204,6 +203,12 @@ class MessageController < ApplicationController
       logger.info params[:xml]
     end
     next_step = QaStep.where("priority > ?", @qa_step.priority).order("priority").first.try(:question) || "恭喜您已经成为我的忠实粉丝，会有更多惊喜等着你哦！发送【M】查看菜单"
+  end
+
+  def find_nearest_shop
+    current_location = @current_request_message.wx_location
+    #Shop.near
+    "todo"
   end
 end
 
