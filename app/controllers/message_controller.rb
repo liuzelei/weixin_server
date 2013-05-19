@@ -33,9 +33,9 @@ class MessageController < ApplicationController
         @response_msg_type = "text"
         render "text", formats: :xml
       end
-    elsif @activity = Activity.where("keyword like ?", "#{@request_content}%").first
+    elsif @activity = Activity.where("keyword like ?", "#{@request_content.split.first}%").first
       if @request_content.length < 4
-        @response_text_content = "请输入djq+微信帐号，不要漏了帐号哦"
+        @response_text_content = "请输入【djq+空格+微信帐号】，不要漏了帐号哦"
         @response_msg_type = "text"
         render "text", formats: :xml
       else
