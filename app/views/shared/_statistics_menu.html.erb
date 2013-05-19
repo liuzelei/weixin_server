@@ -2,6 +2,7 @@
   <ul class="nav nav-list bs-docs-sidenav affix">
     <li><%=link_to raw(" 统计 "), "#", class: "nav-header"%></li>
     <li class="<%=current_menu_item_state('index')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>概览 "), statistics_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('follows')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>订阅记录详细 "), follows_statistics_path, class: ""%></li>
     <li class="<%=current_menu_item_state('detail')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>消息记录详细 "), detail_statistics_path, class: ""%></li>
     <li class="<%=current_menu_item_state('dates')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>统计（日期） "), dates_statistics_path, class: ""%></li>
     <li class="<%=current_menu_item_state('messages')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>统计（文本） "), messages_statistics_path, class: ""%></li>

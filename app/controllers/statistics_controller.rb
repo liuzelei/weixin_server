@@ -1,5 +1,16 @@
 # encoding: utf-8
 class StatisticsController < ApplicationController
+
+  def follows
+    @per_page = params[:per_page].present? ? params[:per_page].to_i : 10
+    # TODO search
+    if params[:term].present?
+      @request_follows = RequestMessage.joins(:weixin_user).where(msg_type: "event").where("weixin_users.weixin_id like ?", "%#{params[:term]}%").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+    else
+      @request_follows = RequestMessage.where(msg_type: "event").order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+    end
+  end
+
   def detail
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 10
     # TODO search
