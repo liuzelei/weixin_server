@@ -12,9 +12,6 @@ class DemoWeixin::Router
 end
 
 DemoWeixin::Application.routes.draw do
-  resources :settings
-
-
   resources :weixin_users
   get "welcome/index"
   get "welcome/test"
@@ -35,6 +32,8 @@ DemoWeixin::Application.routes.draw do
     #match "message/io" => "message#input_text", constraints: lambda {|r| r.params}
   end
 
+  resources :shops
+  resources :settings
   resources :qa_steps
   resources :keyword_replies
   resources :items

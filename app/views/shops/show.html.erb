@@ -1,0 +1,20 @@
+<% render "shared/shops_menu" %>
+
+<p>
+  <b>店名:</b>
+  <%= @shop.name %>
+</p>
+
+<p>
+  <b>地址:</b>
+  <%= @shop.address %>
+</p>
+
+<p>
+  <b>电话:</b>
+  <%= @shop.phone_number %>
+</p>
+
+
+<%= link_to 'Edit', edit_shop_path(@shop) %> |
+<%= link_to 'Back', shops_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130518115728) do
+ActiveRecord::Schema.define(:version => 20130519021649) do
 
   create_table "coupons", :force => true do |t|
     t.integer  "weixin_user_id"
@@ -90,6 +90,14 @@ ActiveRecord::Schema.define(:version => 20130518115728) do
     t.string   "msg_type"
     t.integer  "news_id"
     t.integer  "request_message_id"
+  end
+
+  create_table "shops", :force => true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "phone_number"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "taggings", :force => true do |t|

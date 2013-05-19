@@ -1,0 +1,39 @@
+<%= form_for @shop, html: {class: "form-horizontal"} do |f| %>
+  <% if @shop.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shop.errors.count, "error") %> prohibited this shop from being saved:</h2>
+
+      <ul>
+        <% @shop.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <div class="control-group">
+      <%= f.label :name, "店名", class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :name%>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :address, "地址", class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :address%>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :phone_number, "联系电话", class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :phone_number%>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <%= f.submit "提交", class: "btn btn-primary"%>
+      </div>
+    </div>
+  </fieldset>
+<% end %>
