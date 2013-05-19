@@ -6,8 +6,11 @@
   <thead>
     <tr>
       <th>门店名称</th>
+      <th>地区</th>
       <th>地址</th>
       <th>联系电话</th>
+      <th>经度</th>
+      <th>维度</th>
       <th></th>
     </tr>
   </thead>
@@ -15,8 +18,11 @@
     <% @shops.each do |shop| %>
       <tr>
         <td><%= shop.name %></td>
+        <td><%= shop.region %></td>
         <td><%= shop.address %></td>
         <td><%= shop.phone_number %></td>
+        <td><%= shop.latitude %></td>
+        <td><%= shop.longitude %></td>
         <td><%= link_to raw("<i class='icon-search'></i>"), shop %>&nbsp;<%= link_to raw("<i class='icon-edit'></i>"), edit_shop_path(shop) %>&nbsp;<%= link_to raw("<i class='icon-remove'></i>"), shop, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
