@@ -34,10 +34,16 @@ class MessageController < ApplicationController
         render "text", formats: :xml
       end
     elsif @activity = Activity.where("keyword like ?", "#{@request_content}%").first
-      @current_weixin_user.update_attributes weixin_id: @request_content.gsub(@activity.keyword,"").gsub('+',"")
-      @coupon = generate_coupon
-      @response_msg_type = "news"
-      render "news_coupon", formats: :xml
+      if @request_content.length < 4
+        @response_text_content = "请输入djq+微信帐号，不要漏了帐号哦"
+        @response_msg_type = "text"
+        render "text", formats: :xml
+      else
+        @current_weixin_user.update_attributes weixin_id: @request_content.gsub(@activity.keyword,"").gsub('+',"")
+        @coupon = generate_coupon
+        @response_msg_type = "news"
+        render "news_coupon", formats: :xml
+      end
     else
       @response_text_content = @request_content
       @response_msg_type = "text"
