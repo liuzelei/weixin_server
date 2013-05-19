@@ -207,8 +207,13 @@ class MessageController < ApplicationController
 
   def find_nearest_shop
     current_location = @current_request_message.wx_location
-    #Shop.near
-    "todo"
+    current_geo_info = [current_location.latitude, current_location.longitude]
+    shop = Shop.near(current_geo_info,50,units: :km).first
+    if shop
+      "#{shop.name}\n#{shop.address}"
+    else
+      "未找到附近的门店，输入【M】查看菜单"
+    end
   end
 end
 
