@@ -78,7 +78,7 @@ class MessageController < ApplicationController
     @response_text_content = \
       case @request_content
       when "subscribe"
-        "欢迎关注哦"
+        "感谢您关注越王珠宝官方微信账号！为了答谢您的厚爱，越王珠宝特推出价值200元微信代金卷，发送【djq空格微信号】即可领取。\n越王珠宝主办的“你就是我的世界——求婚梦想季”活动正在招募，现在报名，全面惊喜等着你！回复【求婚】，可以了解详细信息， 您也可以直接发送留言报名参加活动。 登陆www.jovan.cc了解活动详情。发送【M】可以查看越王珠宝的更多活动。"
         #"欢迎关注哦，输[文字]翻译，输[?文字]提问:)"
       when /unsubscribe/
         "怎么退订了呢，好伤心哦:("
