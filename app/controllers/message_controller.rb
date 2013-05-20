@@ -86,6 +86,7 @@ class MessageController < ApplicationController
         "Unknown"
       end
 
+    @response_msg_type = "text"
     render "event", formats: :xml
   end
 
