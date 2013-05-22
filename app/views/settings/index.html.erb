@@ -1,3 +1,4 @@
+<%= render "shared/settings_menu" %>
 
 微信开发模式配置信息：
 <br />
@@ -6,3 +7,35 @@
 URL: http://testweixin.bbtang.com/message/io
 <br />
 Token: 181920
+
+
+<br />
+<br />
+<%= form_for @welcome_message, html: {class: "form-horizontal"} do |f| %>
+	<% if @welcome_message.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@welcome_message.errors.count, "error") %> prohibited this welcome_message from being saved:</h2>
+
+			<ul>
+				<% @welcome_message.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<fieldset>
+    <%= f.hidden_field :name %>
+		<div class="control-group">
+			<%= f.label :content, "订阅欢迎语", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_area :content, rows: 3%>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<%= f.submit "保存", class: "btn" %>
+			</div>
+		</div>
+	</fieldset>
+<% end %>
