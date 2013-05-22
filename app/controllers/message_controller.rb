@@ -45,7 +45,7 @@ class MessageController < ApplicationController
       end
     else
       #@response_text_content = @request_content
-      @response_text_content = "你好！我们是越王珠宝的客服，请输入【M】查看菜单"
+      @response_text_content = Setting.find_by_name("default_message").try :content 
       @response_msg_type = "text"
       render "text", formats: :xml
     end
@@ -78,7 +78,6 @@ class MessageController < ApplicationController
     @response_text_content = \
       case req_event
       when "subscribe"
-        #"感谢您关注越王珠宝官方微信账号！\n\n为了答谢您的厚爱，越王珠宝特推出价值200元现金礼券！发送【djq空格微信昵称】即可领取！注：您的微信昵称在“设置-个人信息-名字”中查看。\n\n越王珠宝主办的“你就是我的世界——求婚梦想季”活动正在招募！赶快报名参加吧！回复【qh】，可以了解详细信息哦！ \n\n您也可以直接在微信中发送留言报名参加活动！ \n\n登陆http://www.jovan.cc/了解活动详情。 \n\n发送【M】可以查看越王珠宝的更多活动，小珠等着你哦！"
         Setting.find_by_name("welcome_message").try :content
       when /unsubscribe/
         "用户已退订，无法回复消息。"

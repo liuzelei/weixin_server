@@ -39,3 +39,32 @@ Token: 181920
 		</div>
 	</fieldset>
 <% end %>
+
+<%= form_for @default_message, html: {class: "form-horizontal"} do |f| %>
+	<% if @default_message.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@default_message.errors.count, "error") %> prohibited this default_message from being saved:</h2>
+
+			<ul>
+				<% @default_message.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<fieldset>
+    <%= f.hidden_field :name %>
+		<div class="control-group">
+			<%= f.label :content, "默认回复", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_area :content, rows: 3%>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<%= f.submit "保存", class: "btn" %>
+			</div>
+		</div>
+	</fieldset>
+<% end %>

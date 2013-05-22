@@ -4,6 +4,7 @@ class SettingsController < ApplicationController
   def index
     #@settings = Setting.all
     @welcome_message = Setting.find_by_name("welcome_message") || Setting.new(name: "welcome_message")
+    @default_message = Setting.find_by_name("default_message") || Setting.new(name: "default_message")
 
     respond_to do |format|
       format.html # index.html.erb
