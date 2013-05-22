@@ -45,7 +45,7 @@ class MessageController < ApplicationController
       end
     else
       #@response_text_content = @request_content
-      @response_text_content = "你好！我是越王珠宝的客服小珠，请输入【M】查看菜单"
+      @response_text_content = "你好！我们是越王珠宝的客服，请输入【M】查看菜单"
       @response_msg_type = "text"
       render "text", formats: :xml
     end
