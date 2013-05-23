@@ -24,7 +24,9 @@ class StatisticsController < ApplicationController
   def detail
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 10
     # TODO search
-    if params[:term].present?
+    if params[:weixin_user_id].present?
+      @request_messages = RequestMessage.where("weixin_user_id = ?", params[:weixin_user_id]).order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+    elsif params[:term].present?
       #@request_messages = RequestMessage.joins(:wx_text).where("wx_texts.content like ?", "%#{params[:term]}%").select("request_messages.*, wx_texts.*").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
       @request_messages = RequestMessage.joins(:wx_text).where("wx_texts.content like ?", "%#{params[:term]}%").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
     else
@@ -34,7 +36,7 @@ class StatisticsController < ApplicationController
 
   def detail_export
     if params[:term].present?
-      @request_messages = RequestMessage.joins(:wx_text).where("wx_texts.content like ?", "%#{params[:term]}%").select("request_messages.*, wx_texts.*").order("request_messages.created_at desc")
+      @request_messages = RequestMessage.joins(:wx_text).where("wx_texts.content like ?", "%#{params[:term]}%").order("request_messages.created_at desc")
     else
       @request_messages = RequestMessage.where("msg_type != ?", "event").order("created_at desc")
     end
