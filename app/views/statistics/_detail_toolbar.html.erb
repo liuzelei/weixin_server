@@ -1,4 +1,4 @@
-<%=link_to "Export", detail_export_statistics_path(term: params[:term]), class: "btn right"%>
+<%=link_to "Export", detail_export_statistics_path(term: params[:term],weixin_user_id: params[:weixin_user_id]), class: "btn right"%>
 
 <%= form_tag(detail_statistics_path, method: "get", class: "form-search right") do %>
 	<div class="input-append">
