@@ -25,7 +25,8 @@ class StatisticsController < ApplicationController
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 10
     # TODO search
     if params[:term].present?
-      @request_messages = RequestMessage.joins(:wx_text).where("wx_texts.content like ?", "%#{params[:term]}%").select("request_messages.*, wx_texts.*").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+      #@request_messages = RequestMessage.joins(:wx_text).where("wx_texts.content like ?", "%#{params[:term]}%").select("request_messages.*, wx_texts.*").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+      @request_messages = RequestMessage.joins(:wx_text).where("wx_texts.content like ?", "%#{params[:term]}%").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
     else
       @request_messages = RequestMessage.where("msg_type != ?", "event").order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
     end
