@@ -14,9 +14,9 @@ end
 DemoWeixin::Application.routes.draw do
   resources :weixin_users
   get "welcome/index"
-  get "welcome/auth"
   get "welcome/test"
 
+  get "message/io" => "welcome#auth"
   scope "/", via: :post do
     #match "message/io" => "message#input_text", constraints: lambda {|request| request.params[:xml].nil? }
     #match "message/io" => "message#input_image", constraints: lambda {|request| request.params[:xml] && request.params[:xml][:MsgType] == "text"}
