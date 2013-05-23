@@ -27,8 +27,18 @@ class StatisticsController < ApplicationController
     if params[:term].present?
       @request_messages = RequestMessage.joins(:wx_text).where("wx_texts.content like ?", "%#{params[:term]}%").select("request_messages.*, wx_texts.*").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
     else
-      @request_messages = RequestMessage.order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+      @request_messages = RequestMessage.where("msg_type != ?", "event").order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
     end
+  end
+
+  def detail_export
+    if params[:term].present?
+      @request_messages = RequestMessage.joins(:wx_text).where("wx_texts.content like ?", "%#{params[:term]}%").select("request_messages.*, wx_texts.*").order("request_messages.created_at desc")
+    else
+      @request_messages = RequestMessage.where("msg_type != ?", "event").order("created_at desc")
+    end
+
+    render layout: "export"
   end
 
   def dates

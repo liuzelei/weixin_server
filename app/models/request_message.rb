@@ -12,16 +12,17 @@ class RequestMessage < ActiveRecord::Base
   belongs_to :weixin_user
 
   def specific_content
-    if wx_text
-      wx_text.content
-    elsif wx_event
-      wx_event.event
-    elsif wx_image
-      wx_image.pic_url
-    elsif wx_location
-      "#{wx_location.latitude}:#{wx_location.longitude}"
-    elsif wx_link
-      "#{wx_link.title}:#{wx_link.url}"
+    case msg_type
+    when "text"
+      wx_text.try :content
+    when "image"
+      wx_image.try :pic_url
+    when "location"
+      "#{wx_location.try(:latitude)}:#{wx_location.try(:longitude)}"
+    when "link"
+      "#{wx_link.try(:title)}:#{wx_link.try(:url)}"
+    when "event"
+      wx_event.try :event
     else
       "未知消息"
     end

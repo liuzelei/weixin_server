@@ -48,6 +48,7 @@ DemoWeixin::Application.routes.draw do
   resources :statistics, only: [:index] do
     collection do
       get "detail"
+      get "detail_export"
       get "follows"
       get "follows_export"
       get "messages"

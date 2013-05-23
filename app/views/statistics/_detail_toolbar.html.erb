@@ -1,3 +1,5 @@
+<%=link_to "Export", detail_export_statistics_path, class: "btn right"%>
+
 <%= form_tag(detail_statistics_path, method: "get", class: "form-search right") do %>
 	<div class="input-append">
 		<%=text_field_tag "term", params[:term], {class: "span2 search-query"}%>
