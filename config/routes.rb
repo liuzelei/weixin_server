@@ -49,6 +49,7 @@ DemoWeixin::Application.routes.draw do
     collection do
       get "detail"
       get "follows"
+      get "follows_export"
       get "messages"
       get "dates"
       get "weixin_users"

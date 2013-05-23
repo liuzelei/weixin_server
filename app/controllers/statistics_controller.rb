@@ -11,6 +11,16 @@ class StatisticsController < ApplicationController
     end
   end
 
+  def follows_export
+    if params[:term].present?
+      @request_follows = RequestMessage.joins(:weixin_user).where(msg_type: "event").where("weixin_users.weixin_id like ?", "%#{params[:term]}%").order("request_messages.created_at desc")
+    else
+      @request_follows = RequestMessage.where(msg_type: "event").order("created_at desc")
+    end
+
+    render layout: "export"
+  end
+
   def detail
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 10
     # TODO search
