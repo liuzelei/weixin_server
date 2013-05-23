@@ -2,18 +2,10 @@
 class MessageController < ApplicationController
   include Weixin::Plugins
 
-  skip_before_filter :verify_authenticity_token, except: [:auth]
-  prepend_before_filter :current_weixin_user, except: [:auth]
-  before_filter :check_weixin_legality, :save_request, except: [:auth]
-  after_filter :save_response, except: [:auth]
-
-  def auth
-    render :text => params[:echostr]
-  end
-
-  def talk
-    render "reply", formats: :xml
-  end
+  skip_before_filter :verify_authenticity_token
+  prepend_before_filter :check_weixin_legality, :current_weixin_user
+  before_filter :save_request
+  after_filter :save_response
 
   def input_text
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19

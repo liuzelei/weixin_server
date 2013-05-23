@@ -1,7 +1,11 @@
 class WelcomeController < ApplicationController
-  after_filter :test_filter
+  skip_before_filter :verify_authenticity_token, only: [:auth]
 
   def index
+  end
+
+  def auth
+    render :text => params[:echostr]
   end
 
   def test
@@ -10,7 +14,4 @@ class WelcomeController < ApplicationController
     render :test_template, format: :html
   end
 
-  private
-  def test_filter
-  end
 end
