@@ -1,6 +1,6 @@
 # encoding: utf-8
 class WeixinUser < ActiveRecord::Base
-  before_validation :repair_tags
+  before_save :repair_tags
 
   attr_accessible :open_id, :weixin_id, :sex, :age, :latitude, :longitude, :scale, :category_list, :tag_list, :geocoding_address
 

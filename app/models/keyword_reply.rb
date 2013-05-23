@@ -2,6 +2,10 @@
 class KeywordReply < ActiveRecord::Base
   attr_accessible :keyword, :reply_content, :news_id, :coupon
 
+  before_save :downcase_keyword
+
+  validates_uniqueness_of :keyword, case_sensitive: false
+  #validates_uniqueness_of :keyword, scope: [], case_sensitive: false
 
   def specific_content
     if reply_content.present?
@@ -12,6 +16,11 @@ class KeywordReply < ActiveRecord::Base
     else
       "未知消息"
     end
+  end
+
+  private
+  def downcase_keyword
+    self.keyword.try :downcase!
   end
 end
 
