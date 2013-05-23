@@ -8,7 +8,7 @@ set :stages, %w(mn online)
 set :default_stage, "mn"
 require 'capistrano/ext/multistage'
 
-set :application, "demo_weixin"
+set :application, "weixin_server"
 set :scm, :git
 set :scm_username, 'git'
 set :branch, "master"
