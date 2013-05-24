@@ -12,6 +12,8 @@ class DemoWeixin::Router
 end
 
 DemoWeixin::Application.routes.draw do
+  devise_for :users
+
   resources :weixin_users
   get "welcome/index"
   get "welcome/test"
