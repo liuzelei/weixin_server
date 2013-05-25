@@ -10,6 +10,10 @@ class NewsController < ApplicationController
     end
   end
 
+  def list
+    @news = News.order("updated_at desc")
+  end
+
   # GET /news/1
   # GET /news/1.json
   def show

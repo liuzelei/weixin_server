@@ -38,7 +38,11 @@ DemoWeixin::Application.routes.draw do
   resources :qa_steps
   resources :keyword_replies
   resources :items
-  resources :news
+  resources :news do
+    collection do
+      get "list"
+    end
+  end
   resources :activities
   resources :coupons do
     collection  do

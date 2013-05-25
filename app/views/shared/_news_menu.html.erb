@@ -1,6 +1,7 @@
 <% content_for :menu do %>
   <ul class="nav nav-list bs-docs-sidenav affix">
     <li><%=link_to raw(" 素材管理 "), "#", class: "nav-header"%></li>
-    <li class="<%=current_menu_item_state('index')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>图文消息 "), news_index_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('index')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>图文消息预览 "), news_index_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('list')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>图文消息列表 "), list_news_index_path, class: ""%></li>
   </ul>
 <% end %>

@@ -1,0 +1,36 @@
+<%= render "shared/news_menu" %>
+
+<%=link_to raw(" <i class='icon-plus'></i>新增 "), new_news_path, class: "btn btn-primary right"%>
+<br />
+<br />
+<div style="clear:both;"></div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>标题</th>
+      <th>子图文</th>
+      <th>更新时间</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+	<% @news.each do |it| %>
+    <tr>
+      <td><%= it.id%></td>
+      <td><%= it.title%></td>
+      <td><%= raw it.items.map(&:title).join("<br/>")%></td>
+      <td><%= it.updated_at.strftime("%Y-%m-%d %H:%M")%></td>
+      <td>
+				<%=link_to raw("<i class='icon-folder-open'></i>"), it%>
+        &nbsp; &nbsp;
+				<%=link_to raw("<i class='icon-edit'></i>"), edit_news_path(it)%>
+        &nbsp; &nbsp;
+				<%=link_to raw("<i class='icon-remove'></i>"), it, method: :delete, data: {confirm: "确认删除？"} %>
+      </td>
+    </tr>
+	<% end %>
+  </tbody>
+</table>
+
