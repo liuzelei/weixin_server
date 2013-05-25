@@ -15,7 +15,11 @@ class MessageController < ApplicationController
       @response_msg_type = "text"
       render "text", formats: :xml
     elsif keyword_reply = KeywordReply.where(keyword: @request_content.to_s.downcase).first
-      if keyword_reply.news_id.present?
+      if keyword_reply.news_ids.present?
+        @news = News.where(id: keyword_reply.news_ids.split_all).shuffle.first
+        @response_msg_type = "news"
+        render "news", formats: :xml
+      elsif keyword_reply.news_id.present?
         @news = News.find keyword_reply.news_id
         @response_msg_type = "news"
         render "news", formats: :xml

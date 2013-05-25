@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130524033244) do
+ActiveRecord::Schema.define(:version => 20130525043034) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20130524033244) do
     t.datetime "updated_at",    :null => false
     t.integer  "news_id"
     t.boolean  "coupon"
+    t.string   "news_ids"
   end
 
   create_table "kindeditor_assets", :force => true do |t|
