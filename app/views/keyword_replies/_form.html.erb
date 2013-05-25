@@ -32,6 +32,12 @@
       </div>
     </div>
     <div class="control-group">
+      <%= f.label :news_ids, "图文编号集合", class: "control-label"  %>
+      <div class="controls">
+        <%= f.number_field :news_ids, class: "" %>
+      </div>
+    </div>
+    <div class="control-group">
       <%= f.label :coupon, "优惠活动", class: "control-label"  %>
       <div class="controls">
         <%= f.check_box :coupon, class: "" %>
