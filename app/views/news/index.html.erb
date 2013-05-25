@@ -5,14 +5,20 @@
 <br />
 <div style="clear:both;"></div>
 
-<div class="row-fluid">
+<div class="news_waterfall">
   <ul class="thumbnails">
     <% @news.each do |it| %>
-      <li class="span4">
+      <li class="news_thumbnail">
         <div class="thumbnail">
-          <%= image_tag it.pic_url, data: {src: "holder.js/200x300"}, alt: ""%>
-          <h3><%=link_to it.title, it.url%></h3>
-          <table class="table table-bordered">
+					<p class="news_toolbar">
+						<span class="badge badge-success"><%=it.id%></span>
+						<%=link_to raw("<i class='icon-remove'></i>"), it, method: :delete, data: {confirm: "确认删除？"} %>
+						<%=link_to raw("<i class='icon-edit'></i>"), edit_news_path(it)%>
+						<%=link_to raw("<i class='icon-folder-open'></i>"), it%>
+					</p>
+          <h6><%=link_to it.title, it.url%></h6>
+          <%= image_tag it.pic_url, data: {src: "holder.js/639x359"}, alt: ""%>
+          <table class="table table-hover news_items_table">
             <% it.items.each do |itt| %>
               <tr>
                 <td><%=link_to itt.title, itt.url%></td>
@@ -20,15 +26,13 @@
               </tr>
             <% end %>
           </table>
-					<ul class="nav nav-pills">
-						<li><%=link_to "查看", it%></li>
-						<li><%=link_to "编辑", edit_news_path(it)%></li>
-						<li><%=link_to "删除", it, method: :delete, data: {confirm: "确认删除？"} %></li>
-					</ul>
-					<p> ID: <%=it.id%></p>
         </div>
       </li>
     <% end %>
   </ul>
 </div>
 
+<%= javascript_tag do %>
+	auto_show_news_toolbar()
+	news_waterfall()
+<% end %>

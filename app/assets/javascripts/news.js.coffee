@@ -12,3 +12,11 @@ $(document).on 'nested:fieldAdded', (event) ->
   # and activate on it
   KindEditor.create('.kindeditor')
 ###
+
+@auto_show_news_toolbar = () ->
+  $(".news_toolbar").hover (-> $(".news_toolbar a").show()), (-> $(".news_toolbar a").hide())
+    
+
+@news_waterfall = () ->
+  opt={ }
+  $('#waterfall').waterfall(opt)
