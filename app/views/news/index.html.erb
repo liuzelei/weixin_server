@@ -28,6 +28,8 @@
 	<% end %>
 </div>
 
+<%=paginate @news%>
+
 <%= javascript_tag do %>
 	auto_show_news_toolbar()
 	news_waterfall()
