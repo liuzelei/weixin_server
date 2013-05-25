@@ -1,6 +1,6 @@
 # encoding: utf-8
 class KeywordReply < ActiveRecord::Base
-  attr_accessible :keyword, :reply_content, :news_id, :coupon
+  attr_accessible :keyword, :reply_content, :news_id, :coupon, :news_ids
 
   before_save :downcase_keyword
 
