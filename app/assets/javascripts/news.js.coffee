@@ -14,9 +14,13 @@ $(document).on 'nested:fieldAdded', (event) ->
 ###
 
 @auto_show_news_toolbar = () ->
-  $(".news_toolbar").hover (-> $(".news_toolbar a").show()), (-> $(".news_toolbar a").hide())
-    
+  #$(".news_toolbar").hover (-> $(".news_toolbar a").show()), (-> $(".news_toolbar a").hide())
+  $(".thumbnail").hover (-> $(this).find(".news_toolbar a").show()), (-> $(this).find(".news_toolbar a").hide())
+
 
 @news_waterfall = () ->
-  opt={ }
-  $('#waterfall').waterfall(opt)
+  opt={
+    column_width:310,
+    cell_selector:'.thumbnail'
+  }
+  $('.news_waterfall').waterfall(opt)
