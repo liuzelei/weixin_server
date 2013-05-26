@@ -13,5 +13,5 @@ test:
 production:
   access_key: "FgYzPpClDPAuPk4oAioBnm9Id5oEazWwwVyQlyTp"
   secret_key: "J3Jd-Z-uUa9nsEB451wuXpK4JKOw2qqxZLGc7zxf"
-  bucket: "poise"
+  bucket: "weixin"
 

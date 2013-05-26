@@ -45,14 +45,16 @@ sync_news_title = () ->
   $("#preview_news_title").text(title)
 
 @upload_file = () ->
-  $('#news_fileupload').fileupload (
+  uploader_ele = $('#news_fileupload')
+  bucket = uploader_ele.data("bucket")
+  uploader_ele.fileupload (
     done: (e, data) ->
       pic_uuid = data.result.key
       $(this).siblings(".hidden").find("input").val(pic_uuid)
-      $(this).after("<img src=\"http://testimages.qiniudn.com/#{pic_uuid}\"  alt='' width='200px' height='100px'/>")
+      $(this).after("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}\"  alt='' width='200px' height='100px'/>")
       $("#preview_news_pic").find("img").remove()
       $("#preview_news_pic").find("p").hide()
-      $("#preview_news_pic").append("<img src=\"http://testimages.qiniudn.com/#{pic_uuid}\"  alt='' />")
+      $("#preview_news_pic").append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}\"  alt='' />")
       $(this).hide()
   )
 ###
