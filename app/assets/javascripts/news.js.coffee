@@ -13,6 +13,21 @@ $(document).on 'nested:fieldAdded', (event) ->
   KindEditor.create('.kindeditor')
 ###
 
+@generate_uuid = ->
+  'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) ->
+    r = Math.random() * 16 | 0
+    v = if c is 'x' then r else (r & 0x3|0x8)
+    v.toString(16)
+  )
+
+@urlsafe = (original_str) ->
+  original_str.replace("+","-").replace("/","_")
+
+encoded_entry_uri = (bucket,uuid) ->
+  entry_uri = $.base64.encode("#{bucket}:#{uuid}")
+  urlsafe(entry_uri)
+
+
 @auto_show_news_toolbar = () ->
   #$(".news_toolbar").hover (-> $(".news_toolbar a").show()), (-> $(".news_toolbar a").hide())
   $(".thumbnail").hover (-> $(this).find(".news_toolbar a").show()), (-> $(this).find(".news_toolbar a").hide())
@@ -38,6 +53,7 @@ sync_news_title = () ->
       $("#preview_news_pic").find("img").remove()
       $("#preview_news_pic").find("p").hide()
       $("#preview_news_pic").append("<img src=\"http://testimages.qiniudn.com/#{pic_uuid}\"  alt='' />")
+      $(this).hide()
   )
 ###
     formData: [
