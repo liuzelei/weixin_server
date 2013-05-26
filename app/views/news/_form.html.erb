@@ -74,8 +74,6 @@
     </div>
 
     <%= f.fields_for :items do |ff| %>
-			<hr />
-
       <div class="control-group">
         <%= ff.label :title, "标题", class: "control-label" %>
         <div class="controls">
@@ -104,17 +102,15 @@
         </div>
       </div>
       <%= ff.link_to_remove "删除该子图文" %>
+
+			<hr />
     <% end %>
 
-    <div class="control-group">
-      <div class="controls">
-        <%= f.link_to_add "添加子图文", :items, class: "btn"%>
-        &nbsp; &nbsp;
-        <%= link_to '取消', news_index_path, class: "btn" %>
-        &nbsp; &nbsp;
-        <%= f.submit "完成", class: "btn btn-primary btn-large" %>
-      </div>
-    </div>
+		<hr />
+		<%= f.link_to_add raw("<i class='icon-plus'></i>添加子图文"), :items, class: "btn"%>
+		&nbsp; &nbsp; &nbsp;
+		<%= f.submit "完成", class: "btn btn-primary btn-large" %>
+
   </fieldset>
 <% end %>
   </div>

@@ -12,6 +12,12 @@ class Item < ActiveRecord::Base
   #}
 
   def pic_url
-    "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}"
+    if pic_uuid
+      "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}"
+    elsif pic
+      pic.url
+    else
+      nil
+    end
   end
 end

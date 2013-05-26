@@ -10,12 +10,18 @@ class News < ActiveRecord::Base
 
   # TODO: validate presence of image_url
 
-  #mount_uploader :pic, LocalImageUploader 
+  mount_uploader :pic, LocalImageUploader 
   #validates_presence_of :pic, if: Proc.new { |n|
   #  n.new_record?
   #}
 
   def pic_url
-    "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}"
+    if pic_uuid
+      "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}"
+    elsif pic
+      pic.url
+    else
+      nil
+    end
   end
 end
