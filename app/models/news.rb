@@ -1,12 +1,12 @@
 class News < ActiveRecord::Base
-  attr_accessible :description, :pic_url, :title, :url, :items_attributes
+  attr_accessible :description, :pic_uuid, :title, :url, :items_attributes
 
   has_many :items, dependent: :destroy
 
   accepts_nested_attributes_for :items, allow_destroy: true
 
 
-  validates_presence_of :title, :pic_url#, :description
+  validates_presence_of :title, :pic_uuid#, :description
 
   # TODO: validate presence of image_url
 
@@ -14,4 +14,8 @@ class News < ActiveRecord::Base
   #validates_presence_of :pic, if: Proc.new { |n|
   #  n.new_record?
   #}
+
+  def pic_url
+    "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}"
+  end
 end

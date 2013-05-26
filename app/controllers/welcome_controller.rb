@@ -14,4 +14,8 @@ class WelcomeController < ApplicationController
     render :test_template, format: :html
   end
 
+  def test1
+    render text: "just test"
+  end
+
 end

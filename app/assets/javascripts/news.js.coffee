@@ -30,11 +30,26 @@ sync_news_title = () ->
   $("#preview_news_title").text(title)
 
 @upload_file = () ->
+  $('#news_fileupload').fileupload (
+    done: (e, data) ->
+      pic_uuid = data.result.key
+      $(this).siblings(".hidden").find("input").val(pic_uuid)
+      $(this).after("<img src=\"http://testimages.qiniudn.com/#{pic_uuid}\"  alt='' width='200px' height='100px'/>")
+      $("#preview_news_pic").find("img").remove()
+      $("#preview_news_pic").find("p").hide()
+      $("#preview_news_pic").append("<img src=\"http://testimages.qiniudn.com/#{pic_uuid}\"  alt='' />")
+  )
+###
+    formData: [
+      {name: "a",value: "aa"},
+      {name: "b",value: "bb"}
+    ]
   $("#news_upload_btn").click (event, ui) ->
-    file_field = $(this).siblings(".hidden").find("input")
+    file_field = $(this).siblings(".hidden").find("#news_fileupload")
     file_field.click()
-  $("#news_file_field").change () ->
-    console.log "c..."
+###
+  #$("#news_fileupload").change () ->
+  #  console.log "c..."
 
 
 @auto_preview_news = () ->

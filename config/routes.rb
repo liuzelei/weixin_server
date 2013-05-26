@@ -17,6 +17,7 @@ DemoWeixin::Application.routes.draw do
   resources :weixin_users
   get "welcome/index"
   get "welcome/test"
+  post "welcome/test1"
 
   get "message/io" => "welcome#auth"
   scope "/", via: :post do

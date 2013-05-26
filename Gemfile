@@ -23,12 +23,13 @@ group :test do
   gem 'ruby-prof'
 end
 
-gem 'pg'
 gem 'jquery-rails'
+gem "jquery-fileupload-rails"
 
 gem 'capistrano'
 gem 'rvm-capistrano'
 
+gem 'pg'
 gem 'kaminari'
 gem "nested_form"
 gem 'carrierwave'
@@ -39,7 +40,7 @@ gem 'lazy_high_charts'
 #gem 'rails_kindeditor_qiniu', path: "/home/as/as_projects/rails_kindeditor_qiniu"
 #gem 'paperclip'
 
-#gem 'qiniu-rs'
+gem 'qiniu-rs'
 gem 'devise'
 gem 'cancan'
 #gem 'tire'
@@ -49,3 +50,4 @@ gem 'httparty'
 gem 'sanitize'
 gem 'geocoder'
 
+# git://github.com/broofa/node-uuid.git

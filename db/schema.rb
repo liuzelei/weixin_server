@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130525151708) do
+ActiveRecord::Schema.define(:version => 20130526050016) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(:version => 20130525151708) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "pic"
-    t.string   "pic_url"
+    t.string   "pic_uuid"
   end
 
   create_table "keyword_replies", :force => true do |t|
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(:version => 20130525151708) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "pic"
-    t.string   "pic_url"
+    t.string   "pic_uuid"
   end
 
   create_table "qa_steps", :force => true do |t|
