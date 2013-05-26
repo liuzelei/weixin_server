@@ -17,7 +17,7 @@ class News < ActiveRecord::Base
 
   def pic_url
     if pic_uuid
-      "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}"
+      "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}-large"
     elsif pic
       pic.respond_to?(:url) ? pic.url : nil
     else
