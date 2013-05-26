@@ -19,7 +19,7 @@ class News < ActiveRecord::Base
     if pic_uuid
       "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}"
     elsif pic
-      pic.url
+      pic.respond_to?(:url) ? pic.url : nil
     else
       nil
     end

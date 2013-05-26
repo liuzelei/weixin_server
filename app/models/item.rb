@@ -6,7 +6,7 @@ class Item < ActiveRecord::Base
 
   validates_presence_of :title, :pic_uuid#, :description
 
-  #mount_uploader :pic, LocalImageUploader 
+  mount_uploader :pic, LocalImageUploader 
   #validates_presence_of :pic, if: Proc.new { |n|
   #  n.new_record?
   #}
