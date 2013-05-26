@@ -15,6 +15,15 @@ class News < ActiveRecord::Base
   #  n.new_record?
   #}
 
+  def pic_url_origin
+    if pic_uuid
+      "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}"
+    elsif pic
+      pic.respond_to?(:url) ? pic.url : nil
+    else
+      nil
+    end
+  end
   def pic_url
     if pic_uuid
       "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}-large"
