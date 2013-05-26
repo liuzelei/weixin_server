@@ -24,3 +24,19 @@ $(document).on 'nested:fieldAdded', (event) ->
     cell_selector:'.thumbnail'
   }
   $('.news_waterfall').waterfall(opt)
+
+sync_news_title = () ->
+  title = $("#news_title").val()
+  $("#preview_news_title").text(title)
+
+@upload_file = () ->
+  $("#news_upload_btn").click (event, ui) ->
+    file_field = $(this).siblings(".hidden").find("input")
+    file_field.click()
+  $("#news_file_field").change () ->
+    console.log "c..."
+
+
+@auto_preview_news = () ->
+  $("#news_title").keyup (event, ui) -> sync_news_title()
+  $("#news_title").change (event, ui) -> sync_news_title()

@@ -1,3 +1,37 @@
+<div class="row-fluid">
+  <div class="span5">
+<div class="news_thumbnail">
+  <div class="thumbnail">
+    <p class="news_toolbar">
+      <span class="badge badge-success"><%=@news.id%></span>
+      <%#=link_to raw("<i class='icon-remove'></i>"), @news, method: :delete, data: {confirm: "确认删除？"} %>
+      <%#=link_to raw("<i class='icon-edit'></i>"), edit_news_path(@news)%>
+      <%#=link_to raw("<i class='icon-folder-open'></i>"), @news%>
+    </p>
+    <h6><%=link_to @news.title||"标题", "#nogo", id: "preview_news_title"%></h6>
+    <div class="cover">
+      <% if @news.pic_url %>
+        <%= image_tag @news.pic_url, data: {src: "holder.js/639x359"}, alt: ""%>
+      <% else %>
+        <p class="default_tip">封面图片</p>
+      <% end %>
+    </div>
+    <table class="table table-hover news_items_table">
+      <% @news.items.build %>
+      <% @news.items.each do |itt| %>
+        <tr>
+          <td><%=link_to itt.title, itt.url%></td>
+          <td><%= image_tag itt.pic_url, data: {src: "holder.js/10x10"}, alt: "", class: "mini_img"%></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+
+  </div>
+
+  <div class="span7">
 <%= nested_form_for @news, html: {class: "form-horizontal"} do |f| %>
   <% if @news.errors.any? %>
     <div id="error_explanation">
@@ -15,14 +49,17 @@
     <div class="control-group">
       <%= f.label :title, "标题", class: "control-label" %>
       <div class="controls">
-        <%= f.text_field :title %>
+        <%= f.text_field :title, placeholder: "请输入标题", id: "news_title"%>
       </div>
     </div>
     <div class="control-group">
-      <%= f.label :pic, "图片地址", class: "control-label"%>
+      <%= f.label :pic, "图片", class: "control-label"%>
       <div class="controls">
         <%=image_tag @news.pic_url if @news.pic_url.present?%>
-        <%= f.file_field :pic%>
+        <div class="hidden">
+          <%=file_field_tag "file", id: "news_file_field"%>
+        </div>
+        <%=link_to "Upload", "#nogo", class: "btn btn-primary btn-small", id: "news_upload_btn"%>
       </div>
     </div>
     <!--
@@ -83,4 +120,11 @@
       </div>
     </div>
   </fieldset>
+<% end %>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+  upload_file()
+  auto_preview_news()
 <% end %>

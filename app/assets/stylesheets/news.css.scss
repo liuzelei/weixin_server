@@ -17,3 +17,37 @@
 	margin-top: 15px;
 }
 
+.news_thumbnail {
+  width: 310px;
+}
+
+.cover {
+  font-size: 0;
+  height: 160px;
+  //margin: 0 14px 12px;
+  overflow: hidden;
+  position: relative;
+}
+.cover .default_tip {
+  color: #AAAAAA;
+  font-size: 22px;
+  line-height: 160px;
+}
+.cover p {
+  display: block;
+}
+.default_tip {
+  background-color: #ECECEC;
+  display: block;
+  text-align: center;
+  text-shadow: 0 1px 0 #FFFFFF;
+}
+
+fieldset {
+  background-color: #F8F8F8;
+  border: 1px solid #B8B8B8;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  padding: 14px 22px 20px 20px;
+}
+
