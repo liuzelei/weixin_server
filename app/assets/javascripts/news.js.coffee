@@ -50,8 +50,10 @@ sync_news_title = () ->
   uploader_ele.fileupload (
     done: (e, data) ->
       pic_uuid = data.result.key
+      pic_url_origin = "http://#{bucket}.qiniudn.com/#{pic_uuid}"
+      pic_url = pic_url_origin + '-large'
       $(this).siblings(".hidden").find("input").val(pic_uuid)
-      $(this).after("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}\"  alt='' width='200px' height='100px'/>")
+      $(this).after("<img src=\"#{pic_url}\" alt='' width='200px' height='100px'/><p>#{pic_url_origin}</p>")
       $("#preview_news_pic").find("img").remove()
       $("#preview_news_pic").find("p").hide()
       $("#preview_news_pic").append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}\"  alt='' />")
