@@ -40,11 +40,7 @@ encoded_entry_uri = (bucket,uuid) ->
   }
   $('.news_waterfall').waterfall(opt)
 
-sync_news_title = () ->
-  title = $("#news_title").val()
-  $("#preview_news_title").text(title)
-
-@upload_file = () ->
+@upload_news_pic = () ->
   uploader_ele = $('#news_fileupload')
   bucket = uploader_ele.data("bucket")
   uploader_ele.fileupload (
@@ -72,6 +68,34 @@ sync_news_title = () ->
   #  console.log "c..."
 
 
+sync_news_title = () ->
+  title = $("#news_title").val()
+  $("#preview_news_title").text(title)
+
+sync_news_item_title = (obj) ->
+  index_item_title = $(".news_item_title").index obj
+  title = obj.val()
+  preview_item_title = $(".preview_item_title").eq(index_item_title)
+  console.log preview_item_title
+  preview_item_title.text(title)
+
 @auto_preview_news = () ->
+  # 预览大图文标题
   $("#news_title").keyup (event, ui) -> sync_news_title()
   $("#news_title").change (event, ui) -> sync_news_title()
+
+  # 预览子图文标题
+  $("body").on "keyup", ".news_item_title", () -> sync_news_item_title($(this))
+  $("body").on "change", ".news_item_title", () -> sync_news_item_title($(this))
+
+  # 添加子图文
+  $("#add_news_item").click (event, ui) ->
+    item_html = "<tr> <td><a href='#nogo' class='preview_item_title'>文</a></td> <td>图</td> </tr>"
+    $(".news_items_table").append item_html
+    #$('.fields').not(':hidden').length
+
+  # 删除子图文
+  $("body").on 'click',".rm_news_item", (event) ->
+    index_rm_btn = $(".rm_news_item").index $(this)
+    $(".news_items_table tr").eq(index_rm_btn).hide()
+

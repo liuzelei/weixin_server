@@ -1,111 +1,95 @@
 <div class="row-fluid">
   <div class="span4">
-<div class="news_thumbnail">
-  <div class="thumbnail">
-    <p class="news_toolbar">
-      <span class="badge badge-success"><%=@news.id%></span>
-      <%#=link_to raw("<i class='icon-remove'></i>"), @news, method: :delete, data: {confirm: "确认删除？"} %>
-      <%#=link_to raw("<i class='icon-edit'></i>"), edit_news_path(@news)%>
-      <%#=link_to raw("<i class='icon-folder-open'></i>"), @news%>
-    </p>
-    <h6><%=link_to @news.title||"标题", "#nogo", id: "preview_news_title"%></h6>
-    <div class="cover" id="preview_news_pic">
-      <% if @news.pic_uuid %>
-        <%= image_tag @news.pic_url, data: {src: "holder.js/639x359"}, alt: ""%>
-      <% else %>
-        <p class="default_tip">封面图片</p>
-      <% end %>
+    <div class="news_thumbnail">
+      <div class="thumbnail">
+        <h6><%=link_to @news.title||"标题", "#nogo", id: "preview_news_title"%></h6>
+        <div class="cover" id="preview_news_pic">
+          <% if @news.pic_uuid %>
+            <%= image_tag @news.pic_url, data: {src: "holder.js/639x359"}, alt: ""%>
+          <% else %>
+            <p class="default_tip">封面图片</p>
+          <% end %>
+        </div>
+        <table class="table table-hover news_items_table">
+          <% @news.items.each do |itt| %>
+            <tr>
+              <td><%=link_to itt.title, "#nogo", class: "preview_item_title"%></td>
+              <td><%#= image_tag itt.pic_url, data: {src: "holder.js/10x10"}, alt: "", class: "mini_img" if itt.pic_url%></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
     </div>
-    <table class="table table-hover news_items_table">
-      <%# @news.items.build %>
-      <% @news.items.each do |itt| %>
-        <tr>
-          <td><%=link_to itt.title, itt.url%></td>
-          <td><%#= image_tag itt.pic_url, data: {src: "holder.js/10x10"}, alt: "", class: "mini_img" if itt.pic_url%></td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
-</div>
   </div>
 
   <div class="span8">
-<%= nested_form_for @news, html: {class: "news_form"} do |f| %>
-  <% if @news.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@news.errors.count, "error") %> prohibited this news from being saved:</h2>
+    <%= nested_form_for @news, html: {class: "news_form"} do |f| %>
+      <% if @news.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@news.errors.count, "error") %> prohibited this news from being saved:</h2>
 
-      <ul>
-      <% @news.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <fieldset>
-      <%= f.label :title, "标题", class: "" %>
-      <%= f.text_field :title, placeholder: "请输入标题", id: "news_title", class: "input-large"%>
-      <br />
-      <br />
-      
-      <%= f.label :pic, "图片", class: ""%>
-      <%=render "file_uploader", {f: f, news: @news, qiniu_file_uuid: SecureRandom.uuid}%> 
-      <br />
-      <br />
-
-      <%= f.label :description, "正文", class: ""%>
-      <%= f.text_area :description, class: "news_desc", rows: 2%>
-      <br />
-      <br />
-
-      <%= f.label :url, "链接", class: ""%>
-      <%= f.text_field :url, class: "input-xxlarge" %>
-
-    <%= f.fields_for :items do |ff| %>
-      <div class="control-group">
-        <%= ff.label :title, "标题", class: "" %>
-        <div class="controls">
-          <%= ff.text_field :title %>
+          <ul>
+            <% @news.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
         </div>
-      </div>
-      <div class="control-group">
-        <%= ff.label :pic, "图片地址", class: ""%>
-        <div class="controls">
+      <% end %>
+
+      <fieldset>
+        <%= f.label :title, "标题", class: "" %>
+        <%= f.text_field :title, placeholder: "请输入标题", id: "news_title", class: "input-large"%>
+        <br />
+        <br />
+
+        <%= f.label :pic, "图片", class: ""%>
+        <%=render "file_uploader", {f: f, news: @news, qiniu_file_uuid: SecureRandom.uuid}%> 
+        <br />
+        <br />
+
+        <%= f.label :description, "正文", class: ""%>
+        <%= f.text_area :description, class: "news_desc", rows: 2%>
+        <br />
+        <br />
+
+        <%= f.label :url, "链接", class: ""%>
+        <%= f.text_field :url, class: "input-xxlarge" %>
+      </fieldset>
+
+      <%= f.fields_for :items do |ff| %>
+        <fieldset>
+
+          <%= ff.label :title, "标题", class: "" %>
+          <%= ff.text_field :title, class: "input-large news_item_title" %>
+          <br />
+          <br />
+
+          <%= ff.label :pic, "图片地址", class: ""%>
           <%#=image_tag ff.object.pic_url if ff.object.pic_url.present?%>
           <%= ff.file_field :pic%>
-        </div>
-      </div>
-      <!--
-      <div class="control-group">
-        <%#= ff.label :description, "正文", class: ""%>
-        <div class="controls">
-          <%#= ff.text_area :description, class: "big_textarea kindeditor"%>
-        </div>
-      </div>
-      -->
-      <div class="control-group">
-        <%= ff.label :url, "链接", class: ""%>
-        <div class="controls">
-          <%= ff.text_field :url, class: ""%>
-        </div>
-      </div>
-      <%= ff.link_to_remove "删除该子图文" %>
+          <br />
+          <br />
 
-			<hr />
+          <%= ff.label :url, "链接", class: ""%>
+          <%= ff.text_field :url, class: "input-xxlarge"%>
+          <br />
+
+          <%= ff.link_to_remove "删除该子图文", class: "rm_news_item" %>
+        </fieldset>
+
+        <hr />
+      <% end %>
+
+      <hr />
+      <%= f.link_to_add raw("<i class='icon-plus'></i>添加子图文"), :items, class: "btn", id: "add_news_item"%>
+      &nbsp; &nbsp; &nbsp;
+      <%= f.submit "完成", class: "btn btn-primary btn-large" %>
+
     <% end %>
-
-		<hr />
-		<%= f.link_to_add raw("<i class='icon-plus'></i>添加子图文"), :items, class: "btn"%>
-		&nbsp; &nbsp; &nbsp;
-		<%= f.submit "完成", class: "btn btn-primary btn-large" %>
-
-  </fieldset>
-<% end %>
   </div>
 </div>
 
 <%= javascript_tag do %>
-  upload_file()
+  upload_news_pic()
   auto_preview_news()
 <% end %>
