@@ -1,5 +1,5 @@
 <div class="row-fluid">
-  <div class="span5">
+  <div class="span4">
 <div class="news_thumbnail">
   <div class="thumbnail">
     <p class="news_toolbar">
@@ -27,12 +27,10 @@
     </table>
   </div>
 </div>
-
-
   </div>
 
-  <div class="span7">
-<%= nested_form_for @news, html: {class: "form-horizontal"} do |f| %>
+  <div class="span8">
+<%= nested_form_for @news, html: {class: "news_form"} do |f| %>
   <% if @news.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@news.errors.count, "error") %> prohibited this news from being saved:</h2>
@@ -46,42 +44,33 @@
   <% end %>
 
   <fieldset>
-    <div class="control-group">
-      <%= f.label :title, "标题", class: "control-label" %>
-      <div class="controls">
-        <%= f.text_field :title, placeholder: "请输入标题", id: "news_title"%>
-      </div>
-    </div>
-    <div class="control-group">
-      <%= f.label :pic, "图片", class: "control-label"%>
-      <div class="controls">
-        <%=render "file_uploader", {f: f, news: @news, qiniu_file_uuid: SecureRandom.uuid}%> 
-      </div>
-    </div>
-    <!--
-    <div class="control-group">
-      <%#= f.label :description, "正文", class: "control-label"%>
-      <div class="controls">
-        <%#= f.kindeditor :description, class: "big_textarea"%>
-      </div>
-    </div>
-    -->
-    <div class="control-group">
-      <%= f.label :url, "链接", class: "control-label"%>
-      <div class="controls">
-        <%= f.text_field :url%>
-      </div>
-    </div>
+      <%= f.label :title, "标题", class: "" %>
+      <%= f.text_field :title, placeholder: "请输入标题", id: "news_title", class: "input-large"%>
+      <br />
+      <br />
+      
+      <%= f.label :pic, "图片", class: ""%>
+      <%=render "file_uploader", {f: f, news: @news, qiniu_file_uuid: SecureRandom.uuid}%> 
+      <br />
+      <br />
+
+      <%= f.label :description, "正文", class: ""%>
+      <%= f.text_area :description, class: "news_desc", rows: 2%>
+      <br />
+      <br />
+
+      <%= f.label :url, "链接", class: ""%>
+      <%= f.text_field :url, class: "input-xxlarge" %>
 
     <%= f.fields_for :items do |ff| %>
       <div class="control-group">
-        <%= ff.label :title, "标题", class: "control-label" %>
+        <%= ff.label :title, "标题", class: "" %>
         <div class="controls">
           <%= ff.text_field :title %>
         </div>
       </div>
       <div class="control-group">
-        <%= ff.label :pic, "图片地址", class: "control-label"%>
+        <%= ff.label :pic, "图片地址", class: ""%>
         <div class="controls">
           <%#=image_tag ff.object.pic_url if ff.object.pic_url.present?%>
           <%= ff.file_field :pic%>
@@ -89,16 +78,16 @@
       </div>
       <!--
       <div class="control-group">
-        <%#= ff.label :description, "正文", class: "control-label"%>
+        <%#= ff.label :description, "正文", class: ""%>
         <div class="controls">
           <%#= ff.text_area :description, class: "big_textarea kindeditor"%>
         </div>
       </div>
       -->
       <div class="control-group">
-        <%= ff.label :url, "链接", class: "control-label"%>
+        <%= ff.label :url, "链接", class: ""%>
         <div class="controls">
-          <%= ff.text_field :url%>
+          <%= ff.text_field :url, class: ""%>
         </div>
       </div>
       <%= ff.link_to_remove "删除该子图文" %>
