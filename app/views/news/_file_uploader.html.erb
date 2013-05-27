@@ -2,6 +2,6 @@
 <div class="hidden">
   <%=f.hidden_field :pic_uuid%>
 </div>
-<%=file_field_tag "file", data: {url: "http://up.qbox.me/upload", bucket: QINIU_BUCKET, 'form-data'=> {auth: QINIU_UPLOAD_TOKEN, action: "/rs-put/#{Base64.urlsafe_encode64(QINIU_BUCKET + ":" + qiniu_file_uuid)}"}}, id: "news_fileupload" %>
+<%=file_field_tag "file", data: {url: "http://up.qbox.me/upload", bucket: QINIU_BUCKET, 'form-data'=> {auth: QINIU_UPLOAD_TOKEN, action: "/rs-put/#{Base64.urlsafe_encode64(QINIU_BUCKET + ":" + qiniu_file_uuid)}"}}, class: "news_fileupload" %>
 <%#=file_field_tag "file", data: {url: "/welcome/test1", 'form-data'=> {auth: QINIU_UPLOAD_TOKEN, aaction: "rs-put"}}, id: "news_fileupload" %>
 <%#=link_to "Upload", "#nogo", id: "news_upload_btn", class: "btn btn-primary"%>

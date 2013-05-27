@@ -41,7 +41,7 @@ encoded_entry_uri = (bucket,uuid) ->
   $('.news_waterfall').waterfall(opt)
 
 @upload_news_pic = () ->
-  uploader_ele = $('#news_fileupload')
+  uploader_ele = $('.news_fileupload')
   bucket = uploader_ele.data("bucket")
   uploader_ele.fileupload (
     done: (e, data) ->
@@ -53,6 +53,21 @@ encoded_entry_uri = (bucket,uuid) ->
       $("#preview_news_pic").find("img").remove()
       $("#preview_news_pic").find("p").hide()
       $("#preview_news_pic").append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}\"  alt='' />")
+      $(this).hide()
+  )
+@upload_news_item_pic = () ->
+  uploader_ele = $('.news_fileupload')
+  bucket = uploader_ele.data("bucket")
+  uploader_ele.fileupload (
+    done: (e, data) ->
+      pic_uuid = data.result.key
+      pic_url_origin = "http://#{bucket}.qiniudn.com/#{pic_uuid}"
+      pic_url = pic_url_origin + '-large'
+      $(this).siblings(".hidden").find("input").val(pic_uuid)
+      $(this).after("<img src=\"#{pic_url}\" alt='' width='200px' height='100px'/><p>#{pic_url_origin}</p>")
+      #$("#preview_news_pic").find("img").remove()
+      #$("#preview_news_pic").find("p").hide()
+      #$("#preview_news_pic").append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}\"  alt='' />")
       $(this).hide()
   )
 ###
@@ -92,6 +107,7 @@ sync_news_item_title = (obj) ->
   $("#add_news_item").click (event, ui) ->
     item_html = "<tr> <td><a href='#nogo' class='preview_item_title'>文</a></td> <td>图</td> </tr>"
     $(".news_items_table").append item_html
+    upload_news_item_pic()
     #$('.fields').not(':hidden').length
 
   # 删除子图文

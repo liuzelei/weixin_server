@@ -49,8 +49,10 @@ class MessageController < ApplicationController
   end
 
   def input_image
-    render "reply", formats: :xml
-    #render "news", formats: :xml
+    #render "reply", formats: :xml
+    @current_weixin_user.update_attributes weixin_id: @request_content.gsub(@activity.keyword,"").gsub('+',"")
+    @coupon = generate_coupon
+    render "news_coupon", formats: :xml
   end
 
   def input_location
@@ -67,7 +69,10 @@ class MessageController < ApplicationController
   end
 
   def input_link
-    render "reply", formats: :xml
+    #render "reply", formats: :xml
+    @current_weixin_user.update_attributes weixin_id: @request_content.gsub(@activity.keyword,"").gsub('+',"")
+    @coupon = generate_coupon
+    render "news_coupon", formats: :xml
   end
 
   def input_event

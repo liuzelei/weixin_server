@@ -43,7 +43,7 @@
         <br />
 
         <%= f.label :pic, "图片", class: ""%>
-        <%=render "file_uploader", {f: f, news: @news, qiniu_file_uuid: SecureRandom.uuid}%> 
+        <%=render "file_uploader", {f: f, qiniu_file_uuid: SecureRandom.uuid}%> 
         <br />
         <br />
 
@@ -65,8 +65,8 @@
           <br />
 
           <%= ff.label :pic, "图片地址", class: ""%>
-          <%#=image_tag ff.object.pic_url if ff.object.pic_url.present?%>
-          <%= ff.file_field :pic%>
+          <%#= ff.file_field :pic%>
+					<%=render "file_uploader", {f: ff, qiniu_file_uuid: SecureRandom.uuid}%> 
           <br />
           <br />
 
