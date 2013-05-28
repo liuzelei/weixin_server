@@ -1,6 +1,7 @@
 <%= render "shared/news_menu" %>
 
-<%=link_to raw(" <i class='icon-plus'></i>新增 "), new_news_path, class: "btn btn-primary right"%>
+<%=link_to raw(" <i class='icon-plus'></i>备用 "), new_news_path, class: "btn right"%>
+<%=link_to raw(" <i class='icon-plus'></i>新增 "), "#", class: "btn btn-primary right"%>
 <br />
 <br />
 <div style="clear:both;"></div>
@@ -11,6 +12,7 @@
 			<p class="news_toolbar">
 				<span class="badge badge-success"><%=it.id%></span>
 				<%=link_to raw("<i class='icon-remove'></i>"), it, method: :delete, data: {confirm: "确认删除？"} %>
+				<%=link_to raw("<i class='icon-plus'></i>"), new_news_item_path(it)%>
 				<%=link_to raw("<i class='icon-edit'></i>"), edit_news_path(it)%>
 				<%=link_to raw("<i class='icon-folder-open'></i>"), it%>
 			</p>

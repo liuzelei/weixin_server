@@ -24,7 +24,8 @@ class ItemsController < ApplicationController
   # GET /items/new
   # GET /items/new.json
   def new
-    @item = Item.new
+    @news = News.find params[:news_id]
+    @item = @news.items.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,16 +41,13 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @item = Item.new(params[:item])
+    @news = News.find params[:news_id]
+    @item = @news.items.new(params[:item])
 
-    respond_to do |format|
-      if @item.save
-        format.html { redirect_to @item, notice: 'Item was successfully created.' }
-        format.json { render json: @item, status: :created, location: @item }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
-      end
+    if @item.save
+      redirect_to @news, notice: 'Item was successfully created.'
+    else
+      render action: "new"
     end
   end
 

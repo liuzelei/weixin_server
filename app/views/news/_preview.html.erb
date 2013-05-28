@@ -3,7 +3,7 @@
     <h6><%=link_to news.title||"标题", "#nogo", id: "preview_news_title"%></h6>
     <div class="cover" id="preview_news_pic">
       <% if news.pic_uuid %>
-        <%= image_tag news.pic_url, data: {src: "holder.js/639x359"}, alt: ""%>
+        <%= image_tag news.pic_url, data: {src: "holder.js/640x320"}, alt: ""%>
       <% else %>
         <p class="default_tip">封面图片</p>
       <% end %>
@@ -22,8 +22,16 @@
     <table class="table table-hover news_items_table">
       <% news.items.each do |itt| %>
         <tr>
-          <td><%=link_to itt.title, "#nogo", class: "preview_item_title"%></td>
-          <td><%#= image_tag itt.pic_url, data: {src: "holder.js/10x10"}, alt: "", class: "mini_img" if itt.pic_url%></td>
+          <td><%=link_to itt.title||"标题", "#nogo", class: "preview_item_title"%></td>
+          <td>
+            <div id="preview_item_pic">
+              <% if itt.pic_uuid %>
+                <%= image_tag itt.pic_url, data: {src: "holder.js/80x80"}, alt: "" %>
+              <% else %>
+                <p class="default_tip">图片</p>
+              <% end %>
+            </div>
+          </td>
         </tr>
       <% end %>
     </table>

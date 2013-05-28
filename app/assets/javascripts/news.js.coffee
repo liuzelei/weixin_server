@@ -52,24 +52,24 @@ encoded_entry_uri = (bucket,uuid) ->
       $(this).after("<img src=\"#{pic_url}\" alt='' width='200px' height='100px'/><p>#{pic_url_origin}</p>")
       $("#preview_news_pic").find("img").remove()
       $("#preview_news_pic").find("p").hide()
-      $("#preview_news_pic").append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}\"  alt='' />")
+      $("#preview_news_pic").append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}-large\"  alt='' />")
       $(this).hide()
   )
 @upload_news_item_pic = () ->
   uploader_ele = $('.news_fileupload')
   bucket = uploader_ele.data("bucket")
-  uploader_ele.fileupload (
+  uploader_ele.fileupload
     done: (e, data) ->
       pic_uuid = data.result.key
       pic_url_origin = "http://#{bucket}.qiniudn.com/#{pic_uuid}"
       pic_url = pic_url_origin + '-large'
       $(this).siblings(".hidden").find("input").val(pic_uuid)
       $(this).after("<img src=\"#{pic_url}\" alt='' width='200px' height='100px'/><p>#{pic_url_origin}</p>")
-      #$("#preview_news_pic").find("img").remove()
-      #$("#preview_news_pic").find("p").hide()
-      #$("#preview_news_pic").append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}\"  alt='' />")
+      $("#preview_item_pic").find("img").remove()
+      $("#preview_item_pic").find("p").hide()
+      $("#preview_item_pic").append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}-small\"  alt='' />")
       $(this).hide()
-  )
+
 ###
     formData: [
       {name: "a",value: "aa"},
@@ -111,6 +111,7 @@ sync_news_item_title = (obj) ->
   $("body").on "keyup", ".news_item_title", () -> sync_news_item_title($(this))
   $("body").on "change", ".news_item_title", () -> sync_news_item_title($(this))
 
+###
   # 添加子图文
   $("#add_news_item").click (event, ui) ->
     item_html = "<tr> <td><a href='#nogo' class='preview_item_title'>文</a></td> <td>图</td> </tr>"
@@ -122,4 +123,5 @@ sync_news_item_title = (obj) ->
   $("body").on 'click',".rm_news_item", (event) ->
     index_rm_btn = $(".rm_news_item").index $(this)
     $(".news_items_table tr").eq(index_rm_btn).hide()
+###
 

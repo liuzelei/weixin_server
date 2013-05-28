@@ -24,7 +24,7 @@
 				<br />
 
 				<%= f.label :pic, "图片", class: ""%>
-				<%=render "file_uploader", {f: f, qiniu_file_uuid: SecureRandom.uuid}%> 
+				<%=render "shared/file_uploader", {f: f, qiniu_file_uuid: SecureRandom.uuid}%> 
 				<br />
 				<br />
 

@@ -1,33 +1,44 @@
-<%= form_for(@item) do |f| %>
-  <% if @item.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+<div class="row-fluid">
+  <div class="span4">
+    <%= render "news/preview", {news: @news}%>
+  </div>
 
-      <ul>
-      <% @item.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+  <div class="span8">
+    <%= form_for [@news,@item], html: {class: "item_form"} do |f| %>
+      <% if @item.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+          <ul>
+            <% @item.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+      <fieldset>
+        <%= f.label :title, "标题", class: "" %>
+        <%= f.text_field :title, placeholder: "请输入标题", class: "input-large news_item_title"%>
+        <br />
+        <br />
+
+        <%= f.label :pic, "图片", class: ""%>
+        <%=render "shared/file_uploader", {f: f, qiniu_file_uuid: SecureRandom.uuid}%> 
+        <br />
+        <br />
+
+        <%= f.label :url, "链接", class: ""%>
+        <%= f.text_field :url, class: "input-xxlarge" %>
+
+        <%= f.submit "完成", class: "btn btn-primary btn-large right" %>
+      </fieldset>
+
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :pic_url %><br />
-    <%= f.text_field :pic_url %>
-  </div>
-  <div class="field">
-    <%= f.label :url %><br />
-    <%= f.text_field :url %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+</div>
+
+<%= javascript_tag do %>
+  upload_news_item_pic()
+  auto_preview_news()
 <% end %>
