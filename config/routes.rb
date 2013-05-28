@@ -38,8 +38,8 @@ DemoWeixin::Application.routes.draw do
   resources :settings
   resources :qa_steps
   resources :keyword_replies
-  resources :items
   resources :news do
+    resources :items
     collection do
       get "list"
     end

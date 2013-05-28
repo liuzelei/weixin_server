@@ -84,8 +84,12 @@ encoded_entry_uri = (bucket,uuid) ->
 
 
 sync_news_title = () ->
-  title = $("#news_title").val()
-  $("#preview_news_title").text(title)
+  str = $("#news_title").val()
+  $("#preview_news_title").text(str)
+sync_news_desc = () ->
+  str = $("#news_desc").val()
+  $("#preview_news_desc").text(str)
+
 
 sync_news_item_title = (obj) ->
   index_item_title = $(".news_item_title").index obj
@@ -98,6 +102,10 @@ sync_news_item_title = (obj) ->
   # 预览大图文标题
   $("#news_title").keyup (event, ui) -> sync_news_title()
   $("#news_title").change (event, ui) -> sync_news_title()
+
+  # 预览大图文描述
+  $("#news_desc").keyup (event, ui) -> sync_news_desc()
+  $("#news_desc").change (event, ui) -> sync_news_desc()
 
   # 预览子图文标题
   $("body").on "keyup", ".news_item_title", () -> sync_news_item_title($(this))

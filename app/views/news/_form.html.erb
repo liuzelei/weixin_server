@@ -1,29 +1,10 @@
 <div class="row-fluid">
   <div class="span4">
-    <div class="news_thumbnail">
-      <div class="thumbnail">
-        <h6><%=link_to @news.title||"标题", "#nogo", id: "preview_news_title"%></h6>
-        <div class="cover" id="preview_news_pic">
-          <% if @news.pic_uuid %>
-            <%= image_tag @news.pic_url, data: {src: "holder.js/639x359"}, alt: ""%>
-          <% else %>
-            <p class="default_tip">封面图片</p>
-          <% end %>
-        </div>
-        <table class="table table-hover news_items_table">
-          <% @news.items.each do |itt| %>
-            <tr>
-              <td><%=link_to itt.title, "#nogo", class: "preview_item_title"%></td>
-              <td><%#= image_tag itt.pic_url, data: {src: "holder.js/10x10"}, alt: "", class: "mini_img" if itt.pic_url%></td>
-            </tr>
-          <% end %>
-        </table>
-      </div>
-    </div>
+		<%= render "preview", {news: @news}%>
   </div>
 
   <div class="span8">
-    <%= nested_form_for @news, html: {class: "news_form"} do |f| %>
+    <%= form_for @news, html: {class: "news_form"} do |f| %>
       <% if @news.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@news.errors.count, "error") %> prohibited this news from being saved:</h2>
@@ -36,54 +17,27 @@
         </div>
       <% end %>
 
-      <fieldset>
-        <%= f.label :title, "标题", class: "" %>
-        <%= f.text_field :title, placeholder: "请输入标题", id: "news_title", class: "input-large"%>
-        <br />
-        <br />
+			<fieldset>
+				<%= f.label :title, "标题", class: "" %>
+				<%= f.text_field :title, placeholder: "请输入标题", id: "news_title", class: "input-large"%>
+				<br />
+				<br />
 
-        <%= f.label :pic, "图片", class: ""%>
-        <%=render "file_uploader", {f: f, qiniu_file_uuid: SecureRandom.uuid}%> 
-        <br />
-        <br />
+				<%= f.label :pic, "图片", class: ""%>
+				<%=render "file_uploader", {f: f, qiniu_file_uuid: SecureRandom.uuid}%> 
+				<br />
+				<br />
 
-        <%= f.label :description, "正文", class: ""%>
-        <%= f.text_area :description, class: "news_desc", rows: 2%>
-        <br />
-        <br />
+				<%= f.label :description, "正文", class: ""%>
+				<%= f.text_area :description, id: "news_desc", class: "news_desc", rows: 2%>
+				<br />
+				<br />
 
-        <%= f.label :url, "链接", class: ""%>
-        <%= f.text_field :url, class: "input-xxlarge" %>
-      </fieldset>
+				<%= f.label :url, "链接", class: ""%>
+				<%= f.text_field :url, class: "input-xxlarge" %>
 
-      <%= f.fields_for :items do |ff| %>
-        <fieldset>
-
-          <%= ff.label :title, "标题", class: "" %>
-          <%= ff.text_field :title, class: "input-large news_item_title" %>
-          <br />
-          <br />
-
-          <%= ff.label :pic, "图片地址", class: ""%>
-          <%#= ff.file_field :pic%>
-					<%=render "file_uploader", {f: ff, qiniu_file_uuid: SecureRandom.uuid}%> 
-          <br />
-          <br />
-
-          <%= ff.label :url, "链接", class: ""%>
-          <%= ff.text_field :url, class: "input-xxlarge"%>
-          <br />
-
-          <%= ff.link_to_remove "删除该子图文", class: "rm_news_item" %>
-        </fieldset>
-
-        <hr />
-      <% end %>
-
-      <hr />
-      <%= f.link_to_add raw("<i class='icon-plus'></i>添加子图文"), :items, class: "btn", id: "add_news_item"%>
-      &nbsp; &nbsp; &nbsp;
-      <%= f.submit "完成", class: "btn btn-primary btn-large" %>
+				<%= f.submit "完成", class: "btn btn-primary btn-large right" %>
+			</fieldset>
 
     <% end %>
   </div>
