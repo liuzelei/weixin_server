@@ -10,9 +10,8 @@
     <tr>
       <th>ID</th>
       <th>小图预览</th>
-      <th>原始图片地址</th>
-      <th>微信图文大图地址</th>
-      <th>微信图文小图地址</th>
+      <th>图片地址（原始）</th>
+      <th>图片地址（for手机）</th>
       <th></th>
     </tr>
   </thead>
@@ -22,8 +21,7 @@
       <td><%= it.id%></td>
       <td><%=image_tag it.pic_url_small%></td>
       <td><%= it.pic_url_origin%></td>
-      <td><%= it.pic_url_large%></td>
-      <td><%= it.pic_url_small%></td>
+      <td><%= it.pic_url_mobile%></td>
       <td>
 				<%=link_to raw("<i class='icon-folder-open'></i>"), it%>
         &nbsp; &nbsp;

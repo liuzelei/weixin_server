@@ -4,10 +4,10 @@ class Picture < ActiveRecord::Base
   def pic_url_origin
     "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}"
   end
-  def pic_url_large
-    "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}-large"
-  end
-  def pic_url_small
-    "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}-small"
+
+  ["mobile","large","small"].each do |it|
+    define_method "pic_url_#{it}".to_sym do
+      "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}-#{it}"
+    end
   end
 end

@@ -50,9 +50,10 @@ $(document).on 'nested:fieldAdded', (event) ->
     done: (e, data) ->
       pic_uuid = data.result.key
       pic_url_origin = "http://#{bucket}.qiniudn.com/#{pic_uuid}"
-      pic_url = pic_url_origin + '-large'
+      pic_url_mobile = pic_url_origin + '-mobile'
+      pic_url_large = pic_url_origin + '-large'
       $(this).siblings(".hidden").find("input").val(pic_uuid)
-      $(this).after("<img src=\"#{pic_url}\" alt='' width='200px' height='100px'/><p>#{pic_url_origin}</p>")
+      $(this).after("<img src=\"#{pic_url_large}\" alt='' width='200px' height='100px'/><p>#{pic_url_mobile}</p>")
       $("#preview_news_pic").find("img").remove()
       $("#preview_news_pic").find("p").hide()
       $("#preview_news_pic").append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}-large\"  alt='' />")
@@ -65,9 +66,10 @@ $(document).on 'nested:fieldAdded', (event) ->
     done: (e, data) ->
       pic_uuid = data.result.key
       pic_url_origin = "http://#{bucket}.qiniudn.com/#{pic_uuid}"
-      pic_url = pic_url_origin + '-large'
+      pic_url_mobile = pic_url_origin + '-mobile'
+      pic_url_large = pic_url_origin + '-large'
       $(this).siblings(".hidden").find("input").val(pic_uuid)
-      $(this).after("<img src=\"#{pic_url}\" alt='' width='200px' height='100px'/><p>#{pic_url_origin}</p>")
+      $(this).after("<img src=\"#{pic_url_large}\" alt='' width='200px' height='100px'/><p>#{pic_url_mobile}</p>")
       $(".preview_item_pic").last().find("img").remove()
       $(".preview_item_pic").last().find("p").hide()
       $(".preview_item_pic").last().append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}-small\"  alt='' />")
@@ -79,8 +81,9 @@ $(document).on 'nested:fieldAdded', (event) ->
     done: (e, data) ->
       pic_uuid = data.result.key
       pic_url_origin = "http://#{bucket}.qiniudn.com/#{pic_uuid}"
+      pic_url_mobile = pic_url_origin + '-mobile'
       $(this).siblings(".hidden").find("input").val(pic_uuid)
-      $(this).after("<img src=\"#{pic_url_origin}\" alt='' width='200px' height='100px'/><p>#{pic_url_origin}</p>")
+      $(this).after("<img src=\"#{pic_url_mobile}\" alt='' width='200px' height='100px'/><p>#{pic_url_mobile}</p>")
       $(this).hide()
 ###
     formData: [
