@@ -72,7 +72,16 @@ $(document).on 'nested:fieldAdded', (event) ->
       $(".preview_item_pic").last().find("p").hide()
       $(".preview_item_pic").last().append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}-small\"  alt='' />")
       $(this).hide()
-
+@upload_common_pic = () ->
+  uploader_ele = $('.news_fileupload')
+  bucket = uploader_ele.data("bucket")
+  uploader_ele.fileupload
+    done: (e, data) ->
+      pic_uuid = data.result.key
+      pic_url_origin = "http://#{bucket}.qiniudn.com/#{pic_uuid}"
+      $(this).siblings(".hidden").find("input").val(pic_uuid)
+      $(this).after("<img src=\"#{pic_url_origin}\" alt='' width='200px' height='100px'/><p>#{pic_url_origin}</p>")
+      $(this).hide()
 ###
     formData: [
       {name: "a",value: "aa"},

@@ -1,0 +1,32 @@
+<%= form_for(@picture,html: {class: "pictures_form"}) do |f| %>
+  <% if @picture.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@picture.errors.count, "error") %> prohibited this picture from being saved:</h2>
+
+      <ul>
+        <% @picture.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <br />
+    <br />
+
+    <%= f.label :file %>
+    <%=render "shared/file_uploader", {f: f, qiniu_file_uuid: SecureRandom.uuid}%> 
+
+  </fieldset>
+  <hr />
+
+  <%= f.submit "提交", class: "btn btn-primary btn-large right" %>
+<% end %>
+
+<%= javascript_tag do %>
+  upload_common_pic()
+<% end %>
