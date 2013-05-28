@@ -9,6 +9,8 @@
 		<%= link_to raw(" <i class='icon-edit'></i>编辑 "), edit_news_path(@news), class: "btn btn-primary" %>
 		&nbsp;
 		<%= link_to raw(" <i class='icon-plus'></i>添加子图文 "), new_news_item_path(@news), class: "btn btn-primary" %>
+		&nbsp;
+		<%=link_to raw("<i class='icon-remove'></i>删除该图文"), @news, method: :delete, data: {confirm: "确认删除？"}, class: "btn" %>
 	</div>
 </div>
 

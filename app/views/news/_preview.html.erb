@@ -1,6 +1,6 @@
 <div class="news_thumbnail">
   <div class="thumbnail">
-    <h6><%=link_to news.title||"标题", "#nogo", id: "preview_news_title"%></h6>
+    <h6><%=link_to news.title||"标题", news.safe_url, id: "preview_news_title"%></h6>
     <div class="cover" id="preview_news_pic">
       <% if news.pic_uuid %>
         <%= image_tag news.pic_url, data: {src: "holder.js/640x320"}, alt: ""%>
@@ -20,13 +20,21 @@
       </table>
     <% end %>
     <table class="table table-hover news_items_table">
-      <% news.items.each do |itt| %>
+      <% news.items.each do |it| %>
         <tr>
-          <td><%=link_to itt.title||"标题", "#nogo", class: "preview_item_title"%></td>
+					<td>
+						<%=link_to it.title||"标题", "#nogo", class: "preview_item_title"%>
+						<% unless it.new_record? %>
+							<div class="item_toolbar">
+								<%=link_to raw("<i class='icon-edit'></i>"), edit_news_item_path(news.id,it.id)%>
+								<%=link_to raw("<i class='icon-remove'></i>"), [news,it], method: :delete, data: {confirm: "确认删除？"} %>
+							</div>
+						<% end %>
+					</td>
           <td>
-            <div id="preview_item_pic">
-              <% if itt.pic_uuid %>
-                <%= image_tag itt.pic_url, data: {src: "holder.js/80x80"}, alt: "" %>
+            <div class="preview_item_pic">
+              <% if it.pic_uuid %>
+                <%= image_tag it.pic_url, data: {src: "holder.js/80x80"}, alt: "" %>
               <% else %>
                 <p class="default_tip">图片</p>
               <% end %>
@@ -37,3 +45,6 @@
     </table>
   </div>
 </div>
+<%= javascript_tag do %>
+  auto_show_item_toolbar()
+<% end %>

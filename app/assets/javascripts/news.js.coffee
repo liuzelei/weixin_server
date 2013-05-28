@@ -23,15 +23,18 @@ $(document).on 'nested:fieldAdded', (event) ->
 @urlsafe = (original_str) ->
   original_str.replace("+","-").replace("/","_")
 
-encoded_entry_uri = (bucket,uuid) ->
-  entry_uri = $.base64.encode("#{bucket}:#{uuid}")
-  urlsafe(entry_uri)
+# jquery.base64.js
+#encoded_entry_uri = (bucket,uuid) ->
+#  entry_uri = $.base64.encode("#{bucket}:#{uuid}")
+#  urlsafe(entry_uri)
 
 
 @auto_show_news_toolbar = () ->
   #$(".news_toolbar").hover (-> $(".news_toolbar a").show()), (-> $(".news_toolbar a").hide())
   $(".thumbnail").hover (-> $(this).find(".news_toolbar a").show()), (-> $(this).find(".news_toolbar a").hide())
 
+@auto_show_item_toolbar = () ->
+  $(".news_items_table tr").hover (-> $(this).find(".item_toolbar a").show()), (-> $(this).find(".item_toolbar a").hide())
 
 @news_waterfall = () ->
   opt={
@@ -65,9 +68,9 @@ encoded_entry_uri = (bucket,uuid) ->
       pic_url = pic_url_origin + '-large'
       $(this).siblings(".hidden").find("input").val(pic_uuid)
       $(this).after("<img src=\"#{pic_url}\" alt='' width='200px' height='100px'/><p>#{pic_url_origin}</p>")
-      $("#preview_item_pic").find("img").remove()
-      $("#preview_item_pic").find("p").hide()
-      $("#preview_item_pic").append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}-small\"  alt='' />")
+      $(".preview_item_pic").last().find("img").remove()
+      $(".preview_item_pic").last().find("p").hide()
+      $(".preview_item_pic").last().append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}-small\"  alt='' />")
       $(this).hide()
 
 ###
@@ -92,10 +95,10 @@ sync_news_desc = () ->
 
 
 sync_news_item_title = (obj) ->
-  index_item_title = $(".news_item_title").index obj
+  #index_item_title = $(".news_item_title").index obj
   title = obj.val()
-  preview_item_title = $(".preview_item_title").eq(index_item_title)
-  console.log preview_item_title
+  #preview_item_title = $(".preview_item_title").eq(index_item_title)
+  preview_item_title = $(".preview_item_title").last()
   preview_item_title.text(title)
 
 @auto_preview_news = () ->

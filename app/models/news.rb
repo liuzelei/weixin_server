@@ -15,6 +15,9 @@ class News < ActiveRecord::Base
   #  n.new_record?
   #}
 
+  def safe_url
+    url.present? ? url : "#nogo"
+  end
   def pic_url_origin
     if pic_uuid
       "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}"
