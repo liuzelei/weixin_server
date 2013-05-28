@@ -2,10 +2,12 @@
   <ul class="nav nav-list bs-docs-sidenav affix">
     <li><%=link_to raw(" 统计 "), "#", class: "nav-header"%></li>
     <li class="<%=current_menu_item_state('chart_messages')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>每日消息 "), chart_messages_statistics_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('chart_messages_add_up')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>累计消息 "), chart_messages_add_up_statistics_path, class: ""%></li>
     <li class="<%=current_menu_item_state('chart_follows')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>每日订阅 "), chart_follows_statistics_path, class: ""%></li>
-    <li class="<%=current_menu_item_state('follows')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>订阅记录详细 "), follows_statistics_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('chart_follows_add_up')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>累计订阅 "), chart_follows_add_up_statistics_path, class: ""%></li>
     <li class="<%=current_menu_item_state('detail')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>消息记录详细 "), detail_statistics_path, class: ""%></li>
-    <li class="<%=current_menu_item_state('dates')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>统计（日期） "), dates_statistics_path, class: ""%></li>
-    <li class="<%=current_menu_item_state('messages')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>统计（文本） "), messages_statistics_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('follows')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>订阅记录详细 "), follows_statistics_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('msg_types')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>消息类型 "), msg_types_statistics_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('dates')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>消息日期 "), dates_statistics_path, class: ""%></li>
   </ul>
 <% end %>

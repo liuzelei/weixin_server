@@ -2,13 +2,13 @@
 
 <table class="table table-bordered">
   <tr>
-    <th>用户提交文本</th>
-    <th>统计</th>
+    <th>消息类型</th>
+    <th>计数</th>
     <th></th>
   </tr>
-  <% @wx_texts.each do |it| %>
+  <% @stats.each do |it| %>
     <tr>
-      <td><%=it.content%></td>
+      <td><%=it.msg_type%></td>
       <td><%=it.cnt%></td>
       <td>
       </td>

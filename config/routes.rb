@@ -54,12 +54,14 @@ DemoWeixin::Application.routes.draw do
   resources :statistics, only: [:index] do
     collection do
       get "chart_messages"
+      get "chart_messages_add_up"
       get "chart_follows"
+      get "chart_follows_add_up"
       get "detail"
       get "detail_export"
       get "follows"
       get "follows_export"
-      get "messages"
+      get "msg_types"
       get "dates"
       get "weixin_users"
     end

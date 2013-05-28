@@ -1,6 +1,10 @@
 # encoding: utf-8
 class StatisticsController < ApplicationController
 
+  def msg_types
+    @stats = RequestMessage.select("msg_type, count(msg_type) as cnt").group(:msg_type).order("cnt desc")
+  end
+
   def follows
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 10
     # TODO search
@@ -30,7 +34,8 @@ class StatisticsController < ApplicationController
       #@request_messages = RequestMessage.joins(:wx_text).where("wx_texts.content like ?", "%#{params[:term]}%").select("request_messages.*, wx_texts.*").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
       @request_messages = RequestMessage.joins(:wx_text).where("wx_texts.content like ?", "%#{params[:term]}%").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
     else
-      @request_messages = RequestMessage.where("msg_type != ?", "event").order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+      #@request_messages = RequestMessage.where("msg_type != ?", "event").order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+      @request_messages = RequestMessage.order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
     end
   end
 
@@ -67,6 +72,18 @@ class StatisticsController < ApplicationController
       f.series(:type=> 'spline',:name=> '消息数', :data=> req_data)
     end
   end
+  def chart_messages_add_up
+    req_stats = RequestMessage.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
+    req_dates = req_stats.map {|it| it.created_date}
+    sum = 0
+    req_data = req_stats.inject([]){|res,it| res<<sum+=it.cnt.to_i}
+    @req_stat_chart = LazyHighCharts::HighChart.new('graph') do |f|
+      f.legend(enabled: false)
+      f.title({ :text=>"累计接收消息数"})
+      f.options[:xAxis][:categories] = req_dates
+      f.series(:type=> 'spline',:name=> '消息数', :data=> req_data)
+    end
+  end
 
   def chart_follows
     follow_stats = WxEvent.where(event: "subscribe").group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
@@ -77,6 +94,18 @@ class StatisticsController < ApplicationController
       f.title(text: "每日新增订阅人数")
       f.options[:xAxis][:categories] = follow_dates
       f.series(type: "spline", name: "新增订阅数", data: follow_data)
+    end
+  end
+  def chart_follows_add_up
+    follow_stats = WxEvent.where(event: "subscribe").group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
+    follow_dates = follow_stats.map {|it| it.created_date}
+    sum = 0
+    follow_data = follow_stats.inject([]) {|res,it| res<<sum+=it.cnt.to_i}
+    @follow_stat_chart = LazyHighCharts::HighChart.new("graph") do |f|
+      f.legend(enabled: false)
+      f.title(text: "累计新增订阅人数")
+      f.options[:xAxis][:categories] = follow_dates
+      f.series(type: "spline", name: "订阅数", data: follow_data)
     end
   end
   # GET /statistics
