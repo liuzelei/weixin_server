@@ -66,7 +66,11 @@ DemoWeixin::Application.routes.draw do
       get "weixin_users"
     end
   end
-  resources :articles
+  resources :articles do
+    member do
+      get "pres"
+    end
+  end
   resources :pictures
 
   get "others/djq"

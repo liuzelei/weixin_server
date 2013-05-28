@@ -23,7 +23,7 @@
       <td><%= Sanitize.clean(it.content).truncate(200)%></td>
       <td><%= article_url(it)%></td>
       <td>
-				<%=link_to raw("<i class='icon-folder-open'></i>"), it%>
+				<%=link_to raw("<i class='icon-folder-open'></i>"), pres_article_path(it), target: "_blank"%>
         &nbsp; &nbsp;
 				<%=link_to raw("<i class='icon-edit'></i>"), edit_article_path(it)%>
         &nbsp; &nbsp;

@@ -22,6 +22,12 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def pres
+    @article = Article.find(params[:id])
+
+    render layout: false
+  end
+
   # GET /articles/new
   # GET /articles/new.json
   def new
