@@ -1,5 +1,6 @@
 //KindEditor.options.items=["image"]
-KindEditor.options.items=["bold", "forecolor", "hilitecolor", "|", "link", "image", "emoticons"]
+//KindEditor.options.items=["bold", "forecolor", "hilitecolor", "|", "link", "image", "emoticons", "|", "fullscreen"]
+KindEditor.options.items= ["formatblock", "fontname", "fontsize", "|", "justifyleft", "justifycenter", "justifyright", "justifyfull", "insertorderedlist", "insertunorderedlist", "indent", "outdent", "|", "wordpaste", "clearhtml", "quickformat", "|", "/", "bold", "italic", "underline", "strikethrough", "forecolor", "hilitecolor", "lineheight", "removeformat", "|", "image",  "flash", "media", "insertfile", "table", "hr", "emoticons", "pagebreak", "link", "unlink", "|", "preview", "fullscreen"]
 
 //KindEditor.options.themeType='easy'
 

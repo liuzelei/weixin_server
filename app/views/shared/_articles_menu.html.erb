@@ -1,0 +1,6 @@
+<% content_for :menu do %>
+  <ul class="nav nav-list bs-docs-sidenav affix">
+    <li><%=link_to raw(" 文章管理 "), "#", class: "nav-header"%></li>
+    <li class="<%=current_menu_item_state('index',"articles")%>"><%=link_to raw(" <i class='icon-chevron-right'></i>文章列表 "), articles_path, class: ""%></li>
+  </ul>
+<% end %>
