@@ -9,13 +9,7 @@
 <div class="news_waterfall">
 	<% @news.each do |it| %>
 		<div class="thumbnail">
-			<p class="news_toolbar">
-				<span class="badge badge-success"><%=it.id%></span>
-				<%=link_to raw("<i class='icon-remove'></i>"), it, method: :delete, data: {confirm: "确认删除？"} %>
-				<%=link_to raw("<i class='icon-plus'></i>"), new_news_item_path(it)%>
-				<%=link_to raw("<i class='icon-edit'></i>"), edit_news_path(it)%>
-				<%=link_to raw("<i class='icon-folder-open'></i>"), it%>
-			</p>
+			<%= render "toolbar", {news: it} %>
 			<h6><%=link_to it.title, it.url%></h6>
 			<%= image_tag it.pic_url, data: {src: "holder.js/639x359"}, alt: ""%>
 			<table class="table table-hover news_items_table">
@@ -33,6 +27,5 @@
 <%=paginate @news%>
 
 <%= javascript_tag do %>
-	auto_show_news_toolbar()
 	news_waterfall()
 <% end %>

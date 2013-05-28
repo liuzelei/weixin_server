@@ -1,5 +1,6 @@
 <div class="news_thumbnail">
   <div class="thumbnail">
+		<%= render "toolbar", {news: news} %>
     <h6><%=link_to news.title||"标题", news.safe_url, id: "preview_news_title"%></h6>
     <div class="cover" id="preview_news_pic">
       <% if news.pic_uuid %>
@@ -46,5 +47,6 @@
   </div>
 </div>
 <%= javascript_tag do %>
+	auto_show_news_toolbar()
   auto_show_item_toolbar()
 <% end %>
