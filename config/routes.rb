@@ -53,6 +53,8 @@ DemoWeixin::Application.routes.draw do
 
   resources :statistics, only: [:index] do
     collection do
+      get "chart_messages"
+      get "chart_follows"
       get "detail"
       get "detail_export"
       get "follows"
@@ -68,7 +70,8 @@ DemoWeixin::Application.routes.draw do
   get "others/djq"
 
   #root to: 'welcome#index'
-  root to: 'statistics#index'
+  #root to: 'statistics#index'
+  root to: 'statistics#chart_messages'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
