@@ -25,7 +25,7 @@ class ArticlesController < ApplicationController
   def pres
     @article = Article.find(params[:id])
 
-    render layout: false
+    render layout: "presentation"
   end
 
   # GET /articles/new

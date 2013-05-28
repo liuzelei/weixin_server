@@ -21,7 +21,7 @@
       <td><%= it.id%></td>
       <td><%= it.title%></td>
       <td><%= Sanitize.clean(it.content).truncate(200)%></td>
-      <td><%= article_url(it)%></td>
+      <td><%= pres_article_url(it)%></td>
       <td>
 				<%=link_to raw("<i class='icon-folder-open'></i>"), pres_article_path(it), target: "_blank"%>
         &nbsp; &nbsp;
