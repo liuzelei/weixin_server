@@ -1,10 +1,33 @@
-<%=link_to "Export", detail_export_statistics_path(term: params[:term],weixin_user_id: params[:weixin_user_id]), class: "btn right"%>
 
-<%= form_tag(detail_statistics_path, method: "get", class: "form-search right") do %>
-	<div class="input-append">
-		<%=text_field_tag "term", params[:term], {class: "span2 search-query"}%>
-		<%=submit_tag "搜索关键词", {class: "btn btn-primary",name: nil}%>
+<%= search_form_for @q, url: detail_statistics_path, html: {method: :post, class: "form-inline"} do |f| %>
+	<div class="field">
+		<%= f.label :xml_cont, "消息包含"%>
+		<%= f.text_field :xml_cont%>
 	</div>
-<%end%>
+	<div class="field">
+		<%= f.label :created_at_gt, "日期大于" %>
+		<%= f.text_field :created_at_gt, class: "date_picker" %>
+		&nbsp; &nbsp;
+		<%= f.label :created_at_lt, "小于" %>
+		<%= f.text_field :created_at_lt, class: "date_picker" %>
+	</div>
+	<div class="actions">
+		<%=submit_tag "查询", {class: "btn btn-primary",name: nil}%>
+		<%=link_to "Export", detail_export_statistics_path(params[:term]), class: "btn"%>
+	</div>
+<% end %>
+
+<!--
+<%#= form_tag(detail_statistics_path, method: "get", class: "form-search right") do %>
+	<div class="input-append">
+		<%#=text_field_tag "term", params[:term], {class: "span2 search-query"}%>
+		<%#=submit_tag "搜索关键词", {class: "btn btn-primary",name: nil}%>
+	</div>
+<%#end%>
+-->
 
 <div style="clear:both;"></div>
+
+<%= javascript_tag do %>
+	date_picker()
+<% end %>

@@ -26,6 +26,11 @@ class StatisticsController < ApplicationController
   end
 
   def detail
+
+    @q = RequestMessage.search(params[:q])
+    @request_messages = @q.result.includes(:response_message).includes(:weixin_user).includes(:wx_text).includes(:wx_location).includes(:wx_image).includes(:wx_event).includes(:wx_link)
+
+=begin
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 10
     # TODO search
     if params[:weixin_user_id].present?
@@ -37,6 +42,7 @@ class StatisticsController < ApplicationController
       #@request_messages = RequestMessage.where("msg_type != ?", "event").order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
       @request_messages = RequestMessage.order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
     end
+=end
   end
 
   def detail_export

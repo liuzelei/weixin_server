@@ -57,7 +57,7 @@ DemoWeixin::Application.routes.draw do
       get "chart_messages_add_up"
       get "chart_follows"
       get "chart_follows_add_up"
-      get "detail"
+      match 'detail', via: [:get, :post]#, :as => :search
       get "detail_export"
       get "follows"
       get "follows_export"

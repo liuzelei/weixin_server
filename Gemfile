@@ -30,6 +30,7 @@ gem 'capistrano'
 gem 'rvm-capistrano'
 
 gem 'pg'
+gem "ransack"
 gem 'kaminari'
 gem "nested_form"
 gem 'carrierwave'
