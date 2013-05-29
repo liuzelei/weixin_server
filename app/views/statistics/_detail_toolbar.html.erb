@@ -13,7 +13,7 @@
 	</div>
 	<div class="actions">
 		<%=submit_tag "查询", {class: "btn btn-primary",name: nil}%>
-		<%=link_to "Export", detail_export_statistics_path(params[:term]), class: "btn"%>
+		<%=link_to "导出", detail_export_statistics_path(params), method: :post, class: "btn"%>
 	</div>
 <% end %>
 
