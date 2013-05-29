@@ -14,7 +14,6 @@ end
 DemoWeixin::Application.routes.draw do
   devise_for :users
 
-  resources :weixin_users
   get "welcome/index"
   get "welcome/test"
   post "welcome/test1"
@@ -34,6 +33,11 @@ DemoWeixin::Application.routes.draw do
     #match "message/io" => "message#input_text", constraints: lambda {|r| r.params}
   end
 
+  resources :weixin_users do
+    member do
+      get "messages"
+    end
+  end
   resources :shops
   resources :settings
   resources :qa_steps

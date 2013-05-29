@@ -25,6 +25,12 @@ class WeixinUsersController < ApplicationController
     end
   end
 
+  def messages
+    @per_page = params[:per_page].present? ? params[:per_page].to_i : 10
+    @weixin_user = WeixinUser.find(params[:id])
+    @request_messages = @weixin_user.request_messages.includes(:response_message).includes(:weixin_user).includes(:wx_text).includes(:wx_location).includes(:wx_image).includes(:wx_event).includes(:wx_link).page([params[:page].to_i,1].max).per(@per_page)
+  end
+
   # GET /weixin_users/new
   # GET /weixin_users/new.json
   def new
