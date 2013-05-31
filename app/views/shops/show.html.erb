@@ -14,6 +14,13 @@
   <b>电话:</b>
   <%= @shop.phone_number %>
 </p>
+<p>
+  <b>维度:</b>
+  <%= @shop.latitude %>
+  &nbsp;
+  <b>经度:</b>
+  <%= @shop.longitude %>
+</p>
 
 
 <%= link_to 'Edit', edit_shop_path(@shop) %> |

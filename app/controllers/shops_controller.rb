@@ -2,7 +2,7 @@ class ShopsController < ApplicationController
   # GET /shops
   # GET /shops.json
   def index
-    @shops = Shop.all
+    @shops = Shop.order("updated_at desc")
 
     respond_to do |format|
       format.html # index.html.erb
