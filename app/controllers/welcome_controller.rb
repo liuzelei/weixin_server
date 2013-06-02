@@ -1,4 +1,6 @@
 class WelcomeController < ApplicationController
+  include Weixin::Plugins
+
   skip_before_filter :verify_authenticity_token, only: [:auth]
 
   def index
@@ -9,8 +11,7 @@ class WelcomeController < ApplicationController
   end
 
   def test
-    @abc = "dev"
-    logger.info request.location.latitude
+    WeixinWeb.steal_weixin_user_info
     render :test_template, format: :html
   end
 

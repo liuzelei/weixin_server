@@ -2,6 +2,26 @@
 
 module Weixin
   module Plugins
+    class WeixinWeb
+      class << self
+        def logger
+          @logger ||= Logger.new File.join(Rails.root,"log","weixin_web.log"), "weekly"
+        end
+
+        def steal_weixin_user_info
+          begin
+            logger.info "dev..."
+          rescue => e
+          end
+        end
+      end
+    end
+
+
+    def test_lib
+      #binding.pry
+    end
+
     def translate_word(word)
       uri = URI "http://fanyi.youdao.com/openapi.do"
       #opts = {headers: {"Accept-Encoding"=>'gzip'}}
