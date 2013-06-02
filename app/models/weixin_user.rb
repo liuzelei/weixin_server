@@ -2,7 +2,7 @@
 class WeixinUser < ActiveRecord::Base
   before_save :repair_tags
 
-  attr_accessible :open_id, :weixin_id, :sex, :age, :latitude, :longitude, :scale, :category_list, :tag_list, :geocoding_address
+  attr_accessible :open_id, :weixin_id, :sex, :age, :latitude, :longitude, :scale, :category_list, :tag_list, :geocoding_address, :name, :avatar
 
   has_many :request_messages
   has_many :wx_texts

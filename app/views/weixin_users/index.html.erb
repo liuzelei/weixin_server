@@ -5,8 +5,9 @@
 <table class="table table-hover">
   <thead>
     <tr>
+      <th>头像</th>
+      <th>昵称</th>
       <th>用户ID</th>
-      <th>用户微信ID</th>
       <th>性别</th>
       <th>年龄</th>
       <th>地址</th>
@@ -16,8 +17,9 @@
   <tbody>
     <% @weixin_users.each do |it| %>
       <tr>
+        <td><%=image_tag it.avatar, class: "weixin_user_avatar" if it.avatar%></td>
+        <td><%=it.name%></td>
         <td><%=it.id%></td>
-        <td><%=it.weixin_id%></td>
         <td><%=it.sex_name%></td>
         <td><%=it.age_range%></td>
         <td><%="x: #{it.latitude}, y: #{it.longitude}, s: #{it.scale}"%></td>

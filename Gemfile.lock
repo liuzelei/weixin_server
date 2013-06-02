@@ -190,6 +190,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    selenium-client (1.2.18)
     sidekiq (2.9.0)
       celluloid (~> 0.12.0)
       connection_pool (~> 1.0)
@@ -261,6 +262,7 @@ DEPENDENCIES
   rvm-capistrano
   sanitize
   sass-rails
+  selenium-client
   sidekiq
   sinatra (>= 1.3.0)
   slim (>= 1.3.0)

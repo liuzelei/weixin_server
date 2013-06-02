@@ -11,7 +11,7 @@ class WelcomeController < ApplicationController
   end
 
   def test
-    WeixinWeb.steal_weixin_user_info
+    WeixinWeb.delay.steal_weixin_user_info
     render :test_template, format: :html
   end
 
