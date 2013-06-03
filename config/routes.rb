@@ -73,6 +73,7 @@ DemoWeixin::Application.routes.draw do
       get "dates"
       get "weixin_users"
       get "weixin_users_dates"
+      get "keywords"
     end
   end
   resources :articles do

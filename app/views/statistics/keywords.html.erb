@@ -1,0 +1,18 @@
+<%= render "shared/statistics_menu" %>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>关键词</th>
+      <th>消息数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @req_stats.each do |it| %>
+      <tr>
+        <td><%=it.content%></td>
+        <td><%=it.cnt%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

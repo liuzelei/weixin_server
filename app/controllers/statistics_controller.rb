@@ -63,6 +63,11 @@ class StatisticsController < ApplicationController
     @req_stats = RequestMessage.includes(:weixin_user).group("weixin_user_id").select("count(weixin_user_id) as cnt, weixin_user_id").order("cnt desc")
   end
 
+  def keywords
+    @keywords = KeywordReply.all.map(&:keyword)
+    @req_stats = WxText.where(content: @keywords).group("content").select("content, count(id) as cnt")
+  end
+
   def messages
     @wx_texts = WxText.select("content, count(content) as cnt").group(:content).order("cnt desc")
   end
