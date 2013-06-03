@@ -65,7 +65,7 @@ class StatisticsController < ApplicationController
 
   def keywords
     @keywords = KeywordReply.all.map(&:keyword)
-    @req_stats = WxText.where(content: @keywords).group("content").select("content, count(id) as cnt")
+    @req_stats = WxText.where(content: @keywords).group("content").select("content, count(id) as cnt").order("cnt desc")
   end
 
   def messages
