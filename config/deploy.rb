@@ -21,13 +21,13 @@ set :deploy_env, 'production'
 #set :bundle_cmd, proc {"cd #{current_release} && bundle"}
 set :bundle_cmd, 'source $HOME/.bash_profile && bundle'
 
-require 'sidekiq/capistrano'
-set :sidekiq_cmd, "#{bundle_cmd} exec sidekiq"
-set :sidekiqctl_cmd, "#{bundle_cmd} exec sidekiqctl"
-set :sidekiq_timeout, 1000
-set :sidekiq_role, :app
-set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
-set :sidekiq_processes, 3
+#require 'sidekiq/capistrano'
+#set :sidekiq_cmd, "#{bundle_cmd} exec sidekiq"
+#set :sidekiqctl_cmd, "#{bundle_cmd} exec sidekiqctl"
+#set :sidekiq_timeout, 1000
+#set :sidekiq_role, :app
+#set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
+#set :sidekiq_processes, 3
 
 set :keep_releases, 15
 
