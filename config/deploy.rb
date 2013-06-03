@@ -4,6 +4,8 @@ set :rvm_ruby_string ,  'ruby-1.9.3-p194@askjane' #这个值是你要用rvm的ge
 set :rvm_type ,  :user   # Don't use system-wide RVM
 require 'rvm/capistrano'
 
+require 'sidekiq/capistrano'
+
 set :stages, %w(mn online)
 set :default_stage, "mn"
 require 'capistrano/ext/multistage'
@@ -17,6 +19,13 @@ set :use_sudo, false
 set :deploy_via, :remote_cache
 set :deploy_env, 'production'
 set :deploy_to, "/home/#{user}/bbtang/#{application}"
+
+set :sidekiq_cmd, "#{bundle_cmd} exec sidekiq"
+set :sidekiqctl_cmd, "#{bundle_cmd} exec sidekiqctl"
+set :sidekiq_timeout, 1000
+set :sidekiq_role, :app
+set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
+set :sidekiq_processes, 3
 
 set :keep_releases, 15
 
