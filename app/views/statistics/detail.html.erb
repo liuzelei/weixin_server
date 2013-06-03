@@ -5,8 +5,9 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>用户ID</th>
+      <th>头像</th>
       <th>微信帐号</th>
+      <th>用户ID</th>
       <th>时间</th>
       <th>消息类型</th>
       <th>用户消息</th>
@@ -17,8 +18,9 @@
   <tbody>
     <% @request_messages.each do |it| %>
       <tr>
+        <td><%=image_tag it.weixin_user.try(:avatar), class: "weixin_user_avatar" if it.weixin_user.try(:avatar)%></td>
+        <td><%=it.weixin_user.try :name%></td>
         <td><%=it.weixin_user.try :id%></td>
-        <td><%=it.weixin_user.try :weixin_id%></td>
         <td><%=it.created_at.strftime("%Y-%m-%d %H:%M")%></td>
         <td><%=it.msg_type%></td>
         <td><%=it.specific_content%></td>
