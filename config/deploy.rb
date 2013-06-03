@@ -13,12 +13,11 @@ require 'capistrano/ext/multistage'
 set :application, "weixin_server"
 set :scm, :git
 set :scm_username, 'git'
+set :repository,  "git://github.com/as181920/weixin_server.git"
 set :branch, "master"
-set :user, 'bbt'
 set :use_sudo, false
 set :deploy_via, :remote_cache
 set :deploy_env, 'production'
-set :deploy_to, "/home/#{user}/bbtang/#{application}"
 
 #set :bundle_cmd, proc {"cd #{current_release} && bundle"}
 set :bundle_cmd, 'source $HOME/.bash_profile && bundle'
