@@ -4,7 +4,6 @@ set :rvm_ruby_string ,  'ruby-1.9.3-p194@askjane' #这个值是你要用rvm的ge
 set :rvm_type ,  :user   # Don't use system-wide RVM
 require 'rvm/capistrano'
 
-require 'sidekiq/capistrano'
 
 require 'capistrano/ext/multistage'
 set :stages, %w(mn online)
@@ -22,17 +21,18 @@ set :deploy_env, 'production'
 #set :bundle_cmd, proc {"cd #{current_release} && bundle"}
 set :bundle_cmd, 'source $HOME/.bash_profile && bundle'
 
-set :sidekiq_cmd, "#{bundle_cmd} exec sidekiq"
-set :sidekiqctl_cmd, "#{bundle_cmd} exec sidekiqctl"
-set :sidekiq_timeout, 1000
-set :sidekiq_role, :app
-set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
-set :sidekiq_processes, 3
+#require 'sidekiq/capistrano'
+#set :sidekiq_cmd, "#{bundle_cmd} exec sidekiq"
+#set :sidekiqctl_cmd, "#{bundle_cmd} exec sidekiqctl"
+#set :sidekiq_timeout, 1000
+#set :sidekiq_role, :app
+#set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
+#set :sidekiq_processes, 3
 
 set :keep_releases, 15
 
-set :user, 'andersen'
-set :deploy_to, "/home/#{user}/deployments/#{application}"
+#set :user, 'andersen'
+#set :deploy_to, "/home/#{user}/deployments/#{application}"
 
 after 'deploy:update_code', 'deploy:migrate', "deploy:create_symlink", "rvm:trust_rvmrc", "deploy:cleanup"
 
