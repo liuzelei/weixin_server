@@ -7,7 +7,9 @@
     <li class="<%=current_menu_item_state('chart_follows_add_up')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>累计订阅 "), chart_follows_add_up_statistics_path, class: ""%></li>
     <li class="<%=current_menu_item_state('detail')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>消息记录详细 "), detail_statistics_path, class: ""%></li>
     <li class="<%=current_menu_item_state('follows')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>订阅记录详细 "), follows_statistics_path, class: ""%></li>
-    <li class="<%=current_menu_item_state('msg_types')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>消息类型 "), msg_types_statistics_path, class: ""%></li>
-    <li class="<%=current_menu_item_state('dates')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>消息日期 "), dates_statistics_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('msg_types')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>类型 "), msg_types_statistics_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('dates')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>日期 "), dates_statistics_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('weixin_users')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>用户 "), weixin_users_statistics_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('weixin_users_dates')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>用户+日期 "), weixin_users_dates_statistics_path, class: ""%></li>
   </ul>
 <% end %>

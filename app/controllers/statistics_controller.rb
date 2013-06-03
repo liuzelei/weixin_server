@@ -46,7 +46,8 @@ class StatisticsController < ApplicationController
   end
 
   def detail_export
-    detail
+    @q = RequestMessage.search(params[:q])
+    @request_messages = @q.result.includes(:response_message).includes(:weixin_user).includes(:wx_text).includes(:wx_location).includes(:wx_image).includes(:wx_event).includes(:wx_link).order("request_messages.created_at desc")
     render layout: "export"
   end
 
@@ -54,12 +55,16 @@ class StatisticsController < ApplicationController
     @req_stats = RequestMessage.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date desc")
   end
 
-  def messages
-    @wx_texts = WxText.select("content, count(content) as cnt").group(:content).order("cnt desc")
+  def weixin_users_dates
+    @req_stats = RequestMessage.includes(:weixin_user).group("weixin_user_id, date(created_at)").select("count(id) as cnt, weixin_user_id, date(created_at) as created_date").order("created_date desc")
   end
 
   def weixin_users
-    @weixin_users = WeixinUser.all
+    @req_stats = RequestMessage.includes(:weixin_user).group("weixin_user_id").select("count(weixin_user_id) as cnt, weixin_user_id").order("cnt desc")
+  end
+
+  def messages
+    @wx_texts = WxText.select("content, count(content) as cnt").group(:content).order("cnt desc")
   end
 
   def chart_messages
