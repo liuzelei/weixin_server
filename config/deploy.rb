@@ -20,6 +20,9 @@ set :deploy_via, :remote_cache
 set :deploy_env, 'production'
 set :deploy_to, "/home/#{user}/bbtang/#{application}"
 
+#set :bundle_cmd, proc {"cd #{current_release} && bundle"}
+set :bundle_cmd, 'source $HOME/.bash_profile && bundle'
+
 set :sidekiq_cmd, "#{bundle_cmd} exec sidekiq"
 set :sidekiqctl_cmd, "#{bundle_cmd} exec sidekiqctl"
 set :sidekiq_timeout, 1000
