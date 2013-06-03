@@ -10,6 +10,7 @@ module Weixin
         end
 
         def steal_weixin_user_info
+          #@current_weixin_user = WeixinUser.last
           if @current_weixin_user
             begin
               logger.info "start selenium stealing..."
