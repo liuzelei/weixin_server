@@ -9,8 +9,9 @@ module Weixin
           @logger ||= Logger.new File.join(Rails.root,"log","weixin_web.log"), "weekly"
         end
 
-        def steal_weixin_user_info
+        def steal_weixin_user_info(weixin_user_id=0)
           #@current_weixin_user = WeixinUser.last
+          @current_weixin_user = WeixinUser.find_by_id weixin_user_id
           if @current_weixin_user
             begin
               logger.info "start selenium stealing..."
