@@ -6,9 +6,9 @@ require 'rvm/capistrano'
 
 require 'sidekiq/capistrano'
 
+require 'capistrano/ext/multistage'
 set :stages, %w(mn online)
 set :default_stage, "mn"
-require 'capistrano/ext/multistage'
 
 set :application, "weixin_server"
 set :scm, :git
@@ -30,6 +30,9 @@ set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
 set :sidekiq_processes, 3
 
 set :keep_releases, 15
+
+set :user, 'andersen'
+set :deploy_to, "/home/#{user}/deployments/#{application}"
 
 after 'deploy:update_code', 'deploy:migrate', "deploy:create_symlink", "rvm:trust_rvmrc", "deploy:cleanup"
 
