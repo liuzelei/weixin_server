@@ -3,7 +3,7 @@ class NewsController < ApplicationController
   # GET /news.json
   def index
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 15
-    @news = News.order("updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
+    @news = News.includes(:items).order("news.updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
 
     respond_to do |format|
       format.html # index.html.erb

@@ -82,7 +82,7 @@ $(document).on 'nested:fieldAdded', (event) ->
       $(this).hide()
       progress = parseInt(data.loaded / data.total * 100, 10)
       if $("#upload_progress").length > 0
-        $("#upload_progress").text(progress)
+        $("#upload_progress").text "#{progress}%"
       else
         $(this).after("<span id='upload_progress'></span>")
     done: (e, data) ->
@@ -91,6 +91,7 @@ $(document).on 'nested:fieldAdded', (event) ->
       #audio_url_mobile = audio_url_origin + '-mobile'
       $(this).siblings(".hidden").find("input").val(uuid)
       $(this).after("<audio controls='controls'> <source src=\"#{audio_url_origin}\" /> </audio>")
+      $("#upload_progress").remove()
 @upload_common_pic = () ->
   uploader_ele = $('.news_fileupload')
   bucket = uploader_ele.data("bucket")
