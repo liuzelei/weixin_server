@@ -74,6 +74,17 @@ $(document).on 'nested:fieldAdded', (event) ->
       $(".preview_item_pic").last().find("p").hide()
       $(".preview_item_pic").last().append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}-small\"  alt='' />")
       $(this).hide()
+@upload_common_audio = () ->
+  uploader_ele = $('.audio_fileupload')
+  bucket = uploader_ele.data("bucket")
+  uploader_ele.fileupload
+    done: (e, data) ->
+      uuid = data.result.key
+      audio_url_origin = "http://#{bucket}.qiniudn.com/#{uuid}"
+      #audio_url_mobile = audio_url_origin + '-mobile'
+      $(this).siblings(".hidden").find("input").val(uuid)
+      $(this).after("<audio controls='controls'> <source src=\"#{audio_url_origin}\" /> </audio>")
+      $(this).hide()
 @upload_common_pic = () ->
   uploader_ele = $('.news_fileupload')
   bucket = uploader_ele.data("bucket")

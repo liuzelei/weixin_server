@@ -1,0 +1,37 @@
+<%= render "shared/news_menu" %>
+
+<%=link_to raw(" <i class='icon-plus'></i>新增 "), new_audio_path, class: "btn btn-primary right"%>
+<br />
+<br />
+<div style="clear:both;"></div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>标题</th>
+      <th>音频地址（原始）</th>
+      <th>音频地址（mp3）</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+	<% @audios.each do |it| %>
+    <tr>
+      <td><%= it.id%></td>
+      <td><%=image_tag it.pic_url_small%></td>
+      <td><%= it.pic_url_origin%></td>
+      <td><%= it.pic_url_mobile%></td>
+      <td>
+				<%=link_to raw("<i class='icon-folder-open'></i>"), it%>
+        &nbsp; &nbsp;
+				<%=link_to raw("<i class='icon-edit'></i>"), edit_audio_path(it)%>
+        &nbsp; &nbsp;
+				<%=link_to raw("<i class='icon-remove'></i>"), it, method: :delete, data: {confirm: "确认删除？"} %>
+      </td>
+    </tr>
+	<% end %>
+  </tbody>
+</table>
+
+<%=paginate @audios%>

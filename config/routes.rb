@@ -12,6 +12,7 @@ class DemoWeixin::Router
 end
 
 DemoWeixin::Application.routes.draw do
+
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
@@ -82,6 +83,7 @@ DemoWeixin::Application.routes.draw do
     end
   end
   resources :pictures
+  resources :audios
 
   get "others/djq"
 

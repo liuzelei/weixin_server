@@ -1,0 +1,32 @@
+<%= form_for @audio, html: {class: "audios_form"} do |f| %>
+  <% if @audio.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@audio.errors.count, "error") %> prohibited this audio from being saved:</h2>
+
+      <ul>
+        <% @audio.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <br />
+    <br />
+
+    <%= f.label :file %>
+    <%=render "shared/audio_uploader", {f: f, qiniu_file_uuid: SecureRandom.uuid}%> 
+
+  </fieldset>
+  <hr />
+
+  <%= f.submit "提交", class: "btn btn-primary btn-large right" %>
+<% end %>
+
+<%= javascript_tag do %>
+  upload_common_audio()
+<% end %>

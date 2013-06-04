@@ -17,7 +17,7 @@
   <tbody>
     <% @weixin_users.each do |it| %>
       <tr>
-        <td><%=image_tag it.avatar, class: "weixin_user_avatar" if it.avatar%></td>
+        <td><%=image_tag it.avatar, alt: "", class: "weixin_user_avatar" if it.avatar%></td>
         <td><%=it.name%></td>
         <td><%=it.id%></td>
         <td><%=it.sex_name%></td>

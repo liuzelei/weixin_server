@@ -6,10 +6,14 @@ Qiniu::RS.establish_connection! \
 
 
 QINIU_BUCKET = QINIU_CONFIG["bucket"]
+QINIU_BUCKET_AUDIO = QINIU_CONFIG["bucket_audio"]
 #QINIU_UPLOAD_TOKEN = Qiniu::RS.generate_upload_token scope: QINIU_BUCKET #can not use this ,it will expire
 
 def generate_qiniu_upload_token
   Qiniu::RS.generate_upload_token scope: QINIU_BUCKET
+end
+def generate_audio_upload_token
+  Qiniu::RS.generate_upload_token scope: QINIU_BUCKET_AUDIO
 end
 
 #QINIU_ENTRYURI = "testimages:eePG33EPxBQEYeuPbzQ8siZfi-pklcvzocOt1XPm"

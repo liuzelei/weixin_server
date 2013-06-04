@@ -31,3 +31,11 @@ article, section, aside, hgroup, nav, header, footer, figure, figcaption {
 .mini_img {
 	height: 60px;
 }
+
+fieldset {
+  background-color: #F8F8F8;
+  border: 1px solid #B8B8B8;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  padding: 14px 22px 20px 20px;
+}
