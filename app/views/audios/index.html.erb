@@ -19,9 +19,9 @@
 	<% @audios.each do |it| %>
     <tr>
       <td><%= it.id%></td>
-      <td><%=image_tag it.pic_url_small%></td>
-      <td><%= it.pic_url_origin%></td>
-      <td><%= it.pic_url_mobile%></td>
+      <td><%= it.title%></td>
+      <td><%= audio_tag it.audio_url_origin, autoplay: false, controls: true%></td>
+      <td><%= it.title%></td>
       <td>
 				<%=link_to raw("<i class='icon-folder-open'></i>"), it%>
         &nbsp; &nbsp;
