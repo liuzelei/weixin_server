@@ -88,7 +88,7 @@ $(document).on 'nested:fieldAdded', (event) ->
     done: (e, data) ->
       uuid = data.result.key
       audio_url_origin = "http://#{bucket}.qiniudn.com/#{uuid}"
-      #audio_url_mobile = audio_url_origin + '-mobile'
+      audio_url_m3u8 = audio_url_origin + '.m3u8_audio'
       $(this).siblings(".hidden").find("input").val(uuid)
       $(this).after("<audio controls='controls'> <source src=\"#{audio_url_origin}\" /> </audio>")
       $("#upload_progress").remove()

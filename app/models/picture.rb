@@ -1,6 +1,8 @@
 class Picture < ActiveRecord::Base
   attr_accessible :title, :pic_uuid
 
+  validates_presence_of :pic_uuid
+
   def pic_url_origin
     "http://#{QINIU_BUCKET}.qiniudn.com/#{pic_uuid}"
   end
