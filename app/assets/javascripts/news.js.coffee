@@ -108,9 +108,9 @@ $(document).on 'nested:fieldAdded', (event) ->
       uuid = data.result.key
       video_url_origin = "http://#{bucket}.qiniudn.com/#{uuid}"
       video_url_mp4_wifi = video_url_origin + ".mp4_wifi_video"
-      video_url_ogg_wifi = video_url_origin + ".ogg_wifi_video"
+      video_url_webm_wifi = video_url_origin + ".webm_wifi_video"
       $(this).siblings(".hidden").find("input").val(uuid)
-      $(this).after("<video controls> <source src=\"#{video_url_origin}\" type='video/mp4'><source src=\"#{video_url_ogg_wifi}\" type='video/ogg'><source src=\"#{video_url_mp4_wifi}\" type='video/mp4'> </video> ")
+      $(this).after("<video controls=''> <source src=\"#{video_url_origin}\"><source src=\"#{video_url_webm_wifi}\"><source src=\"#{video_url_mp4_wifi}\"> </video> ")
       $("#upload_progress").remove()
 @upload_common_pic = () ->
   uploader_ele = $('.news_fileupload')
