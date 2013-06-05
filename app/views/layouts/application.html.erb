@@ -5,8 +5,11 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= stylesheet_link_tag    "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css", :media => "all" %>
   <%= javascript_include_tag "application" %>
-	<link href="http://vjs.zencdn.net/4.0/video-js.css" rel="stylesheet">
-	<script src="http://vjs.zencdn.net/4.0/video.js"></script>
+
+	<!--[if lt IE 9]>
+	<script src="http://api.html5media.info/1.1.4/html5media.min.js"></script>
+	<![endif]-->
+
 	<%= favicon_link_tag image_path('favicon.ico')%>
   <%= csrf_meta_tags %>
 </head>
