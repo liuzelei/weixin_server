@@ -7,7 +7,7 @@ class Video < ActiveRecord::Base
     "http://#{QINIU_BUCKET_VIDEO}.qiniudn.com/#{uuid}"
   end
 
-  ["ogg","mp4","flv","m3u8"].each do |format|
+  ["swf","m4v","ogg","mp4","flv","m3u8"].each do |format|
     ["3g","wifi"].each do |quality|
       define_method "video_url_#{format}_#{quality}".to_sym do
         "http://#{QINIU_BUCKET_VIDEO}.qiniudn.com/#{uuid}.#{format}_#{quality}_video"

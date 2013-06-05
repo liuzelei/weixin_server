@@ -7,7 +7,7 @@
 
 <p>
   <b>视频:</b>
-  <%= video_tag @video.video_url_ogg_wifi, controls: true%>
+	<%= render "shared/video_player" %>
 </p>
 
 <%= link_to 'Edit', edit_video_path(@video) %> |

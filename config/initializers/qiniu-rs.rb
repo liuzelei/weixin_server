@@ -21,7 +21,7 @@ end
 def generate_video_upload_token
   Qiniu::RS.generate_upload_token \
     scope: QINIU_BUCKET_VIDEO,
-    async_options: "avthumb/m3u8/preset/video_16x9_150k;avthumb/m3u8/preset/video_16x9_640k;avthumb/mp4/preset/video_16x9_150k;avthumb/flv/preset/video_16x9_150k;avthumb/flv/preset/video_16x9_640k;avthumb/mp4/preset/video_16x9_640k;avthumb/ogg/preset/video_16x9_150;avthumb/ogg/preset/video_16x9_640k"
+    async_options: "avthumb/m3u8/preset/video_16x9_150k;avthumb/m3u8/preset/video_16x9_640k;avthumb/mp4/preset/video_16x9_150k;avthumb/flv/preset/video_16x9_150k;avthumb/flv/preset/video_16x9_640k;avthumb/mp4/preset/video_16x9_640k;avthumb/ogg/preset/video_16x9_150;avthumb/ogg/preset/video_16x9_640k;avthumb/m4v/preset/video_16x9_150;avthumb/m4v/preset/video_16x9_640k;avthumb/swf/preset/video_16x9_150;avthumb/swf/preset/video_16x9_640k"
 end
 
 #QINIU_ENTRYURI = "testimages:eePG33EPxBQEYeuPbzQ8siZfi-pklcvzocOt1XPm"
