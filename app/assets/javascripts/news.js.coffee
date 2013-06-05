@@ -89,8 +89,9 @@ $(document).on 'nested:fieldAdded', (event) ->
       uuid = data.result.key
       audio_url_origin = "http://#{bucket}.qiniudn.com/#{uuid}"
       audio_url_m3u8 = audio_url_origin + '.m3u8_audio'
+      audio_url_wav = audio_url_origin + '.wav_audio'
       $(this).siblings(".hidden").find("input").val(uuid)
-      $(this).after("<audio controls='controls'> <source src=\"#{audio_url_origin}\" /> </audio>")
+      $(this).after("<audio controls='controls'> <source src=\"#{audio_url_wav}\" /> </audio>")
       $("#upload_progress").remove()
 @upload_common_pic = () ->
   uploader_ele = $('.news_fileupload')

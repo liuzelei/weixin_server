@@ -10,9 +10,9 @@
     <tr>
       <th>ID</th>
       <th>标题</th>
-      <th>音频（原始）</th>
+      <th>音频</th>
       <th>音频地址（原始）</th>
-      <th>音频（m3u8）</th>
+      <th>音频地址（wav）</th>
       <th>音频地址（m3u8）</th>
       <th></th>
     </tr>
@@ -22,9 +22,9 @@
     <tr>
       <td><%= it.id%></td>
       <td><%= it.title%></td>
-			<td><%= audio_tag it.audio_url_origin, autoplay: false, controls: true%></td>
+			<td><%= audio_tag it.audio_url_wav, autoplay: false, controls: true%></td>
 			<td><%= it.audio_url_origin %></td>
-      <td><%= audio_tag it.audio_url_m3u8, autoplay: false, controls: true%><br/><%=it.audio_url_m3u8%></td>
+			<td><%= it.audio_url_wav %></td>
       <td><%= it.audio_url_m3u8 %></td>
       <td>
 				<%=link_to raw("<i class='icon-folder-open'></i>"), it%>
