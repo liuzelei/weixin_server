@@ -6,15 +6,18 @@ development:
   <<: *defaults
   bucket: "testimages"
   bucket_audio: "testaudios"
+  bucket_video: "testvideos"
 
 test:
   <<: *defaults
   bucket: "testimages"
   bucket_audio: "testaudios"
+  bucket_video: "testvideos"
 
 production:
   access_key: "FgYzPpClDPAuPk4oAioBnm9Id5oEazWwwVyQlyTp"
   secret_key: "J3Jd-Z-uUa9nsEB451wuXpK4JKOw2qqxZLGc7zxf"
   bucket: "weixin"
   bucket_audio: "weixin-audios"
+  bucket_video: "weixin-videos"
 

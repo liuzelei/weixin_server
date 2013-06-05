@@ -1,0 +1,33 @@
+<%= form_for @video, html: {class: "videos_form"} do |f| %>
+  <% if @video.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@video.errors.count, "error") %> prohibited this video from being saved:</h2>
+
+      <ul>
+      <% @video.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <fieldset>
+
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <br />
+    <br />
+
+    <%= f.label :file %>
+    <%=render "shared/video_uploader", {f: f, qiniu_file_uuid: SecureRandom.uuid}%> 
+
+  </fieldset>
+  <hr />
+
+  <%= f.submit "提交", class: "btn btn-primary btn-large right" %>
+<% end %>
+
+<%= javascript_tag do %>
+  upload_common_video()
+<% end %>

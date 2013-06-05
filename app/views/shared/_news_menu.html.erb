@@ -5,6 +5,7 @@
     <li class="<%=current_menu_item_state('list')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>图文消息列表 "), list_news_index_path, class: ""%></li>
     <li class="<%=current_menu_item_state('index',"pictures")%>"><%=link_to raw(" <i class='icon-chevron-right'></i>图片库 "), pictures_path, class: ""%></li>
     <li class="<%=current_menu_item_state('index',"audios")%>"><%=link_to raw(" <i class='icon-chevron-right'></i>音频库 "), audios_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('index',"videos")%>"><%=link_to raw(" <i class='icon-chevron-right'></i>视频库 "), videos_path, class: ""%></li>
     <li class="<%=current_menu_item_state('index',"articles")%>"><%=link_to raw(" <i class='icon-chevron-right'></i>文章库 "), articles_path, class: ""%></li>
   </ul>
 <% end %>

@@ -7,6 +7,7 @@ Qiniu::RS.establish_connection! \
 
 QINIU_BUCKET = QINIU_CONFIG["bucket"]
 QINIU_BUCKET_AUDIO = QINIU_CONFIG["bucket_audio"]
+QINIU_BUCKET_VIDEO = QINIU_CONFIG["bucket_video"]
 #QINIU_UPLOAD_TOKEN = Qiniu::RS.generate_upload_token scope: QINIU_BUCKET #can not use this ,it will expire
 
 def generate_qiniu_upload_token
@@ -16,6 +17,11 @@ def generate_audio_upload_token
   Qiniu::RS.generate_upload_token \
     scope: QINIU_BUCKET_AUDIO,
     async_options: "avthumb/m3u8/preset/audio_32k;avthumb/wav/preset/audio_32k"
+end
+def generate_video_upload_token
+  Qiniu::RS.generate_upload_token \
+    scope: QINIU_BUCKET_VIDEO,
+    async_options: "avthumb/m3u8/preset/video_16x9_150k;avthumb/m3u8/preset/video_16x9_640k;avthumb/mp4/preset/video_16x9_150k;avthumb/flv/preset/video_16x9_150k;avthumb/flv/preset/video_16x9_640k;avthumb/mp4/preset/video_16x9_640k;avthumb/ogg/preset/video_16x9_150;avthumb/ogg/preset/video_16x9_640k"
 end
 
 #QINIU_ENTRYURI = "testimages:eePG33EPxBQEYeuPbzQ8siZfi-pklcvzocOt1XPm"

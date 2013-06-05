@@ -93,6 +93,25 @@ $(document).on 'nested:fieldAdded', (event) ->
       $(this).siblings(".hidden").find("input").val(uuid)
       $(this).after("<audio controls='controls'> <source src=\"#{audio_url_wav}\" /> </audio>")
       $("#upload_progress").remove()
+@upload_common_video = () ->
+  uploader_ele = $('.video_fileupload')
+  bucket = uploader_ele.data("bucket")
+  uploader_ele.fileupload
+    progress: (e, data) ->
+      $(this).hide()
+      progress = parseInt(data.loaded / data.total * 100, 10)
+      if $("#upload_progress").length > 0
+        $("#upload_progress").text "#{progress}%"
+      else
+        $(this).after("<span id='upload_progress'></span>")
+    done: (e, data) ->
+      uuid = data.result.key
+      video_url_origin = "http://#{bucket}.qiniudn.com/#{uuid}"
+      video_url_mp4_wifi = video_url_origin + ".mp4_wifi_video"
+      video_url_ogg_wifi = video_url_origin + ".ogg_wifi_video"
+      $(this).siblings(".hidden").find("input").val(uuid)
+      $(this).after("<video controls> <source src=\"#{video_url_origin}\" type='video/mp4'><source src=\"#{video_url_ogg_wifi}\" type='video/ogg'><source src=\"#{video_url_mp4_wifi}\" type='video/mp4'> </video> ")
+      $("#upload_progress").remove()
 @upload_common_pic = () ->
   uploader_ele = $('.news_fileupload')
   bucket = uploader_ele.data("bucket")

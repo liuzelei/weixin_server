@@ -1,0 +1,6 @@
+
+<div class="hidden">
+  <%=f.hidden_field :uuid%>
+</div>
+<%=file_field_tag "file", data: {url: "http://up.qbox.me/upload", bucket: QINIU_BUCKET_VIDEO, 'form-data'=> {auth: generate_video_upload_token, action: "/rs-put/#{Base64.urlsafe_encode64(QINIU_BUCKET_VIDEO + ":" + qiniu_file_uuid)}"}}, class: "video_fileupload" %>
+

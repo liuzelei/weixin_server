@@ -84,6 +84,7 @@ DemoWeixin::Application.routes.draw do
   end
   resources :pictures
   resources :audios
+  resources :videos
 
   get "others/djq"
 
