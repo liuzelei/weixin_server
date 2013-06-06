@@ -2,6 +2,8 @@
 class KeywordReply < ActiveRecord::Base
   attr_accessible :keyword, :reply_content, :news_id, :coupon, :news_ids
 
+  has_many :replyings
+
   before_save :downcase_keyword
 
   validates_uniqueness_of :keyword, case_sensitive: false

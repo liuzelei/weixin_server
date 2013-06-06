@@ -13,6 +13,9 @@ end
 
 DemoWeixin::Application.routes.draw do
 
+  resources :reply_texts
+
+
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 

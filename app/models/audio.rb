@@ -1,6 +1,8 @@
 class Audio < ActiveRecord::Base
   attr_accessible :title, :uuid
 
+  has_many :replyings, as: :reply
+
   validates_presence_of :uuid
 
   def audio_url_origin

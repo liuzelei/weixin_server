@@ -2,6 +2,7 @@ class News < ActiveRecord::Base
   attr_accessible :description, :pic_uuid, :title, :url, :items_attributes
 
   has_many :items, dependent: :destroy
+  has_many :replyings, as: :reply
 
   accepts_nested_attributes_for :items, allow_destroy: true
 

@@ -1,0 +1,12 @@
+<%= render "shared/news_menu" %>
+
+<p>
+  <b>文本:</b>
+  <pre>
+<%= @reply_text.content %>
+  </pre>
+</p>
+
+<%= link_to 'Edit', edit_reply_text_path(@reply_text) %> |
+<%= link_to 'Back', reply_texts_path %>
+

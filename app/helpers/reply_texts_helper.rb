@@ -1,0 +1,2 @@
+module ReplyTextsHelper
+end

@@ -1,0 +1,28 @@
+<%= form_for @reply_text, html: {class: "reply_texts_form"} do |f| %>
+  <% if @reply_text.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reply_text.errors.count, "error") %> prohibited this reply_text from being saved:</h2>
+
+      <ul>
+      <% @reply_text.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <fieldset>
+
+    <%= f.label :content, "文本内容" %>
+    <%= f.text_area :content, class: "big_textarea" %>
+    <br />
+    <br />
+
+  </fieldset>
+  <hr />
+
+  <%= f.submit "提交", class: "btn btn-primary btn-large right" %>
+<% end %>
+
+
