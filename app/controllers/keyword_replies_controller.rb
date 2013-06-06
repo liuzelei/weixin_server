@@ -11,7 +11,7 @@ class KeywordRepliesController < ApplicationController
 
   def new
     @keyword_reply = KeywordReply.new
-    1.times { @keyword_reply.replyings.build() }
+    1.times { @keyword_reply.replies.build() }
   end
 
   def create

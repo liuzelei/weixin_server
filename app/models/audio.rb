@@ -1,7 +1,7 @@
 class Audio < ActiveRecord::Base
   attr_accessible :title, :uuid
 
-  has_many :replyings, as: :reply
+  has_many :replies, as: :replying
 
   validates_presence_of :uuid
 

@@ -23,23 +23,23 @@
   <br />
   
 
-  <%= f.fields_for :replyings do |ff| %>
+  <%= f.fields_for :replies do |ff| %>
     <fieldset>
       <div class="control-group">
-        <%= ff.label :reply_type, "回复类型", class: "control-label"  %>
+        <%= ff.label :replying_type, "回复类型", class: "control-label"  %>
         <div class="controls">
-          <%= ff.select :reply_type, options_for_select(["ReplyText", "Audio", "News", "Activity"]), class: "" %>
+          <%= ff.select :replying_type, options_for_select(["ReplyText", "Audio", "News", "Activity"]), class: "" %>
         </div>
       </div>
       <div class="control-group">
-        <%= ff.label :reply_id, "回复消息ID", class: "control-label"  %>
+        <%= ff.label :replying_id, "回复消息ID", class: "control-label"  %>
         <div class="controls">
-          <%= ff.number_field :reply_id, class: "" %>
+          <%= ff.number_field :replying_id, class: "" %>
         </div>
       </div>
       <br />
 
-      <%= ff.link_to_remove "删除该回复", class: "rm_keyword_reply_replying" %>
+      <%= ff.link_to_remove "删除该回复", class: "rm_reply" %>
     </fieldset>
 
     <br />
@@ -47,7 +47,7 @@
 
 
   <br />
-  <%= f.link_to_add raw("<i class='icon-plus'></i>添加回复"), :replyings, class: "btn", id: "add_keyword_reply_replying"%>
+  <%= f.link_to_add raw("<i class='icon-plus'></i>添加回复"), :replies, class: "btn", id: "add_reply"%>
   &nbsp; &nbsp; &nbsp;
   <%= f.submit "提交", class: "btn btn-primary" %>
 
