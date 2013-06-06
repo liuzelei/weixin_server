@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Reply < ActiveRecord::Base
   attr_accessible :keyword_reply_id, :replying_id, :replying_type
 
@@ -15,16 +16,16 @@ class Reply < ActiveRecord::Base
 
   private
   def news_outline_content(replying)
-    "News(id: #{replying.id})\n#{replying.title}"
+    "图文(ID: #{replying.id})\n#{replying.title}"
   end
   def audio_outline_content(replying)
-    "Audio(id: #{replying.id})\n#{replying.title}"
+    "音频(ID: #{replying.id})\n#{replying.title}"
   end
   def activity_outline_content(replying)
-    "activity..."
+    "活动..."
   end
   def reply_text_outline_content(replying)
-    "Text(id: #{replying.id})\n#{replying.content}"
+    "文本(ID: #{replying.id})\n#{replying.content}"
   end
   def nil_class_outline_content(replying)
     "---replying not found or deleted---"
