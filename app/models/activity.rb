@@ -3,7 +3,7 @@ class Activity < ActiveRecord::Base
 
   mount_uploader :pic, LocalImageUploader
 
-  has_many :replies, as: :replying
+  has_many :replies, as: :replying, dependent: :destroy
 
   validates_presence_of :title, :name, :keyword
 

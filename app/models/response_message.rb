@@ -5,7 +5,7 @@ class ResponseMessage < ActiveRecord::Base
   belongs_to :request_message
   belongs_to :weixin_user
 
-  def specific_content
+  def outline_content
     if content.present?
       content
     elsif news_id.present?

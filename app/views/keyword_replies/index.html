@@ -4,30 +4,26 @@
 <!-- <legend>关键词回复内容列表</legend> -->
 
 <table class="table table-hover">
-  <thead>
-    <tr>
-      <th>关键词</th>
-      <th>回复文字</th>
-      <th>图文ID</th>
-      <th>图文ID集合</th>
-      <!-- <th>优惠活动</th> -->
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-    <% @keyword_replies.each do |keyword_reply| %>
-      <tr>
-        <td><%= keyword_reply.keyword %></td>
-        <td><pre><%= keyword_reply.reply_content %></pre></td>
-        <td><%= keyword_reply.news_id %></td>
-        <td><%= keyword_reply.news_ids %></td>
-        <!-- <td><%#= raw("<i class='icon-ok'></i>") if keyword_reply.coupon %></td> -->
-        <td><%= link_to raw("<i class='icon-search'></i>"), keyword_reply %>&nbsp;<%= link_to raw("<i class='icon-edit'></i>"), edit_keyword_reply_path(keyword_reply) %>&nbsp;<%= link_to raw("<i class='icon-remove'></i>"), keyword_reply, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-    </tr>
-  </tbody>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>关键词</th>
+			<th>回复</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<% @keyword_replies.each do |keyword_reply| %>
+			<tr>
+				<td><%= keyword_reply.id %></td>
+				<td><%= keyword_reply.keyword %></td>
+				<td> <%= render "replies_preview", {replies: keyword_reply.replies} %> </td>
+				<td><%= link_to raw("<i class='icon-folder-open'></i>"), keyword_reply %>&nbsp;<%= link_to raw("<i class='icon-edit'></i>"), edit_keyword_reply_path(keyword_reply) %>&nbsp;<%= link_to raw("<i class='icon-remove'></i>"), keyword_reply, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+			<% end %>
+		</tr>
+	</tbody>
 </table>
 
 

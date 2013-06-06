@@ -11,7 +11,7 @@ class RequestMessage < ActiveRecord::Base
 
   belongs_to :weixin_user
 
-  def specific_content
+  def outline_content
     case msg_type
     when "text"
       wx_text.try :content

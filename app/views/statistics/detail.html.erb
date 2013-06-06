@@ -23,8 +23,8 @@
         <td><%=it.weixin_user.try :id%></td>
         <td><%=it.created_at.strftime("%Y-%m-%d %H:%M")%></td>
         <td><%=it.msg_type%></td>
-        <td><%=it.specific_content%></td>
-        <td><%=it.response_message.try :specific_content%></td>
+        <td><%=it.outline_content%></td>
+        <td><%=it.response_message.try :outline_content%></td>
         <td> </td>
       </tr>
     <% end %>
