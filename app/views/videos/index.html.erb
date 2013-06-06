@@ -21,7 +21,7 @@
   <tbody>
 	<% @videos.each do |it| %>
     <tr>
-      <td><%= it.id%></td>
+      <td><span class="badge badge-success"><%=it.id%></span></td>
       <td><%= it.title%></td>
 			<td><%= video_tag it.video_url_origin, autoplay: false, controls: true, width: "160"%></td>
       <td><%= it.video_url_origin %></td>

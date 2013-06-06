@@ -19,7 +19,7 @@
   <tbody>
 	<% @articles.each do |it| %>
     <tr>
-      <td><%= it.id%></td>
+      <td><span class="badge badge-success"><%=it.id%></span></td>
       <td><%= it.title%></td>
       <td><%= Sanitize.clean(it.content).truncate(200)%></td>
       <td><%= pres_article_url(it)%></td>

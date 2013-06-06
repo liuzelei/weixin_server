@@ -20,7 +20,7 @@
   <tbody>
 	<% @audios.each do |it| %>
     <tr>
-      <td><%= it.id%></td>
+      <td><span class="badge badge-success"><%=it.id%></span></td>
       <td><%= it.title%></td>
 			<td><%= audio_tag it.audio_url_wav, autoplay: false, controls: true%></td>
 			<td><%= it.audio_url_origin %></td>
