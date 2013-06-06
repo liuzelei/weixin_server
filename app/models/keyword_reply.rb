@@ -1,8 +1,9 @@
 # encoding: utf-8
 class KeywordReply < ActiveRecord::Base
-  attr_accessible :keyword, :reply_content, :news_id, :coupon, :news_ids
+  attr_accessible :keyword, :reply_content, :news_id, :coupon, :news_ids, :replyings_attributes
 
   has_many :replyings
+  accepts_nested_attributes_for :replyings, allow_destroy: true
 
   before_save :downcase_keyword
 

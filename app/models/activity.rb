@@ -3,6 +3,8 @@ class Activity < ActiveRecord::Base
 
   mount_uploader :pic, LocalImageUploader
 
+  has_many :replyings, as: :reply
+
   validates_presence_of :title, :name, :keyword
 
   validates_presence_of :pic, if: Proc.new { |n|
