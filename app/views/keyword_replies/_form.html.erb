@@ -28,7 +28,7 @@
       <div class="control-group">
         <%= ff.label :replying_type, "回复类型", class: "control-label"  %>
         <div class="controls">
-          <%= ff.select :replying_type, options_for_select(["ReplyText", "Audio", "News"]), class: "" %>
+          <%= ff.select :replying_type, options_for_select([["文本","ReplyText"], ["音频","Audio"], ["图文","News"]],ff.object.replying_type), class: "" %>
           <%#= ff.select :replying_type, options_for_select(["ReplyText", "Audio", "News", "Activity"]), class: "" %>
         </div>
       </div>
