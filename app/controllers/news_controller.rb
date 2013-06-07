@@ -12,7 +12,8 @@ class NewsController < ApplicationController
   end
 
   def list
-    @news = News.order("updated_at desc")
+    @per_page = params[:per_page].present? ? params[:per_page].to_i : 100
+    @news = News.order("updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
   end
 
   # GET /news/1
