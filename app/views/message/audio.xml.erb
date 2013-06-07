@@ -1,3 +1,8 @@
   <MsgType><![CDATA[text]]></MsgType>
-  <MusicUrl><![CDATA[<%=replying.audio_url_wav%>]]></MusicUrl>
-  <HQMusicUrl><![CDATA[<%=replying.audio_url_wav%>]]></HQMusicUrl>
+  <Music>
+    <Title><![CDATA[<%=replying.title.to_s%>]]></Title>
+    <Description><![CDATA[<%=replying.description.to_s%>]]></Description>
+    <MusicUrl><![CDATA[<%=replying.audio_url_wav%>]]></MusicUrl>
+    <HQMusicUrl><![CDATA[<%=replying.audio_url_wav%>]]></HQMusicUrl>
+  </Music>
+

@@ -1,9 +1,9 @@
 class Audio < ActiveRecord::Base
-  attr_accessible :title, :uuid
+  attr_accessible :title, :description, :uuid
 
   has_many :replies, as: :replying, dependent: :destroy
 
-  validates_presence_of :uuid
+  validates_presence_of :uuid, :title, :description
 
   def audio_url_origin
     "http://#{QINIU_BUCKET_AUDIO}.qiniudn.com/#{uuid}"

@@ -18,6 +18,11 @@
     <br />
     <br />
 
+    <%= f.label :description %>
+    <%= f.text_field :description, class: "input-xlarge" %>
+    <br />
+    <br />
+
     <%= f.label :file %>
     <%=render "shared/audio_uploader", {f: f, qiniu_file_uuid: SecureRandom.uuid}%> 
 

@@ -1,8 +1,18 @@
 <%= render "shared/news_menu" %>
 
 <p>
+  <b>ID:</b>
+  <span class="badge badge-success"><%=@audio.id%></span>
+</p>
+
+<p>
   <b>标题:</b>
   <%= @audio.title %>
+</p>
+
+<p>
+  <b>描述:</b>
+  <%= @audio.description %>
 </p>
 
 <p>

@@ -1,6 +1,11 @@
 <%= render "shared/news_menu" %>
 
 <p>
+  <b>ID:</b>
+  <span class="badge badge-success"><%=@reply_text.id%></span>
+</p>
+
+<p>
   <b>文本:</b>
   <pre>
 <%= @reply_text.content %>
