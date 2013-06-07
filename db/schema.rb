@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130606144008) do
+ActiveRecord::Schema.define(:version => 20130607050734) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -34,8 +34,9 @@ ActiveRecord::Schema.define(:version => 20130606144008) do
   create_table "audios", :force => true do |t|
     t.string   "uuid"
     t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.text     "description"
   end
 
   create_table "coupons", :force => true do |t|
