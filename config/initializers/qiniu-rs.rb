@@ -16,7 +16,7 @@ end
 def generate_audio_upload_token
   Qiniu::RS.generate_upload_token \
     scope: QINIU_BUCKET_AUDIO,
-    async_options: "avthumb/m3u8/preset/audio_32k;avthumb/wav/preset/audio_32k"
+    async_options: "avthumb/m3u8/preset/audio_32k;avthumb/wav/preset/audio_32k;avthumb/mp3/preset/audio_32k;avthumb/m3u8/preset/audio_64k;avthumb/wav/preset/audio_64k;avthumb/mp3/preset/audio_64k"
 end
 def generate_video_upload_token
   Qiniu::RS.generate_upload_token \
