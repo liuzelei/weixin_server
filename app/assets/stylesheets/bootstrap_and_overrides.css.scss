@@ -3,8 +3,14 @@ $navbarHeight: 55px;
 @import "bootstrap-responsive";
 
 
+// for ie
 article, section, aside, hgroup, nav, header, footer, figure, figcaption {
 	display: block;
+}
+figure, embed, audio, video, canvas {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
 }
 
 .right {
