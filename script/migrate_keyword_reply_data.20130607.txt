@@ -1,0 +1,13 @@
+ks=KeywordReply.all
+ks.each do |k|
+  if k.reply_content.present?
+    t=ReplyText.create content: k.reply_content
+    t.replies.create keyword_reply_id: k.id
+  elsif k.news_id.present?
+    t=News.find_by_id k.news_id
+    if t
+      t.replies.create keyword_reply_id: k.id
+    end
+  end
+end
+
