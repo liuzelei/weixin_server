@@ -152,17 +152,17 @@ class MessageController < ApplicationController
 
   # 保存响应数据到数据库
   def save_response
+    @response_msg_type ||= @replying.class.to_s.underscore if @replying
     res_msg = ResponseMessage.new \
         weixin_user_id: @current_weixin_user.id,
         request_message_id: @current_request_message.id,
         msg_type: @response_msg_type
-    @response_msg_type ||= @replying.class.to_s.underscore if @replying
     case @response_msg_type
     when "text", "reply_text"
         res_msg.content = @response_text_content
     when "news"
         res_msg.news_id = @news.id
-    when "music"
+    when "audio"
       logger.info "response message type is music"
     else
       logger.info "did not know response message type"
