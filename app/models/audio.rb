@@ -9,11 +9,11 @@ class Audio < ActiveRecord::Base
     "http://#{QINIU_BUCKET_AUDIO}.qiniudn.com/#{uuid}"
   end
 
-  def audio_url_m3u8
-    "http://#{QINIU_BUCKET_AUDIO}.qiniudn.com/#{uuid}.m3u8_audio"
-  end
-
-  def audio_url_wav
-    "http://#{QINIU_BUCKET_AUDIO}.qiniudn.com/#{uuid}.wav_audio"
+  ["wav","mp3","m3u8"].each do |format|
+    ["3g","wifi"].each do |quality|
+      define_method "audio_url_#{format}_#{quality}".to_sym do
+        "http://#{QINIU_BUCKET_AUDIO}.qiniudn.com/#{uuid}.#{format}_#{quality}_audio"
+      end
+    end
   end
 end

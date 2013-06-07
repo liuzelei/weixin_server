@@ -24,10 +24,10 @@
       <td><span class="badge badge-success"><%=it.id%></span></td>
       <td><%= it.title%></td>
       <td><%= it.description%></td>
-			<td><%= audio_tag it.audio_url_wav, autoplay: false, controls: true%></td>
+			<td><%= audio_tag it.audio_url_wav_wifi, autoplay: false, controls: true%></td>
 			<td><%= it.audio_url_origin %></td>
-			<td><%= it.audio_url_wav %></td>
-      <td><%= it.audio_url_m3u8 %></td>
+			<td><%= it.audio_url_wav_wifi %></td>
+      <td><%= it.audio_url_m3u8_wifi %></td>
       <td>
 				<%=link_to raw("<i class='icon-folder-open'></i>"), it%>
         &nbsp; &nbsp;

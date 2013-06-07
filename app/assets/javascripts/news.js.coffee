@@ -88,10 +88,10 @@ $(document).on 'nested:fieldAdded', (event) ->
     done: (e, data) ->
       uuid = data.result.key
       audio_url_origin = "http://#{bucket}.qiniudn.com/#{uuid}"
-      audio_url_m3u8 = audio_url_origin + '.m3u8_audio'
-      audio_url_wav = audio_url_origin + '.wav_audio'
+      audio_url_m3u8_wifi = audio_url_origin + '.m3u8_wifi_audio'
+      audio_url_wav_wifi = audio_url_origin + '.wav_wifi_audio'
       $(this).siblings(".hidden").find("input").val(uuid)
-      $(this).after("<audio controls='controls'> <source src=\"#{audio_url_wav}\" /> </audio>")
+      $(this).after("<audio controls='controls'> <source src=\"#{audio_url_wav_wifi}\" /> </audio>")
       $("#upload_progress").remove()
 @upload_common_video = () ->
   uploader_ele = $('.video_fileupload')
