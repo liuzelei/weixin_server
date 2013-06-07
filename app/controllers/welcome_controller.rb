@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
   include Weixin::Plugins
 
+  skip_before_filter :authenticate_user!#, only: [:auth]
   skip_before_filter :verify_authenticity_token, only: [:auth]
 
   def index
