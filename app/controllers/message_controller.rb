@@ -154,8 +154,9 @@ class MessageController < ApplicationController
         weixin_user_id: @current_weixin_user.id,
         request_message_id: @current_request_message.id,
         msg_type: @response_msg_type
+    @response_msg_type ||= @replying.class.to_s.underscore if @replying
     case @response_msg_type
-    when "text"
+    when "text", "reply_text"
         res_msg.content = @response_text_content
     when "news"
         res_msg.news_id = @news.id
