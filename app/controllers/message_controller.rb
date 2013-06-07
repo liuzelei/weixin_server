@@ -15,20 +15,9 @@ class MessageController < ApplicationController
       @response_msg_type = "text"
       render "text", formats: :xml
     elsif keyword_reply = KeywordReply.where(keyword: @request_content.to_s.downcase).first
-      if keyword_reply.news_ids.present?
-        news_id = keyword_reply.news_ids.split_all.shuffle.first
-        @news = News.find news_id
-        @response_msg_type = "news"
-        render "news", formats: :xml
-      elsif keyword_reply.news_id.present?
-        @news = News.find keyword_reply.news_id
-        @response_msg_type = "news"
-        render "news", formats: :xml
-      else
-        @response_text_content = keyword_reply.reply_content
-        @response_msg_type = "text"
-        render "text", formats: :xml
-      end
+      replying = keyword_reply.replies.order("random()").first.replying
+      render replying.class.to_s.underscore, formats: :xml, locals: {replying: replying}
+      #send "reply_with_#{replying.class.to_s.underscore}".to_sym, replying
     elsif @activity = Activity.where("keyword like ?", "#{@request_content.split.first.to_s.downcase}%").first
       if @request_content.length < 4
         @response_text_content = "请输入【djq空格微信昵称】，不要漏了帐号哦"
@@ -46,6 +35,9 @@ class MessageController < ApplicationController
       @response_msg_type = "text"
       render "text", formats: :xml
     end
+  rescue => e
+    logger.error e.to_s
+    reply_with_default
   end
 
   def input_image
@@ -174,6 +166,12 @@ class MessageController < ApplicationController
     end
 
     res_msg.save
+  end
+
+  def reply_with_default
+    @response_text_content = Setting.find_by_name("default_message").try :content 
+    @response_msg_type = "text"
+    render "text", formats: :xml
   end
 
   # 保存派发的优惠码信息

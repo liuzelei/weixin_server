@@ -13,9 +13,6 @@ end
 
 DemoWeixin::Application.routes.draw do
 
-  resources :reply_texts
-
-
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
@@ -45,10 +42,9 @@ DemoWeixin::Application.routes.draw do
       get "messages"
     end
   end
-  resources :shops
-  resources :settings
-  resources :qa_steps
+
   resources :keyword_replies
+  resources :qa_steps
   resources :news do
     resources :items
     collection do
@@ -61,7 +57,18 @@ DemoWeixin::Application.routes.draw do
       get :search
     end
   end
+  resources :articles do
+    member do
+      get "pres"
+    end
+  end
+  resources :reply_texts
+  resources :audios
+  resources :pictures
+  resources :videos
 
+  resources :shops
+  resources :settings
   resources :statistics, only: [:index] do
     collection do
       get "chart_messages"
@@ -80,14 +87,6 @@ DemoWeixin::Application.routes.draw do
       get "keywords"
     end
   end
-  resources :articles do
-    member do
-      get "pres"
-    end
-  end
-  resources :pictures
-  resources :audios
-  resources :videos
 
   get "others/djq"
 

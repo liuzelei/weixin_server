@@ -12,7 +12,7 @@ class WelcomeController < ApplicationController
 
   def test
     WeixinWeb.delay.steal_weixin_user_info
-    render :test_template, format: :html
+    render :test_template, format: :html, locals: {abc: "bcd"}
   end
 
   def test1
