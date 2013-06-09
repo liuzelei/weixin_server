@@ -102,7 +102,7 @@ class MessageController < ApplicationController
   # 保存请求客户OpenID
   def current_weixin_user
     req_user_id = params[:xml][:FromUserName]
-    @current_weixin_user ||= (WeixinUser.find_by_open_id(req_user_id) || WeixinUser.create(open_id: req_user_id))
+    @current_weixin_user ||= (current_user.weixin_users.find_by_open_id(req_user_id) || current_user.weixin_users.create(open_id: req_user_id))
     WeixinWeb.delay.steal_weixin_user_info(@current_weixin_user.id)
   end
 
