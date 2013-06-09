@@ -12,7 +12,7 @@ class MessageController < ApplicationController
   def input_text
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
     last_response_message = ResponseMessage.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
-    if @qa_step = QaStep.where(question: last_response_message).first
+    if @qa_step = current_user.qa_steps.where(question: last_response_message).first
       @response_text_content = weixin_user_info_recording
       @response_msg_type = "text"
       render "text", formats: :xml
@@ -51,7 +51,7 @@ class MessageController < ApplicationController
 
   def input_location
     last_response_message = ResponseMessage.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
-    @qa_step = QaStep.where(question: last_response_message).first
+    @qa_step = current_user.qa_steps.where(question: last_response_message).first
     if @qa_step.present?
       @response_text_content = weixin_user_info_recording
     else
@@ -209,7 +209,7 @@ class MessageController < ApplicationController
     else
       logger.info params[:xml]
     end
-    next_step = QaStep.where("priority > ?", @qa_step.priority).order("priority").first.try(:question) || "恭喜您已经成为我的忠实粉丝，会有更多惊喜等着你哦！发送【M】查看菜单"
+    next_step = current_user.qa_steps.where("priority > ?", @qa_step.priority).order("priority").first.try(:question) || "恭喜您已经成为我的忠实粉丝，会有更多惊喜等着你哦！发送【M】查看菜单"
   end
 
   def find_nearest_shop

@@ -1,19 +1,19 @@
 # encoding: utf-8
 class QaStepsController < ApplicationController
   def index
-    @qa_steps = QaStep.all
+    @qa_steps = current_user.qa_steps.all
   end
 
   def show
-    @qa_step = QaStep.find params[:id]
+    @qa_step = current_user.qa_steps.find params[:id]
   end
 
   def new
-    @qa_step = QaStep.new
+    @qa_step = current_user.qa_steps.new
   end
 
   def create
-    @qa_step = QaStep.new(params[:qa_step])
+    @qa_step = current_user.qa_steps.new(params[:qa_step])
 
     if @qa_step.save
       #redirect_to @qa_step, notice: 'successfully created.'
@@ -24,11 +24,11 @@ class QaStepsController < ApplicationController
   end
 
   def edit
-    @qa_step = QaStep.find params[:id]
+    @qa_step = current_user.qa_steps.find params[:id]
   end
 
   def update
-    @qa_step = QaStep.find params[:id]
+    @qa_step = current_user.qa_steps.find params[:id]
 
       if @qa_step.update_attributes(params[:qa_step])
         redirect_to @qa_step
@@ -38,7 +38,7 @@ class QaStepsController < ApplicationController
   end
 
   def destroy
-    @qa_step = QaStep.find params[:id]
+    @qa_step = current_user.qa_steps.find params[:id]
     @qa_step.destroy
 
     redirect_to qa_steps_path
