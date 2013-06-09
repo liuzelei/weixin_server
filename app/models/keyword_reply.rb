@@ -2,7 +2,7 @@
 class KeywordReply < ActiveRecord::Base
   attr_accessible :keyword, :reply_content, :news_id, :coupon, :news_ids, :replies_attributes
 
-  has_many :replies, as: :replying, dependent: :destroy
+  has_many :replies, as: :item, dependent: :destroy
   has_one :ownership, as: :item, dependent: :destroy
   has_one :user, through: :ownerships
   accepts_nested_attributes_for :replies, allow_destroy: true

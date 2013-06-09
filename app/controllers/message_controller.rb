@@ -17,9 +17,9 @@ class MessageController < ApplicationController
       @response_msg_type = "text"
       render "text", formats: :xml
     elsif keyword_reply = KeywordReply.where(keyword: @request_content.to_s.downcase).first
-      @replying = keyword_reply.replies.order("random()").first.replying
-      render @replying.class.to_s.underscore, formats: :xml, locals: {replying: @replying}
-      #send "reply_with_#{replying.class.to_s.underscore}".to_sym, @replying
+      @item = keyword_reply.replies.order("random()").first.item
+      render @item.class.to_s.underscore, formats: :xml, locals: {item: @item}
+      #send "reply_with_#{item.class.to_s.underscore}".to_sym, @item
     elsif @activity = Activity.where("keyword like ?", "#{@request_content.split.first.to_s.downcase}%").first
       if @request_content.length < 4
         @response_text_content = "请输入【djq空格微信昵称】，不要漏了帐号哦"
@@ -152,7 +152,7 @@ class MessageController < ApplicationController
 
   # 保存响应数据到数据库
   def save_response
-    @response_msg_type ||= @replying.class.to_s.underscore if @replying
+    @response_msg_type ||= @item.class.to_s.underscore if @item
     res_msg = ResponseMessage.new \
         weixin_user_id: @current_weixin_user.id,
         request_message_id: @current_request_message.id,

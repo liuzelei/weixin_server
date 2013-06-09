@@ -26,16 +26,16 @@
   <%= f.fields_for :replies do |ff| %>
     <fieldset>
       <div class="control-group">
-        <%= ff.label :replying_type, "回复类型", class: "control-label"  %>
+        <%= ff.label :item_type, "回复类型", class: "control-label"  %>
         <div class="controls">
-          <%= ff.select :replying_type, options_for_select([["文本","ReplyText"], ["音频","Audio"], ["图文","News"]],ff.object.replying_type), class: "" %>
-          <%#= ff.select :replying_type, options_for_select(["ReplyText", "Audio", "News", "Activity"]), class: "" %>
+          <%= ff.select :item_type, options_for_select([["文本","ReplyText"], ["音频","Audio"], ["图文","News"]],ff.object.item_type), class: "" %>
+          <%#= ff.select :item_type, options_for_select(["ReplyText", "Audio", "News", "Activity"]), class: "" %>
         </div>
       </div>
       <div class="control-group">
-        <%= ff.label :replying_id, "回复消息ID", class: "control-label"  %>
+        <%= ff.label :item_id, "回复消息ID", class: "control-label"  %>
         <div class="controls">
-          <%= ff.number_field :replying_id, class: "input-mini" %>
+          <%= ff.number_field :item_id, class: "input-mini" %>
           <span>请输入对应回复内容的ID，数字格式</span>
         </div>
       </div>

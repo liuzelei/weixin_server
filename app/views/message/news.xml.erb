@@ -1,13 +1,13 @@
   <MsgType><![CDATA[news]]></MsgType>
-  <ArticleCount><%=replying.items.count+1%></ArticleCount>
+  <ArticleCount><%=item.items.count+1%></ArticleCount>
   <Articles>
     <item>
-      <Title><![CDATA[<%=replying.title%>]]></Title> 
-      <Description><![CDATA[<%=replying.description.to_s.truncate(100)%>]]></Description>
-      <PicUrl><![CDATA[<%=replying.pic_url%>]]></PicUrl>
-      <Url><![CDATA[<%=replying.url%>]]></Url>
+      <Title><![CDATA[<%=item.title%>]]></Title> 
+      <Description><![CDATA[<%=item.description.to_s.truncate(100)%>]]></Description>
+      <PicUrl><![CDATA[<%=item.pic_url%>]]></PicUrl>
+      <Url><![CDATA[<%=item.url%>]]></Url>
     </item>
-    <% replying.items.each do |it| %>
+    <% item.items.each do |it| %>
       <item>
         <Title><![CDATA[<%=it.title%>]]></Title> 
         <Description><![CDATA[<%=it.description.to_s.truncate(100)%>]]></Description>

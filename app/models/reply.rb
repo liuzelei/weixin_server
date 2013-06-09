@@ -1,33 +1,33 @@
 # encoding: utf-8
 class Reply < ActiveRecord::Base
-  attr_accessible :keyword_reply_id, :replying_id, :replying_type
+  attr_accessible :keyword_reply_id, :item_id, :item_type
 
   belongs_to :keyword_reply
-  belongs_to :replying, polymorphic: true
+  belongs_to :item, polymorphic: true
 
-  validates_presence_of :replying_id, :replying_type
+  validates_presence_of :item_id, :item_type
 
   def outline_content
-    send "#{replying.class.to_s.underscore}_outline_content".to_sym, replying
+    send "#{item.class.to_s.underscore}_outline_content".to_sym, item
   rescue => e
     logger.error e.to_s
     "unknown content"
   end
 
   private
-  def news_outline_content(replying)
-    "图文(ID: #{replying.id})\n#{replying.title}"
+  def news_outline_content(item)
+    "图文(ID: #{item.id})\n#{item.title}"
   end
-  def audio_outline_content(replying)
-    "音频(ID: #{replying.id})\n#{replying.title}"
+  def audio_outline_content(item)
+    "音频(ID: #{item.id})\n#{item.title}"
   end
-  def activity_outline_content(replying)
+  def activity_outline_content(item)
     "活动..."
   end
-  def reply_text_outline_content(replying)
-    "文本(ID: #{replying.id})\n#{replying.content}"
+  def reply_text_outline_content(item)
+    "文本(ID: #{item.id})\n#{item.content}"
   end
-  def nil_class_outline_content(replying)
+  def nil_class_outline_content(item)
     "---replying not found or deleted---"
   end
 end
