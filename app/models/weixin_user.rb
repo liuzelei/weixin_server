@@ -14,6 +14,8 @@ class WeixinUser < ActiveRecord::Base
 
   has_many :coupons
 
+  has_one :ownership, as: :item, dependent: :destroy
+
   acts_as_taggable
   acts_as_taggable_on :categories
 

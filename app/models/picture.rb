@@ -1,6 +1,7 @@
 class Picture < ActiveRecord::Base
   attr_accessible :title, :pic_uuid
 
+  has_one :ownership, as: :item, dependent: :destroy
   validates_presence_of :pic_uuid
 
   def pic_url_origin

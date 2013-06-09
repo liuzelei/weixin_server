@@ -2,6 +2,7 @@ class Audio < ActiveRecord::Base
   attr_accessible :title, :description, :uuid
 
   has_many :replies, as: :replying, dependent: :destroy
+  has_one :ownership, as: :item, dependent: :destroy
 
   validates_presence_of :uuid, :title, :description
 

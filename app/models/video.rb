@@ -1,6 +1,7 @@
 class Video < ActiveRecord::Base
   attr_accessible :title, :uuid
 
+  has_one :ownership, as: :item, dependent: :destroy
   validates_presence_of :uuid
 
   def video_url_origin

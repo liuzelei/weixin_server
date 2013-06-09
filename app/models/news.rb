@@ -3,6 +3,7 @@ class News < ActiveRecord::Base
 
   has_many :items, dependent: :destroy
   has_many :replies, as: :replying, dependent: :destroy
+  has_one :ownership, as: :item, dependent: :destroy
 
   accepts_nested_attributes_for :items, allow_destroy: true
 
