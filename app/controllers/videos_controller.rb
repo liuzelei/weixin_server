@@ -3,7 +3,7 @@ class VideosController < ApplicationController
   # GET /videos.json
   def index
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 15
-    @videos = Video.order("updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
+    @videos = current_user.videos.order("updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +14,7 @@ class VideosController < ApplicationController
   # GET /videos/1
   # GET /videos/1.json
   def show
-    @video = Video.find(params[:id])
+    @video = current_user.videos.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,7 +25,7 @@ class VideosController < ApplicationController
   # GET /videos/new
   # GET /videos/new.json
   def new
-    @video = Video.new
+    @video = current_user.videos.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,16 +35,16 @@ class VideosController < ApplicationController
 
   # GET /videos/1/edit
   def edit
-    @video = Video.find(params[:id])
+    @video = current_user.videos.find(params[:id])
   end
 
   # POST /videos
   # POST /videos.json
   def create
-    @video = Video.new(params[:video])
+    @video = current_user.videos.new(params[:video])
 
     respond_to do |format|
-      if @video.save
+      if current_user.save
         format.html { redirect_to @video, notice: 'Video was successfully created.' }
         format.json { render json: @video, status: :created, location: @video }
       else
@@ -57,7 +57,7 @@ class VideosController < ApplicationController
   # PUT /videos/1
   # PUT /videos/1.json
   def update
-    @video = Video.find(params[:id])
+    @video = current_user.videos.find(params[:id])
 
     respond_to do |format|
       if @video.update_attributes(params[:video])
@@ -73,7 +73,7 @@ class VideosController < ApplicationController
   # DELETE /videos/1
   # DELETE /videos/1.json
   def destroy
-    @video = Video.find(params[:id])
+    @video = current_user.videos.find(params[:id])
     @video.destroy
 
     respond_to do |format|
