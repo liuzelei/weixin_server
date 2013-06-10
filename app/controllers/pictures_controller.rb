@@ -3,7 +3,7 @@ class PicturesController < ApplicationController
   # GET /pictures.json
   def index
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 15
-    @pictures = Picture.order("updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
+    @pictures = current_user.pictures.order("updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +14,7 @@ class PicturesController < ApplicationController
   # GET /pictures/1
   # GET /pictures/1.json
   def show
-    @picture = Picture.find(params[:id])
+    @picture = current_user.pictures.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,7 +25,7 @@ class PicturesController < ApplicationController
   # GET /pictures/new
   # GET /pictures/new.json
   def new
-    @picture = Picture.new
+    @picture = current_user.pictures.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,16 +35,16 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1/edit
   def edit
-    @picture = Picture.find(params[:id])
+    @picture = current_user.pictures.find(params[:id])
   end
 
   # POST /pictures
   # POST /pictures.json
   def create
-    @picture = Picture.new(params[:picture])
+    @picture = current_user.pictures.new(params[:picture])
 
     respond_to do |format|
-      if @picture.save
+      if current_user.save
         format.html { redirect_to @picture, notice: 'Picture was successfully created.' }
         format.json { render json: @picture, status: :created, location: @picture }
       else
@@ -57,7 +57,7 @@ class PicturesController < ApplicationController
   # PUT /pictures/1
   # PUT /pictures/1.json
   def update
-    @picture = Picture.find(params[:id])
+    @picture = current_user.pictures.find(params[:id])
 
     respond_to do |format|
       if @picture.update_attributes(params[:picture])
@@ -73,7 +73,7 @@ class PicturesController < ApplicationController
   # DELETE /pictures/1
   # DELETE /pictures/1.json
   def destroy
-    @picture = Picture.find(params[:id])
+    @picture = current_user.pictures.find(params[:id])
     @picture.destroy
 
     respond_to do |format|
