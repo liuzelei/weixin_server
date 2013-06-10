@@ -3,7 +3,7 @@ class CouponsController < ApplicationController
   # GET /coupons
   # GET /coupons.json
   def index
-    @coupons = Coupon.all
+    @coupons = current_user.coupons.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,16 +13,16 @@ class CouponsController < ApplicationController
 
   def search
     if params[:term].present?
-      @coupons = Coupon.where sn_code: params[:term]
+      @coupons = current_user.coupons.where sn_code: params[:term]
     else
-      @coupons = Coupon.all
+      @coupons = current_user.coupons.all
     end
   end
 
   # GET /coupons/1
   # GET /coupons/1.json
   def show
-    @coupon = Coupon.find(params[:id])
+    @coupon = current_user.coupons.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -33,7 +33,7 @@ class CouponsController < ApplicationController
   # GET /coupons/new
   # GET /coupons/new.json
   def new
-    @coupon = Coupon.new
+    @coupon = current_user.coupons.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,16 +43,17 @@ class CouponsController < ApplicationController
 
   # GET /coupons/1/edit
   def edit
-    @coupon = Coupon.find(params[:id])
+    @coupon = current_user.coupons.find(params[:id])
   end
 
   # POST /coupons
   # POST /coupons.json
   def create
-    @coupon = Coupon.new(params[:coupon])
+    @coupon = current_user.coupons.new(params[:coupon])
 
     respond_to do |format|
-      if @coupon.save
+      #if @coupon.save
+      if current_user.save
         format.html { redirect_to @coupon, notice: 'Coupon was successfully created.' }
         format.json { render json: @coupon, status: :created, location: @coupon }
       else
@@ -65,7 +66,7 @@ class CouponsController < ApplicationController
   # PUT /coupons/1
   # PUT /coupons/1.json
   def update
-    @coupon = Coupon.find(params[:id])
+    @coupon = current_user.coupons.find(params[:id])
     params[:coupon][:used_at] = DateTime.now if params[:coupon][:status]=="已使用"
 
     respond_to do |format|
@@ -82,7 +83,7 @@ class CouponsController < ApplicationController
   # DELETE /coupons/1
   # DELETE /coupons/1.json
   def destroy
-    @coupon = Coupon.find(params[:id])
+    @coupon = current_user.coupons.find(params[:id])
     @coupon.destroy
 
     respond_to do |format|

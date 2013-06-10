@@ -179,15 +179,15 @@ class MessageController < ApplicationController
 
   # 保存派发的优惠码信息
   def generate_coupon
-    @coupon = Coupon.where(weixin_user_id: @current_weixin_user.id).first || Coupon.create(weixin_user_id: @current_weixin_user.id, sn_code: generate_new_sn_code, status: "已派发")
+    @coupon = current_user.coupons.where(weixin_user_id: @current_weixin_user.id).first || current_user.coupons.create(weixin_user_id: @current_weixin_user.id, sn_code: generate_new_sn_code, status: "已派发")
   end
 
   def generate_new_sn_code
     @sn_code = Random.rand(1000000...10000000).to_s
-    loop do
-      break unless Coupon.where(sn_code: @sn_code).present?
-      logger.info @sn_code = Random.rand(1000000...10000000).to_s
-    end
+    #loop do
+    #  break unless current_user.coupons.where(sn_code: @sn_code).present?
+    #  logger.info @sn_code = Random.rand(1000000...10000000).to_s
+    #end
     @sn_code
   end
 
