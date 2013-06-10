@@ -2,10 +2,12 @@
 class KeywordRepliesController < ApplicationController
 
   def index
+    @per_page = params[:per_page].present? ? params[:per_page].to_i : 100
+
     if params[:term].present?
-      @keyword_replies = current_user.keyword_replies.includes(:replies).where("keyword_replies.keyword like ?", "%#{params[:term]}%").order("keyword_replies.updated_at desc")
+      @keyword_replies = current_user.keyword_replies.includes(:replies).where("keyword_replies.keyword like ?", "%#{params[:term]}%").order("keyword_replies.updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
     else
-      @keyword_replies = current_user.keyword_replies.includes(:replies).order("keyword_replies.updated_at desc")
+      @keyword_replies = current_user.keyword_replies.includes(:replies).order("keyword_replies.updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
     end
   end
 
