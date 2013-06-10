@@ -2,24 +2,24 @@
 class StatisticsController < ApplicationController
 
   def msg_types
-    @stats = RequestMessage.select("msg_type, count(msg_type) as cnt").group(:msg_type).order("cnt desc")
+    @stats = current_user.request_messages.select("msg_type, count(msg_type) as cnt").group(:msg_type).order("cnt desc")
   end
 
   def follows
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 10
     # TODO search
     if params[:term].present?
-      @request_follows = RequestMessage.joins(:weixin_user).where(msg_type: "event").where("weixin_users.weixin_id like ?", "%#{params[:term]}%").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+      @request_follows = current_user.request_messages.joins(:weixin_user).where(msg_type: "event").where("weixin_users.weixin_id like ?", "%#{params[:term]}%").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
     else
-      @request_follows = RequestMessage.where(msg_type: "event").order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+      @request_follows = current_user.request_messages.where(msg_type: "event").order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
     end
   end
 
   def follows_export
     if params[:term].present?
-      @request_follows = RequestMessage.joins(:weixin_user).where(msg_type: "event").where("weixin_users.weixin_id like ?", "%#{params[:term]}%").order("request_messages.created_at desc")
+      @request_follows = current_user.request_messages.joins(:weixin_user).where(msg_type: "event").where("weixin_users.weixin_id like ?", "%#{params[:term]}%").order("request_messages.created_at desc")
     else
-      @request_follows = RequestMessage.where(msg_type: "event").order("created_at desc")
+      @request_follows = current_user.request_messages.where(msg_type: "event").order("created_at desc")
     end
 
     render layout: "export"
@@ -28,39 +28,39 @@ class StatisticsController < ApplicationController
   def detail
 
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 10
-    @q = RequestMessage.search(params[:q])
+    @q = current_user.request_messages.search(params[:q])
     @request_messages = @q.result.includes(:response_message).includes(:weixin_user).includes(:wx_text).includes(:wx_location).includes(:wx_image).includes(:wx_event).includes(:wx_link).order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
 
 =begin
     # TODO search
     if params[:weixin_user_id].present?
-      @request_messages = RequestMessage.where("weixin_user_id = ?", params[:weixin_user_id]).order("created_at desc")
+      @request_messages = current_user.request_messages.where("weixin_user_id = ?", params[:weixin_user_id]).order("created_at desc")
     elsif params[:term].present?
-      #@request_messages = RequestMessage.joins(:wx_text).where("wx_texts.content like ?", "%#{params[:term]}%").select("request_messages.*, wx_texts.*").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
-      @request_messages = RequestMessage.joins(:wx_text).where("wx_texts.content = ?", params[:term]).order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+      #@request_messages = current_user.request_messages.joins(:wx_text).where("wx_texts.content like ?", "%#{params[:term]}%").select("request_messages.*, wx_texts.*").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+      @request_messages = current_user.request_messages.joins(:wx_text).where("wx_texts.content = ?", params[:term]).order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
     else
-      #@request_messages = RequestMessage.where("msg_type != ?", "event").order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
-      @request_messages = RequestMessage.order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+      #@request_messages = current_user.request_messages.where("msg_type != ?", "event").order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+      @request_messages = current_user.request_messages.order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
     end
 =end
   end
 
   def detail_export
-    @q = RequestMessage.search(params[:q])
+    @q = current_user.request_messages.search(params[:q])
     @request_messages = @q.result.includes(:response_message).includes(:weixin_user).includes(:wx_text).includes(:wx_location).includes(:wx_image).includes(:wx_event).includes(:wx_link).order("request_messages.created_at desc")
     render layout: "export"
   end
 
   def dates
-    @req_stats = RequestMessage.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date desc")
+    @req_stats = current_user.request_messages.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date desc")
   end
 
   def weixin_users_dates
-    @req_stats = RequestMessage.includes(:weixin_user).group("weixin_user_id, date(created_at)").select("count(id) as cnt, weixin_user_id, date(created_at) as created_date").order("created_date desc")
+    @req_stats = current_user.request_messages.includes(:weixin_user).group("weixin_user_id, date(created_at)").select("count(id) as cnt, weixin_user_id, date(created_at) as created_date").order("created_date desc")
   end
 
   def weixin_users
-    @req_stats = RequestMessage.includes(:weixin_user).group("weixin_user_id").select("count(weixin_user_id) as cnt, weixin_user_id").order("cnt desc")
+    @req_stats = current_user.request_messages.includes(:weixin_user).group("weixin_user_id").select("count(weixin_user_id) as cnt, weixin_user_id").order("cnt desc")
   end
 
   def keywords
@@ -73,7 +73,7 @@ class StatisticsController < ApplicationController
   end
 
   def chart_messages
-    req_stats = RequestMessage.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
+    req_stats = current_user.request_messages.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
     req_dates = req_stats.map {|it| it.created_date}
     req_data = req_stats.map {|it| it.cnt.to_i} #(&:cnt)
     @req_stat_chart = LazyHighCharts::HighChart.new('graph') do |f|
@@ -84,7 +84,7 @@ class StatisticsController < ApplicationController
     end
   end
   def chart_messages_add_up
-    req_stats = RequestMessage.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
+    req_stats = current_user.request_messages.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
     req_dates = req_stats.map {|it| it.created_date}
     sum = 0
     req_data = req_stats.inject([]){|res,it| res<<sum+=it.cnt.to_i}
@@ -132,7 +132,7 @@ class StatisticsController < ApplicationController
       f.series(type: "spline", name: "新增订阅数", data: follow_data)
     end
 
-    req_stats = RequestMessage.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
+    req_stats = current_user.request_messages.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
     req_dates = req_stats.map {|it| it.created_date}
     req_data = req_stats.map {|it| it.cnt.to_i} #(&:cnt)
     @req_stat_chart = LazyHighCharts::HighChart.new('graph') do |f|

@@ -6,6 +6,7 @@ class ResponseMessage < ActiveRecord::Base
   belongs_to :weixin_user
 
   has_many :replies, as: :item, dependent: :destroy
+  has_one :ownership, as: :item, dependent: :destroy
 
   def outline_content
     if content.present?

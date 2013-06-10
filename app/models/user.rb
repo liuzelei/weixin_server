@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   has_many :ownerships
-  ItemTypes = ["WeixinUser","QaStep","KeywordReply","News","Audio","ReplyText","Article","Video","Picture","Activity","Coupon","Shop"]
+  ItemTypes = ["WeixinUser","QaStep","KeywordReply","News","Audio","ReplyText","Article","Video","Picture","Activity","Coupon","Shop","ResponseMessage","RequestMessage"]
   ItemTypes.each do |item_type|
     has_many item_type.underscore.pluralize.to_sym, through: :ownerships, source: "item", source_type: item_type
   end

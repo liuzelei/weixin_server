@@ -10,6 +10,7 @@ class RequestMessage < ActiveRecord::Base
   has_one :response_message
 
   belongs_to :weixin_user
+  has_one :ownership, as: :item, dependent: :destroy
 
   def outline_content
     case msg_type

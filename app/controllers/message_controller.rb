@@ -11,7 +11,7 @@ class MessageController < ApplicationController
 
   def input_text
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
-    last_response_message = ResponseMessage.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
+    last_response_message = current_user.response_messages.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
     if @qa_step = current_user.qa_steps.where(question: last_response_message).first
       @response_text_content = weixin_user_info_recording
       @response_msg_type = "text"
@@ -50,7 +50,7 @@ class MessageController < ApplicationController
   end
 
   def input_location
-    last_response_message = ResponseMessage.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
+    last_response_message = current_user.response_messages.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
     @qa_step = current_user.qa_steps.where(question: last_response_message).first
     if @qa_step.present?
       @response_text_content = weixin_user_info_recording
@@ -153,7 +153,7 @@ class MessageController < ApplicationController
   # 保存响应数据到数据库
   def save_response
     @response_msg_type ||= @item.class.to_s.underscore if @item
-    res_msg = ResponseMessage.new \
+    res_msg = current_user.response_messages.new \
         weixin_user_id: @current_weixin_user.id,
         request_message_id: @current_request_message.id,
         msg_type: @response_msg_type
