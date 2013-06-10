@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
     has_many item_type.underscore.pluralize.to_sym, through: :ownerships, source: "item", source_type: item_type
   end
 
+  has_one :setting, dependent: :destroy
+
   def to_s
     self.email
   end

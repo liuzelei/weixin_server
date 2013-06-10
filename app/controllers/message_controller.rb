@@ -32,10 +32,7 @@ class MessageController < ApplicationController
         render "news_coupon", formats: :xml
       end
     else
-      #@response_text_content = @request_content
-      @response_text_content = Setting.find_by_name("default_message").try :content 
-      @response_msg_type = "text"
-      render "text", formats: :xml
+      reply_with_default
     end
   rescue => e
     logger.error e.to_s
@@ -74,7 +71,8 @@ class MessageController < ApplicationController
     @response_text_content = \
       case req_event
       when "subscribe"
-        Setting.find_by_name("welcome_message").try :content
+        #Setting.find_by_name("welcome_message").try :content
+        current_user.setting.try :welcome_message
       when /unsubscribe/
         "用户已退订，无法回复消息。"
       else
@@ -172,7 +170,8 @@ class MessageController < ApplicationController
   end
 
   def reply_with_default
-    @response_text_content = Setting.find_by_name("default_message").try :content 
+    #@response_text_content = Setting.find_by_name("default_message").try :content 
+    @response_text_content = current_user.setting.try :default_message
     @response_msg_type = "text"
     render "text", formats: :xml
   end

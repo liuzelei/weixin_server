@@ -3,8 +3,9 @@ class SettingsController < ApplicationController
   # GET /settings.json
   def index
     #@settings = Setting.all
-    @welcome_message = Setting.find_by_name("welcome_message") || Setting.new(name: "welcome_message")
-    @default_message = Setting.find_by_name("default_message") || Setting.new(name: "default_message")
+    #@welcome_message = Setting.find_by_name("welcome_message") || Setting.new(name: "welcome_message")
+    #@default_message = Setting.find_by_name("default_message") || Setting.new(name: "default_message")
+    @setting = current_user.setting || current_user.build_setting
 
     respond_to do |format|
       format.html # index.html.erb
@@ -26,7 +27,8 @@ class SettingsController < ApplicationController
   # GET /settings/new
   # GET /settings/new.json
   def new
-    @setting = Setting.new
+    #@setting = Setting.new
+    @setting = current_user.setting || current_user.build_setting
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,13 +38,14 @@ class SettingsController < ApplicationController
 
   # GET /settings/1/edit
   def edit
-    @setting = Setting.find(params[:id])
+    #@setting = Setting.find(params[:id])
+    @setting = current_user.setting
   end
 
   # POST /settings
   # POST /settings.json
   def create
-    @setting = Setting.new(params[:setting])
+    @setting = current_user.build_setting params[:setting]
 
     respond_to do |format|
       if @setting.save
@@ -59,7 +62,8 @@ class SettingsController < ApplicationController
   # PUT /settings/1
   # PUT /settings/1.json
   def update
-    @setting = Setting.find(params[:id])
+    #@setting = Setting.find(params[:id])
+    @setting = current_user.setting
 
     respond_to do |format|
       if @setting.update_attributes(params[:setting])
