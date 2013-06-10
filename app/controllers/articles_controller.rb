@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   def index
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 15
-    @articles = Article.order("updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
+    @articles = current_user.articles.order("updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
   end
 
   def pres
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
 
     render layout: "presentation"
   end
@@ -31,7 +31,7 @@ class ArticlesController < ApplicationController
   # GET /articles/new
   # GET /articles/new.json
   def new
-    @article = Article.new
+    @article = current_user.articles.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,16 +41,16 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1/edit
   def edit
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
   end
 
   # POST /articles
   # POST /articles.json
   def create
-    @article = Article.new(params[:article])
+    @article = current_user.articles.new(params[:article])
 
     respond_to do |format|
-      if @article.save
+      if current_user.save
         format.html { redirect_to @article, notice: 'Article was successfully created.' }
         format.json { render json: @article, status: :created, location: @article }
       else
@@ -63,7 +63,7 @@ class ArticlesController < ApplicationController
   # PUT /articles/1
   # PUT /articles/1.json
   def update
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
 
     respond_to do |format|
       if @article.update_attributes(params[:article])
@@ -79,7 +79,7 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1
   # DELETE /articles/1.json
   def destroy
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
     @article.destroy
 
     respond_to do |format|
