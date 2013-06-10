@@ -101,3 +101,6 @@ class String
   end
 end
 
+module Exceptions
+  class UndetectedUserError < RuntimeError; end
+end

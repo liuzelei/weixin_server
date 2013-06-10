@@ -1,11 +1,12 @@
 # encoding: utf-8
 class MessageController < ApplicationController
   include Weixin::Plugins
+  include WeixinUsersHelper
 
   skip_before_filter :authenticate_user!
 
   skip_before_filter :verify_authenticity_token
-  prepend_before_filter :check_weixin_legality, :current_weixin_user
+  prepend_before_filter :check_weixin_legality, :detect_user
   before_filter :save_request
   after_filter :save_response
 
@@ -97,6 +98,10 @@ class MessageController < ApplicationController
     render :text => "Forbidden", :status => 403 if params[:signature] != Digest::SHA1.hexdigest(array.join)
   end
 
+  def detect_user
+    detect_current_user
+    current_weixin_user
+  end
   # 保存请求客户OpenID
   def current_weixin_user
     req_user_id = params[:xml][:FromUserName]

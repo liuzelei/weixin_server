@@ -73,7 +73,7 @@ class StatisticsController < ApplicationController
   end
 
   def chart_messages
-    req_stats = current_user.request_messages.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
+    req_stats = current_user.request_messages.group("date(request_messages.created_at)").select("count(request_messages.id) as cnt, date(request_messages.created_at) as created_date").order("created_date")
     req_dates = req_stats.map {|it| it.created_date}
     req_data = req_stats.map {|it| it.cnt.to_i} #(&:cnt)
     @req_stat_chart = LazyHighCharts::HighChart.new('graph') do |f|
@@ -84,7 +84,7 @@ class StatisticsController < ApplicationController
     end
   end
   def chart_messages_add_up
-    req_stats = current_user.request_messages.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date")
+    req_stats = current_user.request_messages.group("date(request_messages.created_at)").select("count(request_messages.id) as cnt, date(request_messages.created_at) as created_date").order("created_date")
     req_dates = req_stats.map {|it| it.created_date}
     sum = 0
     req_data = req_stats.inject([]){|res,it| res<<sum+=it.cnt.to_i}
