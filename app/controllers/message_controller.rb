@@ -20,7 +20,7 @@ class MessageController < ApplicationController
       @item = keyword_reply.replies.order("random()").first.item
       render @item.class.to_s.underscore, formats: :xml, locals: {item: @item}
       #send "reply_with_#{item.class.to_s.underscore}".to_sym, @item
-    elsif @activity = Activity.where("keyword like ?", "#{@request_content.split.first.to_s.downcase}%").first
+    elsif @activity = current_user.activities.where("keyword like ?", "#{@request_content.split.first.to_s.downcase}%").first
       if @request_content.length < 4
         @response_text_content = "请输入【djq空格微信昵称】，不要漏了帐号哦"
         @response_msg_type = "text"

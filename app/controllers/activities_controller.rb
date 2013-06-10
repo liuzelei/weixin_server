@@ -2,7 +2,7 @@ class ActivitiesController < ApplicationController
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.all
+    @activities = current_user.activities.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class ActivitiesController < ApplicationController
   # GET /activities/1
   # GET /activities/1.json
   def show
-    @activity = Activity.find(params[:id])
+    @activity = current_user.activities.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +24,7 @@ class ActivitiesController < ApplicationController
   # GET /activities/new
   # GET /activities/new.json
   def new
-    @activity = Activity.new
+    @activity = current_user.activities.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,16 +34,17 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1/edit
   def edit
-    @activity = Activity.find(params[:id])
+    @activity = current_user.activities.find(params[:id])
   end
 
   # POST /activities
   # POST /activities.json
   def create
-    @activity = Activity.new(params[:activity])
+    @activity = current_user.activities.new(params[:activity])
 
     respond_to do |format|
-      if @activity.save
+      #if @activity.save
+      if current_user.save
         format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
         format.json { render json: @activity, status: :created, location: @activity }
       else
@@ -56,7 +57,7 @@ class ActivitiesController < ApplicationController
   # PUT /activities/1
   # PUT /activities/1.json
   def update
-    @activity = Activity.find(params[:id])
+    @activity = current_user.activities.find(params[:id])
 
     respond_to do |format|
       if @activity.update_attributes(params[:activity])
@@ -72,7 +73,7 @@ class ActivitiesController < ApplicationController
   # DELETE /activities/1
   # DELETE /activities/1.json
   def destroy
-    @activity = Activity.find(params[:id])
+    @activity = current_user.activities.find(params[:id])
     @activity.destroy
 
     respond_to do |format|
