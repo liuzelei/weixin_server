@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130609083705) do
+ActiveRecord::Schema.define(:version => 20130610094711) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -69,12 +69,8 @@ ActiveRecord::Schema.define(:version => 20130609083705) do
 
   create_table "keyword_replies", :force => true do |t|
     t.string   "keyword"
-    t.text     "reply_content"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.integer  "news_id"
-    t.boolean  "coupon"
-    t.string   "news_ids"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "kindeditor_assets", :force => true do |t|

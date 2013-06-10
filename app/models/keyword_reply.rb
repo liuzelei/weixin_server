@@ -1,6 +1,6 @@
 # encoding: utf-8
 class KeywordReply < ActiveRecord::Base
-  attr_accessible :keyword, :reply_content, :news_id, :coupon, :news_ids, :replies_attributes
+  attr_accessible :keyword, :replies_attributes
 
   has_many :replies, dependent: :destroy
   ItemTypes = ["ReplyText","News","Audio","Activity"]
