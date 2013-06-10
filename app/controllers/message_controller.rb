@@ -215,7 +215,7 @@ class MessageController < ApplicationController
   def find_nearest_shop
     current_location = @current_request_message.wx_location
     current_geo_info = [current_location.latitude, current_location.longitude]
-    shop = Shop.near(current_geo_info,50,units: :km).first
+    shop = current_user.shops.near(current_geo_info,50,units: :km).first
     if shop
       "#{shop.name}\n#{shop.address}"
     else

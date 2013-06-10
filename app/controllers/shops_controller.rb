@@ -2,7 +2,7 @@ class ShopsController < ApplicationController
   # GET /shops
   # GET /shops.json
   def index
-    @shops = Shop.order("updated_at desc")
+    @shops = current_user.shops.order("updated_at desc")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class ShopsController < ApplicationController
   # GET /shops/1
   # GET /shops/1.json
   def show
-    @shop = Shop.find(params[:id])
+    @shop = current_user.shops.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +24,7 @@ class ShopsController < ApplicationController
   # GET /shops/new
   # GET /shops/new.json
   def new
-    @shop = Shop.new
+    @shop = current_user.shops.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,16 +34,17 @@ class ShopsController < ApplicationController
 
   # GET /shops/1/edit
   def edit
-    @shop = Shop.find(params[:id])
+    @shop = current_user.shops.find(params[:id])
   end
 
   # POST /shops
   # POST /shops.json
   def create
-    @shop = Shop.new(params[:shop])
+    @shop = current_user.shops.new(params[:shop])
 
     respond_to do |format|
-      if @shop.save
+      #if @shop.save
+      if current_user.save
         format.html { redirect_to @shop, notice: 'Shop was successfully created.' }
         format.json { render json: @shop, status: :created, location: @shop }
       else
@@ -56,7 +57,7 @@ class ShopsController < ApplicationController
   # PUT /shops/1
   # PUT /shops/1.json
   def update
-    @shop = Shop.find(params[:id])
+    @shop = current_user.shops.find(params[:id])
 
     respond_to do |format|
       if @shop.update_attributes(params[:shop])
@@ -72,7 +73,7 @@ class ShopsController < ApplicationController
   # DELETE /shops/1
   # DELETE /shops/1.json
   def destroy
-    @shop = Shop.find(params[:id])
+    @shop = current_user.shops.find(params[:id])
     @shop.destroy
 
     respond_to do |format|
