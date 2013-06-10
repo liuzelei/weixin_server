@@ -2,22 +2,27 @@
 class KeywordRepliesController < ApplicationController
 
   def index
-    @keyword_replies = KeywordReply.includes(:replies).order("keyword_replies.updated_at desc")
+    if params[:term].present?
+      @keyword_replies = current_user.keyword_replies.includes(:replies).where("keyword_replies.keyword like ?", "%#{params[:term]}%").order("keyword_replies.updated_at desc")
+    else
+      @keyword_replies = current_user.keyword_replies.includes(:replies).order("keyword_replies.updated_at desc")
+    end
   end
 
   def show
-    @keyword_reply = KeywordReply.find params[:id]
+    @keyword_reply = current_user.keyword_replies.find params[:id]
   end
 
   def new
-    @keyword_reply = KeywordReply.new
+    @keyword_reply = current_user.keyword_replies.new
     1.times { @keyword_reply.replies.build() }
   end
 
   def create
-    @keyword_reply = KeywordReply.new(params[:keyword_reply])
+    @keyword_reply = current_user.keyword_replies.new(params[:keyword_reply])
 
-    if @keyword_reply.save
+    #if @keyword_reply.save
+    if current_user.save
       #redirect_to @keyword_reply, notice: 'successfully created.'
       redirect_to keyword_replies_path, notice: 'successfully created.'
     else
@@ -26,11 +31,11 @@ class KeywordRepliesController < ApplicationController
   end
 
   def edit
-    @keyword_reply = KeywordReply.find params[:id]
+    @keyword_reply = current_user.keyword_replies.find params[:id]
   end
 
   def update
-    @keyword_reply = KeywordReply.find params[:id]
+    @keyword_reply = current_user.keyword_replies.find params[:id]
 
       if @keyword_reply.update_attributes(params[:keyword_reply])
         redirect_to @keyword_reply
@@ -40,7 +45,7 @@ class KeywordRepliesController < ApplicationController
   end
 
   def destroy
-    @keyword_reply = KeywordReply.find params[:id]
+    @keyword_reply = current_user.keyword_replies.find params[:id]
     @keyword_reply.destroy
 
     redirect_to keyword_replies_path

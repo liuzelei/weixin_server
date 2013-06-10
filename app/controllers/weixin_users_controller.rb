@@ -53,7 +53,8 @@ class WeixinUsersController < ApplicationController
     @weixin_user = current_user.weixin_users.new(params[:weixin_user])
 
     respond_to do |format|
-      if @weixin_user.save
+      #if @weixin_user.save
+      if current_user.save
         format.html { redirect_to @weixin_user, notice: 'Weixin user was successfully created.' }
         format.json { render json: @weixin_user, status: :created, location: @weixin_user }
       else

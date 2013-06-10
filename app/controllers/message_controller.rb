@@ -16,7 +16,7 @@ class MessageController < ApplicationController
       @response_text_content = weixin_user_info_recording
       @response_msg_type = "text"
       render "text", formats: :xml
-    elsif keyword_reply = KeywordReply.where(keyword: @request_content.to_s.downcase).first
+    elsif keyword_reply = current_user.keyword_replies.where(keyword: @request_content.to_s.downcase).first
       @item = keyword_reply.replies.order("random()").first.item
       render @item.class.to_s.underscore, formats: :xml, locals: {item: @item}
       #send "reply_with_#{item.class.to_s.underscore}".to_sym, @item

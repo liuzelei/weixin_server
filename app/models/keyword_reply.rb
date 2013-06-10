@@ -14,7 +14,8 @@ class KeywordReply < ActiveRecord::Base
 
   before_save :downcase_keyword
 
-  validates_uniqueness_of :keyword, case_sensitive: false
+  # TODO, 添加某用户下关键词唯一性验证，注意性能
+  #validates_uniqueness_of :keyword, case_sensitive: false
   #validates_uniqueness_of :keyword, scope: [], case_sensitive: false
 
   private

@@ -15,7 +15,8 @@ class QaStepsController < ApplicationController
   def create
     @qa_step = current_user.qa_steps.new(params[:qa_step])
 
-    if @qa_step.save
+    #if @qa_step.save
+    if current_user.save
       #redirect_to @qa_step, notice: 'successfully created.'
       redirect_to qa_steps_path, notice: 'successfully created.'
     else
