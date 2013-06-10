@@ -3,7 +3,7 @@ class NewsController < ApplicationController
   # GET /news.json
   def index
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 15
-    @news = News.includes(:items).order("news.updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
+    @news = current_user.news.includes(:items).order("news.updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,13 +13,13 @@ class NewsController < ApplicationController
 
   def list
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 100
-    @news = News.order("updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
+    @news = current_user.news.order("updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
   end
 
   # GET /news/1
   # GET /news/1.json
   def show
-    @news = News.find(params[:id])
+    @news = current_user.news.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -30,7 +30,7 @@ class NewsController < ApplicationController
   # GET /news/new
   # GET /news/new.json
   def new
-    @news = News.new
+    @news = current_user.news.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,16 +40,16 @@ class NewsController < ApplicationController
 
   # GET /news/1/edit
   def edit
-    @news = News.find(params[:id])
+    @news = current_user.news.find(params[:id])
   end
 
   # POST /news
   # POST /news.json
   def create
-    @news = News.new(params[:news])
+    @news = current_user.news.new(params[:news])
 
     respond_to do |format|
-      if @news.save
+      if current_user.news.save
         format.html { redirect_to @news, notice: 'News was successfully created.' }
         format.json { render json: @news, status: :created, location: @news }
       else
@@ -62,7 +62,7 @@ class NewsController < ApplicationController
   # PUT /news/1
   # PUT /news/1.json
   def update
-    @news = News.find(params[:id])
+    @news = current_user.news.find(params[:id])
 
     respond_to do |format|
       if @news.update_attributes(params[:news])
@@ -78,7 +78,7 @@ class NewsController < ApplicationController
   # DELETE /news/1
   # DELETE /news/1.json
   def destroy
-    @news = News.find(params[:id])
+    @news = current_user.news.find(params[:id])
     @news.destroy
 
     respond_to do |format|

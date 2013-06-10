@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
   # GET /items/new
   # GET /items/new.json
   def new
-    @news = News.find params[:news_id]
+    @news = current_user.news.find params[:news_id]
     @item = @news.items.new
 
     respond_to do |format|
@@ -35,14 +35,14 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
-    @news = News.find params[:news_id]
+    @news = current_user.news.find params[:news_id]
     @item = @news.items.find(params[:id])
   end
 
   # POST /items
   # POST /items.json
   def create
-    @news = News.find params[:news_id]
+    @news = current_user.news.find params[:news_id]
     @item = @news.items.new(params[:item])
 
     if @item.save
@@ -55,7 +55,7 @@ class ItemsController < ApplicationController
   # PUT /items/1
   # PUT /items/1.json
   def update
-    @news = News.find params[:news_id]
+    @news = current_user.news.find params[:news_id]
     @item = @news.items.find(params[:id])
 
     respond_to do |format|
@@ -72,7 +72,7 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    @news = News.find params[:news_id]
+    @news = current_user.news.find params[:news_id]
     @item = Item.find(params[:id])
     @item.destroy
 
