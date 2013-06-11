@@ -1,4 +1,14 @@
-$navbarHeight: 55px;
+$navbarHeight: 38px;
+$navbarBackground: #459935;
+$navbarBackgroundHighlight: #459935;
+//$navbarBrandColor: green;
+$navbarLinkColor: #ffffff;
+//navbarLinkColorHover
+$navbarLinkColorActive: white;
+$navbarLinkBackgroundHover: #37712B;
+$navbarLinkColorHover: white;
+//$btnPrimaryBackground: #459935;
+//$navbarLinkBackgroundActive: #37712B;
 @import "bootstrap";
 @import "bootstrap-responsive";
 

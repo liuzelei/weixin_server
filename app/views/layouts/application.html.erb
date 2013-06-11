@@ -26,13 +26,15 @@
 
   <section id="main">
     <div class="container-fluid">
-      <div class="span2 bs-docs-sidenav">
-        <%= yield :menu %>
-      </div>
+			<div class="row-fluid">
+				<div class="span2 bs-docs-sidenav">
+					<%= yield :menu %>
+				</div>
 
-      <div class="span10">
-        <%= yield %>
-      </div>
+				<div class="span10">
+					<%= yield %>
+				</div>
+			</div>
     </div>
   </section>
 

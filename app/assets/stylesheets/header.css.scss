@@ -1,0 +1,19 @@
+
+
+header {
+	font-family: "Microsoft YaHei",Helvetica,Verdana,Arial,Tahoma;
+	font-size: 14px;
+	line-height: 1.5;
+	font-weight: bold;
+}
+header .navbar-fixed-top {
+	top: 12px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
+	border-radius: 19px 19px 19px 19px;
+	padding-left: 0;
+	padding-right: 0;
+}

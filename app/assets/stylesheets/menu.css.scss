@@ -8,7 +8,7 @@
 .bs-docs-sidenav {
 	background-color: #FFFFFF;
 	border-radius: 6px 6px 6px 6px;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+	//box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
 	margin: 0px 0 0;
 	padding: 0;
 	width: 170px;
@@ -33,4 +33,8 @@
 
 .bs-docs-sidenav li a {
 	font-size: large;
+}
+
+.nav-list > .active > a, .nav-list > .active > a:hover {
+	background-color: #37712B;
 }
