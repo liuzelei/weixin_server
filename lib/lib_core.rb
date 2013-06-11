@@ -9,10 +9,12 @@ module Weixin
           @logger ||= Logger.new File.join(Rails.root,"log","weixin_web.log"), "weekly"
         end
 
-        def steal_weixin_user_info(weixin_user_id=0)
+        def steal_weixin_user_info(user_id=0, weixin_user_id=0)
           #@current_weixin_user = WeixinUser.last
+          current_user = User.find user_id
+          current_user_setting = current_user.setting
           @current_weixin_user = WeixinUser.find_by_id weixin_user_id
-          if @current_weixin_user
+          if @current_weixin_user and current_user_setting
             begin
               logger.info "start selenium stealing..."
               @selenium = Selenium::Client::Driver.new \
@@ -26,10 +28,8 @@ module Weixin
               @selenium.start_new_browser_session
 
               @selenium.open "/cgi-bin/loginpage?t=wxm2-login&lang=zh_CN"
-              #@selenium.type "id=account", "as181920@hotmail.com"
-              #@selenium.type "id=password", "wx.password"
-              @selenium.type "id=account", "ywzb2013"
-              @selenium.type "id=password", "kinghansoft2013"
+              @selenium.type "id=account", current_user_setting.account
+              @selenium.type "id=password", current_user_setting.password
               @selenium.click "id=login_button"
               @selenium.wait_for_page_to_load "30000"
               @selenium.click "link=实时消息"
@@ -58,6 +58,9 @@ module Weixin
           end
         end
       end
+    rescue => e
+      logger.error "error occured when find user for user info stealing."
+      logger.error e
     end
 
     def test_lib

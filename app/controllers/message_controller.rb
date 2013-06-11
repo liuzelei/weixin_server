@@ -16,7 +16,6 @@ class MessageController < ApplicationController
     last_response_message = @current_weixin_user.response_messages.order("created_at desc").first.try :content
     if @qa_step = current_user.qa_steps.where(question: last_response_message).first
       @response_text_content = weixin_user_info_recording
-      @response_msg_type = "text"
       render "text", formats: :xml
     elsif @keyword_reply = current_user.keyword_replies.where(keyword: @request_text_content.to_s.downcase).first
       @item = @keyword_reply.replies.order("random()").first.item
@@ -25,12 +24,10 @@ class MessageController < ApplicationController
     elsif @activity = current_user.activities.where("keyword like ?", "#{@request_text_content.split.first.to_s.downcase}%").first
       if @request_text_content.length < 4
         @response_text_content = "请输入【djq空格微信昵称】，不要漏了帐号哦"
-        @response_msg_type = "text"
         render "text", formats: :xml
       else
         @current_weixin_user.update_attributes weixin_id: @request_text_content.gsub(@activity.keyword,"").gsub('+',"")
         @coupon = generate_coupon
-        #@response_msg_type = "news"
         render "news_coupon", formats: :xml
       end
     else
@@ -57,7 +54,6 @@ class MessageController < ApplicationController
       @response_text_content = find_nearest_shop
     end
 
-    @response_msg_type = "text"
     render "text", formats: :xml
   end
 
@@ -81,7 +77,6 @@ class MessageController < ApplicationController
         "Unknown"
       end
 
-    @response_msg_type = "text"
     render "event", formats: :xml
   end
 
@@ -108,7 +103,7 @@ class MessageController < ApplicationController
   def current_weixin_user
     weixin_open_id = params[:xml][:FromUserName]
     @current_weixin_user ||= (current_user.weixin_users.find_by_open_id(weixin_open_id) || current_user.weixin_users.create(open_id: weixin_open_id))
-    WeixinWeb.delay.steal_weixin_user_info(@current_weixin_user.id)
+    WeixinWeb.delay.steal_weixin_user_info(current_user.id, @current_weixin_user.id)
   end
 
   # 保存请求数据到数据库
@@ -165,17 +160,13 @@ class MessageController < ApplicationController
 
   # 保存响应数据到数据库
   def save_response
-    @current_response_message = @current_request_message.create_response_message \
-      weixin_user_id: @current_weixin_user.id
-    @current_response_message.create_reply \
-      item_id: @item.id,
-      item_type: @item.class.to_s
+    @current_response_message = @current_request_message.create_response_message weixin_user_id: @current_weixin_user.id
+    @current_response_message.create_reply item_id: @item.id, item_type: @item.class.to_s if @item.present?
   end
 
   def reply_with_default
     #@response_text_content = Setting.find_by_name("default_message").try :content 
     @response_text_content = current_user.setting.try :default_message
-    @response_msg_type = "text"
     render "text", formats: :xml
   end
 

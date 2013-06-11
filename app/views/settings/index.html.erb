@@ -29,6 +29,7 @@
   </fieldset>
 
   <br />
+
   <legend>基础配置信息</legend>
   <fieldset>
     <!-- <div class="control-group">
@@ -50,6 +51,23 @@
 			</div>
 		</div>
 	</fieldset>
+
+  <br />
+  <legend>微信官方后台帐号密码</legend>
+  <fieldset>
+		<div class="control-group">
+			<%= f.label :account, "帐号", class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :account, rows: 3%>
+			</div>
+		</div>
+		<div class="control-group">
+			<%= f.label :password, "密码", class: "control-label" %>
+			<div class="controls">
+				<%= f.password_field :password, rows: 3%>
+			</div>
+		</div>
+  </fieldset>
 
   <hr />
   <div class="control-group">

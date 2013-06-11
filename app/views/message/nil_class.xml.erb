@@ -1,2 +1,2 @@
   <MsgType><![CDATA[text]]></MsgType>
-  <Content><![CDATA[<%=Setting.find_by_name("default_message").try :content%>]]></Content>
+  <Content><![CDATA[<%=current_user.setting.try :default_message%>]]></Content>

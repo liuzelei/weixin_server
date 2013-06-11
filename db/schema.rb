@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130611060618) do
+ActiveRecord::Schema.define(:version => 20130611074911) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -158,6 +158,8 @@ ActiveRecord::Schema.define(:version => 20130611060618) do
     t.text     "welcome_message"
     t.text     "default_message"
     t.integer  "user_id"
+    t.string   "account"
+    t.string   "password"
   end
 
   add_index "settings", ["weixin_id"], :name => "index_settings_on_weixin_id", :unique => true
