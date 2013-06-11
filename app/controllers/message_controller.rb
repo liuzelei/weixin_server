@@ -169,7 +169,7 @@ class MessageController < ApplicationController
       weixin_user_id: @current_weixin_user.id
     @current_response_message.create_reply \
       item_id: @item.id,
-      item_type: @item.class.to_s,
+      item_type: @item.class.to_s
   end
 
   def reply_with_default
