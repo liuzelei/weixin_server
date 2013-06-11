@@ -1,11 +1,5 @@
 <%= render "shared/settings_menu" %>
 
-
-<div class="form-horizontal">
-</div>
-
-
-
 <%= form_for @setting, html: {class: "form-horizontal"} do |f| %>
 	<% if @setting.errors.any? %>
 		<div id="error_explanation">
@@ -23,11 +17,14 @@
   <fieldset>
     <div class="control-group">
       <%=f.label :url, "URL:", class: "control-label"%>
-      <div class="controls"><%=text_field_tag :url, message_api_url(@setting.user_id), readonly: true%></div>
+      <div class="controls"><%=text_field_tag :url, message_api_url(@setting.user_id), readonly: true, class: "input-xlarge"%></div>
     </div>
     <div class="control-group">
       <%=f.label :token, "Token:", class: "control-label"%>
-      <div class="controls"><%=f.text_field :token, placeholder: "必须为英文或字符，长度为3～32字符" %></div>
+			<div class="controls">
+				<%=f.text_field :token, placeholder: "", class: "input-small" %>
+				<span>必须为英文或字符，长度为3～32</span>
+			</div>
     </div>
   </fieldset>
 
