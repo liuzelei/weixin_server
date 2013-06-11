@@ -1,16 +1,11 @@
 <%= render "shared/settings_menu" %>
 
-微信开发模式配置信息：
-<br />
-<br />
 
-URL: http://testweixin.bbtang.com/message/io
-<br />
-Token: 181920
+<div class="form-horizontal">
+</div>
 
 
-<br />
-<br />
+
 <%= form_for @setting, html: {class: "form-horizontal"} do |f| %>
 	<% if @setting.errors.any? %>
 		<div id="error_explanation">
@@ -24,13 +19,27 @@ Token: 181920
 		</div>
 	<% end %>
 
-	<fieldset>
-		<div class="control-group">
-			<%= f.label :weixin_id, "公众号ID", class: "control-label" %>
-			<div class="controls">
+  <legend>微信开发模式-接口配置信息</legend>
+  <fieldset>
+    <div class="control-group">
+      <%=f.label :url, "URL:", class: "control-label"%>
+      <div class="controls"><%=text_field_tag :url, message_api_url(@setting.user_id), readonly: true%></div>
+    </div>
+    <div class="control-group">
+      <%=f.label :token, "Token:", class: "control-label"%>
+      <div class="controls"><%=f.text_field :token, placeholder: "必须为英文或字符，长度为3～32字符" %></div>
+    </div>
+  </fieldset>
+
+  <br />
+  <legend>基础配置信息</legend>
+  <fieldset>
+    <!-- <div class="control-group">
+      <%= f.label :weixin_id, "公众号ID", class: "control-label" %>
+      <div class="controls">
 				<%= f.text_field :weixin_id, rows: 3%>
 			</div>
-		</div>
+		</div> -->
 		<div class="control-group">
 			<%= f.label :welcome_message, "订阅欢迎语", class: "control-label" %>
 			<div class="controls">
@@ -43,11 +52,13 @@ Token: 181920
 				<%= f.text_area :default_message, rows: 3%>
 			</div>
 		</div>
-		<div class="control-group">
-			<div class="controls">
-				<%= f.submit "保存", class: "btn btn-primary" %>
-			</div>
-		</div>
 	</fieldset>
+
+  <hr />
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit "保存", class: "btn btn-primary" %>
+    </div>
+  </div>
 <% end %>
 

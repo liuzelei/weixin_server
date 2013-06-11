@@ -71,7 +71,7 @@ class SettingsController < ApplicationController
         #format.html { redirect_to @setting, notice: 'Setting was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "index" }
         format.json { render json: @setting.errors, status: :unprocessable_entity }
       end
     end

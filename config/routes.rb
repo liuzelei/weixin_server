@@ -17,24 +17,25 @@ DemoWeixin::Application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   devise_for :users
+  resources :settings
 
   get "welcome/index"
   get "welcome/test"
   post "welcome/test1"
 
-  get "message/io" => "welcome#auth"
+  get "message/:user_id" => "welcome#auth", as: :message_api
   scope "/", via: :post do
-    #match "message/io" => "message#input_text", constraints: lambda {|request| request.params[:xml].nil? }
-    #match "message/io" => "message#input_image", constraints: lambda {|request| request.params[:xml] && request.params[:xml][:MsgType] == "text"}
-    match "message/io" => "message#input_text", constraints: DemoWeixin::Router.new("text")
-    match "message/io" => "message#input_image", constraints: DemoWeixin::Router.new("image")
-    match "message/io" => "message#input_location", constraints: DemoWeixin::Router.new("location")
-    match "message/io" => "message#input_link", constraints: DemoWeixin::Router.new("link")
-    match "message/io" => "message#input_event", constraints: DemoWeixin::Router.new("event")
-    match "message/io" => "message#input_music", constraints: DemoWeixin::Router.new("music")
-    match "message/io" => "message#input_news", constraints: DemoWeixin::Router.new("news")
-    match "message/io" => "message#input_others"
-    #match "message/io" => "message#input_text", constraints: lambda {|r| r.params}
+    #match "message/:user_id" => "message#input_text", constraints: lambda {|request| request.params[:xml].nil? }
+    #match "message/:user_id" => "message#input_image", constraints: lambda {|request| request.params[:xml] && request.params[:xml][:MsgType] == "text"}
+    match "message/:user_id" => "message#input_text", as: :message_api, constraints: DemoWeixin::Router.new("text")
+    match "message/:user_id" => "message#input_image", as: :message_api, constraints: DemoWeixin::Router.new("image")
+    match "message/:user_id" => "message#input_location", as: :message_api, constraints: DemoWeixin::Router.new("location")
+    match "message/:user_id" => "message#input_link", as: :message_api, constraints: DemoWeixin::Router.new("link")
+    match "message/:user_id" => "message#input_event", as: :message_api, constraints: DemoWeixin::Router.new("event")
+    match "message/:user_id" => "message#input_music", as: :message_api, constraints: DemoWeixin::Router.new("music")
+    match "message/:user_id" => "message#input_news", as: :message_api, constraints: DemoWeixin::Router.new("news")
+    match "message/:user_id" => "message#input_others", as: :message_api
+    #match "message/:user_id" => "message#input_text", constraints: lambda {|r| r.params}
   end
 
   resources :weixin_users do
@@ -68,7 +69,6 @@ DemoWeixin::Application.routes.draw do
   resources :videos
 
   resources :shops
-  resources :settings
   resources :statistics, only: [:index] do
     collection do
       get "chart_messages"
