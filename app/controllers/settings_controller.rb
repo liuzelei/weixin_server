@@ -53,7 +53,7 @@ class SettingsController < ApplicationController
         #format.html { redirect_to @setting, notice: 'Setting was successfully created.' }
         format.json { render json: @setting, status: :created, location: @setting }
       else
-        format.html { render action: "new" }
+        format.html { render action: "index" }
         format.json { render json: @setting.errors, status: :unprocessable_entity }
       end
     end
