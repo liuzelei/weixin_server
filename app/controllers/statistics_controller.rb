@@ -28,7 +28,7 @@ class StatisticsController < ApplicationController
 
   def detail
 
-    @per_page = params[:per_page].present? ? params[:per_page].to_i : 10
+    @per_page = params[:per_page].present? ? params[:per_page].to_i : 20
     @q = current_user.request_messages.search(params[:q])
     @request_messages = @q.result.includes(:response_message).includes(:weixin_user).includes(:wx_text).includes(:wx_location).includes(:wx_image).includes(:wx_event).includes(:wx_link).order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
 
