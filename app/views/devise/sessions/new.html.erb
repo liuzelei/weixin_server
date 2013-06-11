@@ -11,7 +11,7 @@
     <div class="control-group">
       <%=f.label :password, "Password:", class: "control-label"%>
 			<div class="controls">
-				<%=f.text_field :password %>
+				<%=f.password_field :password %>
 			</div>
     </div>
 		<% if devise_mapping.rememberable? -%>
