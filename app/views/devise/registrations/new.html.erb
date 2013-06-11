@@ -1,18 +1,35 @@
-<h2>Sign up</h2>
+<%=render "shared/auth_logo"%>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+<legend>注册</legend>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name),html: {class: "form-horizontal"}) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+  <fieldset>
+    <div class="control-group">
+      <%=f.label :email, "Email:", class: "control-label"%>
+      <div class="controls"><%=f.email_field :email, autofocus: true%></div>
+    </div>
+    <div class="control-group">
+      <%=f.label :password, "Password:", class: "control-label"%>
+			<div class="controls">
+				<%=f.text_field :password %>
+			</div>
+    </div>
+    <div class="control-group">
+      <%=f.label :password_confirmation, "Password confirmation:", class: "control-label"%>
+			<div class="controls">
+				<%=f.text_field :password_confirmation %>
+			</div>
+    </div>
+  </fieldset>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.submit "Sign up" %></div>
+	<hr />
+	
+  <%= f.submit "Sign up", class: "btn btn-primary btn-large pull-left" %>
 <% end %>
 
+<div class="pull-right">
 <%= render "devise/shared/links" %>
+</div>
+
