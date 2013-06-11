@@ -5,17 +5,11 @@ class ResponseMessage < ActiveRecord::Base
   belongs_to :request_message
   belongs_to :weixin_user
 
-  has_many :replies, as: :item, dependent: :destroy
-  has_one :ownership, as: :item, dependent: :destroy
-
-  def outline_content
-    if content.present?
-      content
-    elsif news_id.present?
-      news = News.find_by_id(news_id)
-      (news.title.to_s + news.items.map(&:title).join(",\n")) if news.present?
-    else
-      "未知消息"
-    end
+  has_one :reply, as: :target, dependent: :destroy
+  ItemTypes = ["ReplyText","News","Audio","Activity"]
+  ItemTypes.each do |item_type|
+    has_one item_type.underscore.to_sym, through: :reply, source: "item", source_type: item_type
   end
+  #has_one :ownership, as: :item, dependent: :destroy
+
 end

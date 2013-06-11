@@ -1,11 +1,14 @@
 class WeixinUsersController < ApplicationController
   # GET /weixin_users
   # GET /weixin_users.json
+
   def index
+    @per_page = params[:per_page].present? ? params[:per_page].to_i : 100
+
     if params[:term].present?
-      @weixin_users = current_user.weixin_users.where("name like ?", "%#{params[:term]}%").order("updated_at desc")
+      @weixin_users = current_user.weixin_users.where("name like ?", "%#{params[:term]}%").order("updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
     else
-      @weixin_users = current_user.weixin_users.order("updated_at desc")
+      @weixin_users = current_user.weixin_users.order("updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
     end
 
     respond_to do |format|

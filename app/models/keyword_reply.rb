@@ -2,14 +2,14 @@
 class KeywordReply < ActiveRecord::Base
   attr_accessible :keyword, :replies_attributes
 
-  has_many :replies, dependent: :destroy
-  ItemTypes = ["ReplyText","News","Audio","Activity"]
+  has_many :replies, as: :target, dependent: :destroy
+  ItemTypes = ["ReplyText","News","Audio","Activity","ResponseMessage"]
   ItemTypes.each do |item_type|
     has_many item_type.underscore.pluralize.to_sym, through: :replies, source: "item", source_type: item_type
   end
 
   has_one :ownership, as: :item, dependent: :destroy
-  has_one :user, through: :ownerships
+  has_one :user, through: :ownership
   accepts_nested_attributes_for :replies, allow_destroy: true
 
   before_save :downcase_keyword

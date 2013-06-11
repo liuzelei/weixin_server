@@ -2,7 +2,7 @@
 class Reply < ActiveRecord::Base
   attr_accessible :keyword_reply_id, :item_id, :item_type
 
-  belongs_to :keyword_reply
+  belongs_to :target, polymorphic: true
   belongs_to :item, polymorphic: true
 
   validates_presence_of :item_id, :item_type

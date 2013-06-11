@@ -12,22 +12,23 @@ class MessageController < ApplicationController
 
   def input_text
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
-    last_response_message = current_user.response_messages.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
+    #last_response_message = current_user.response_messages.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
+    last_response_message = @current_weixin_user.response_messages.order("created_at desc").first.try :content
     if @qa_step = current_user.qa_steps.where(question: last_response_message).first
       @response_text_content = weixin_user_info_recording
       @response_msg_type = "text"
       render "text", formats: :xml
-    elsif keyword_reply = current_user.keyword_replies.where(keyword: @request_content.to_s.downcase).first
-      @item = keyword_reply.replies.order("random()").first.item
+    elsif @keyword_reply = current_user.keyword_replies.where(keyword: @request_text_content.to_s.downcase).first
+      @item = @keyword_reply.replies.order("random()").first.item
       render @item.class.to_s.underscore, formats: :xml, locals: {item: @item}
       #send "reply_with_#{item.class.to_s.underscore}".to_sym, @item
-    elsif @activity = current_user.activities.where("keyword like ?", "#{@request_content.split.first.to_s.downcase}%").first
-      if @request_content.length < 4
+    elsif @activity = current_user.activities.where("keyword like ?", "#{@request_text_content.split.first.to_s.downcase}%").first
+      if @request_text_content.length < 4
         @response_text_content = "请输入【djq空格微信昵称】，不要漏了帐号哦"
         @response_msg_type = "text"
         render "text", formats: :xml
       else
-        @current_weixin_user.update_attributes weixin_id: @request_content.gsub(@activity.keyword,"").gsub('+',"")
+        @current_weixin_user.update_attributes weixin_id: @request_text_content.gsub(@activity.keyword,"").gsub('+',"")
         @coupon = generate_coupon
         #@response_msg_type = "news"
         render "news_coupon", formats: :xml
@@ -42,13 +43,13 @@ class MessageController < ApplicationController
 
   def input_image
     #render "reply", formats: :xml
-    @current_weixin_user.update_attributes weixin_id: @request_content.gsub(@activity.keyword,"").gsub('+',"")
+    @current_weixin_user.update_attributes weixin_id: @request_text_content.gsub(@activity.keyword,"").gsub('+',"")
     @coupon = generate_coupon
     render "news_coupon", formats: :xml
   end
 
   def input_location
-    last_response_message = current_user.response_messages.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
+    last_response_message = @current_weixin_user.response_messages.order("created_at desc").first.try :content
     @qa_step = current_user.qa_steps.where(question: last_response_message).first
     if @qa_step.present?
       @response_text_content = weixin_user_info_recording
@@ -62,7 +63,7 @@ class MessageController < ApplicationController
 
   def input_link
     #render "reply", formats: :xml
-    @current_weixin_user.update_attributes weixin_id: @request_content.gsub(@activity.keyword,"").gsub('+',"")
+    @current_weixin_user.update_attributes weixin_id: @request_text_content.gsub(@activity.keyword,"").gsub('+',"")
     @coupon = generate_coupon
     render "news_coupon", formats: :xml
   end
@@ -85,7 +86,7 @@ class MessageController < ApplicationController
   end
 
   def input_others
-    @current_weixin_user.update_attributes weixin_id: @request_content.gsub(@activity.keyword,"").gsub('+',"")
+    @current_weixin_user.update_attributes weixin_id: @request_text_content.gsub(@activity.keyword,"").gsub('+',"")
     @coupon = generate_coupon
     render "news_coupon", formats: :xml
     #render "reply", formats: :xml
@@ -94,7 +95,8 @@ class MessageController < ApplicationController
   private
   # 根据参数校验请求是否合法，如果非法返回错误页面
   def check_weixin_legality
-    array = [WEIXIN_TOKEN, params[:timestamp], params[:nonce]].sort
+    #array = [WEIXIN_TOKEN, params[:timestamp], params[:nonce]].sort
+    array = [current_user.setting.try(:token), params[:timestamp], params[:nonce]].sort
     render :text => "Forbidden", :status => 403 if params[:signature] != Digest::SHA1.hexdigest(array.join)
   end
 
@@ -104,8 +106,8 @@ class MessageController < ApplicationController
   end
   # 保存请求客户OpenID
   def current_weixin_user
-    req_user_id = params[:xml][:FromUserName]
-    @current_weixin_user ||= (current_user.weixin_users.find_by_open_id(req_user_id) || current_user.weixin_users.create(open_id: req_user_id))
+    weixin_open_id = params[:xml][:FromUserName]
+    @current_weixin_user ||= (current_user.weixin_users.find_by_open_id(weixin_open_id) || current_user.weixin_users.create(open_id: weixin_open_id))
     WeixinWeb.delay.steal_weixin_user_info(@current_weixin_user.id)
   end
 
@@ -120,58 +122,54 @@ class MessageController < ApplicationController
   end
   def save_request_detail_data
     msg_type = params[:xml][:MsgType]
-    case msg_type
-    when "text"
-      @request_content = params[:xml][:Content].to_s
-      @current_weixin_user.wx_texts.create \
-        request_message_id: @current_request_message.id,
-        content: @request_content
-    when "image"
-      pic_url = params[:xml][:PicUrl]
-      @current_weixin_user.wx_images.create \
-        request_message_id: @current_request_message.id,
-        pic_url: pic_url
-    when "location"
-      @current_weixin_user.wx_locations.create \
-        request_message_id: @current_request_message.id,
-        latitude: params[:xml][:Location_X],
-        longitude: params[:xml][:Location_Y],
-        scale: params[:xml][:Scale]
-    when "link"
-      @current_weixin_user.wx_links.create \
-        request_message_id: @current_request_message.id,
-        title: params[:xml][:Title],
-        description: params[:xml][:Description],
-        url: params[:xml][:Url]
-    when "event"
-      @current_weixin_user.wx_events.create \
-        request_message_id: @current_request_message.id,
-        event: params[:xml][:Event],
-        event_key: params[:xml][:EventKey]
-    else
-      logger.info "did not save any detail data for request message"
-    end
+    send "save_request_detail_data_of_#{msg_type.to_s.underscore}".to_sym
+  rescue => e
+    logger.error "Exception: #{e.class}: #{e.message}" if e
+    logger.info "not save request detail data because unknown msg_type"
+  end
+  def save_request_detail_data_of_
+    logger.info "not save request detail data because nil msg_type"
+  end
+  def save_request_detail_data_of_text
+    @request_text_content = params[:xml][:Content].to_s
+    @current_weixin_user.wx_texts.create \
+      request_message_id: @current_request_message.id,
+      content: @request_text_content
+  end
+  def save_request_detail_data_of_image
+    pic_url = params[:xml][:PicUrl]
+    @current_weixin_user.wx_images.create \
+      request_message_id: @current_request_message.id,
+      pic_url: pic_url
+  end
+  def save_request_detail_data_of_location
+    @current_weixin_user.wx_locations.create \
+      request_message_id: @current_request_message.id,
+      latitude: params[:xml][:Location_X],
+      longitude: params[:xml][:Location_Y],
+      scale: params[:xml][:Scale]
+  end
+  def save_request_detail_data_of_link
+    @current_weixin_user.wx_links.create \
+      request_message_id: @current_request_message.id,
+      title: params[:xml][:Title],
+      description: params[:xml][:Description],
+      url: params[:xml][:Url]
+  end
+  def save_request_detail_data_of_event
+    @current_weixin_user.wx_events.create \
+      request_message_id: @current_request_message.id,
+      event: params[:xml][:Event],
+      event_key: params[:xml][:EventKey]
   end
 
   # 保存响应数据到数据库
   def save_response
-    @response_msg_type ||= @item.class.to_s.underscore if @item
-    res_msg = current_user.response_messages.new \
-        weixin_user_id: @current_weixin_user.id,
-        request_message_id: @current_request_message.id,
-        msg_type: @response_msg_type
-    case @response_msg_type
-    when "text", "reply_text"
-        res_msg.content = @response_text_content
-    when "news"
-        res_msg.news_id = @news.id
-    when "audio"
-      logger.info "response message type is music"
-    else
-      logger.info "did not know response message type"
-    end
-
-    res_msg.save
+    @current_response_message = @current_request_message.create_response_message \
+      weixin_user_id: @current_weixin_user.id
+    @current_response_message.create_reply \
+      item_id: @item.id,
+      item_type: @item.class.to_s,
   end
 
   def reply_with_default
@@ -199,11 +197,11 @@ class MessageController < ApplicationController
     keyword = @qa_step.keyword
     case keyword
     when "zh"
-      @current_weixin_user.update_attributes weixin_id: @request_content
+      @current_weixin_user.update_attributes weixin_id: @request_text_content
     when "xb"
-      @current_weixin_user.update_attributes sex: @request_content
+      @current_weixin_user.update_attributes sex: @request_text_content
     when "nl"
-      @current_weixin_user.update_attributes age: @request_content
+      @current_weixin_user.update_attributes age: @request_text_content
     when "dz"
       #address = params[:xml].keep_if {|k,v| ["Location_X","Location_Y","Scale"].include? k}
       @current_weixin_user.update_attributes \
