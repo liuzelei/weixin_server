@@ -14,11 +14,11 @@
     <% @request_messages.each do |it| %>
       <tr>
         <td><%=it.weixin_user.try :id%></td>
-        <td><%=it.weixin_user.try :weixin_id%></td>
+        <td><%=it.weixin_user.try :name%></td>
         <td><%=it.created_at.strftime("%Y-%m-%d %H:%M")%></td>
         <td><%=it.msg_type%></td>
         <td><%=it.outline_content%></td>
-        <td><%=it.response_message.try :outline_content%></td>
+        <td><%=it.response_message.try(:reply).try(:outline_content) %></td>
       </tr>
     <% end %>
   </tbody>

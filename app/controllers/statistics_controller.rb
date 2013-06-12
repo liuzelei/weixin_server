@@ -10,7 +10,7 @@ class StatisticsController < ApplicationController
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 10
     # TODO search
     if params[:term].present?
-      @request_follows = current_user.request_messages.joins(:weixin_user).where(msg_type: "event").where("weixin_users.weixin_id like ?", "%#{params[:term]}%").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
+      @request_follows = current_user.request_messages.joins(:weixin_user).where(msg_type: "event").where("weixin_users.name like ?", "%#{params[:term]}%").order("request_messages.created_at desc").page([params[:page].to_i,1].max).per(@per_page)
     else
       @request_follows = current_user.request_messages.where(msg_type: "event").order("created_at desc").page([params[:page].to_i,1].max).per(@per_page)
     end
@@ -18,7 +18,7 @@ class StatisticsController < ApplicationController
 
   def follows_export
     if params[:term].present?
-      @request_follows = current_user.request_messages.joins(:weixin_user).where(msg_type: "event").where("weixin_users.weixin_id like ?", "%#{params[:term]}%").order("request_messages.created_at desc")
+      @request_follows = current_user.request_messages.joins(:weixin_user).where(msg_type: "event").where("weixin_users.name like ?", "%#{params[:term]}%").order("request_messages.created_at desc")
     else
       @request_follows = current_user.request_messages.where(msg_type: "event").order("created_at desc")
     end
@@ -53,7 +53,7 @@ class StatisticsController < ApplicationController
   end
 
   def dates
-    @req_stats = current_user.request_messages.group("date(created_at)").select("count(id) as cnt, date(created_at) as created_date").order("created_date desc")
+    @req_stats = current_user.request_messages.group("created_date").select("date(request_messages.created_at) as created_date, count(1) as cnt").order("created_date desc")
   end
 
   def weixin_users_dates
