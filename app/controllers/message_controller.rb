@@ -114,7 +114,7 @@ class MessageController < ApplicationController
   def save_request_common_data
     msg_type = params[:xml][:MsgType]
     @current_request_message = current_user.request_messages.create \
-      weixin_user_id: @current_weixin_user,
+      weixin_user_id: @current_weixin_user.id,
       msg_type: msg_type,
       xml: params[:xml]
   end
@@ -131,7 +131,7 @@ class MessageController < ApplicationController
   def save_request_detail_data_of_text
     @request_text_content = params[:xml][:Content].to_s
     @current_request_message.wx_texts.create \
-      weixin_user_id: @current_weixin_user,
+      weixin_user_id: @current_weixin_user.id,
       content: @request_text_content
   end
   def save_request_detail_data_of_image

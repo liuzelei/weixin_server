@@ -25,6 +25,9 @@ class WeixinUser < ActiveRecord::Base
   #reverse_geocoded_by :latitude, :longitude
   #after_validation :reverse_geocode  # auto-fetch address
 
+  def to_i
+    id
+  end
 
   def sex_name
     case sex
