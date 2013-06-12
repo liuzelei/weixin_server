@@ -1,9 +1,9 @@
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container-fluid">
-			<ul class="nav nav-pills">
+			<ul class="nav">
 				<li>
-					<%=link_to raw("<i class='icon-home icon-black'></i>"), root_path%>
+					<%=link_to raw("<i class='icon-home icon-black'></i>"), root_path, class: ""%>
 				</li>
 				<!-- <li class="dropdown">
 					<%=link_to raw("<i class='icon-chevron-down icon-black'></i>"), "#", data: {toggle: "dropdown"}, class: "dropdown-toggle"%>
@@ -11,9 +11,10 @@
 						<li></li>
 					</ul>
 				</li> -->
+				<li class="divider-vertical"></li>
 			</ul>
 
-			<%= yield :header_menu %>
+			<%#= yield :header_menu %>
 
 			<ul class="nav">
 				<li class="<%=current_nav_item_state('weixin_users')%>"> <%=link_to "微信用户", weixin_users_path%> </li>
