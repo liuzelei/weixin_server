@@ -113,7 +113,10 @@ class MessageController < ApplicationController
   end
   def save_request_common_data
     msg_type = params[:xml][:MsgType]
-    @current_request_message = @current_weixin_user.request_messages.create msg_type: msg_type, xml: params[:xml]
+    @current_request_message = current_user.request_messages.create \
+      weixin_user_id: @current_weixin_user,
+      msg_type: msg_type,
+      xml: params[:xml]
   end
   def save_request_detail_data
     msg_type = params[:xml][:MsgType]
@@ -127,41 +130,41 @@ class MessageController < ApplicationController
   end
   def save_request_detail_data_of_text
     @request_text_content = params[:xml][:Content].to_s
-    @current_weixin_user.wx_texts.create \
-      request_message_id: @current_request_message.id,
+    @current_request_message.wx_texts.create \
+      weixin_user_id: @current_weixin_user,
       content: @request_text_content
   end
   def save_request_detail_data_of_image
     pic_url = params[:xml][:PicUrl]
-    @current_weixin_user.wx_images.create \
-      request_message_id: @current_request_message.id,
+    @current_request_message.wx_images.create \
+      weixin_user_id: @current_weixin_user.id,
       pic_url: pic_url
   end
   def save_request_detail_data_of_location
-    @current_weixin_user.wx_locations.create \
-      request_message_id: @current_request_message.id,
+    @current_request_message.wx_locations.create \
+      weixin_user_id: @current_weixin_user.id,
       latitude: params[:xml][:Location_X],
       longitude: params[:xml][:Location_Y],
       scale: params[:xml][:Scale]
   end
   def save_request_detail_data_of_link
-    @current_weixin_user.wx_links.create \
-      request_message_id: @current_request_message.id,
+    @current_request_message.wx_links.create \
+      weixin_user_id: @current_weixin_user.id,
       title: params[:xml][:Title],
       description: params[:xml][:Description],
       url: params[:xml][:Url]
   end
   def save_request_detail_data_of_event
-    @current_weixin_user.wx_events.create \
-      request_message_id: @current_request_message.id,
+    @current_request_message.wx_events.create \
+      weixin_user_id: @current_weixin_user.id,
       event: params[:xml][:Event],
       event_key: params[:xml][:EventKey]
   end
 
   # 保存响应数据到数据库
   def save_response
-    @current_response_message = @current_request_message.create_response_message weixin_user_id: @current_weixin_user.id
-    @current_response_message.create_reply item_id: @item.id, item_type: @item.class.to_s if @item.present?
+    current_response_message = @current_request_message.create_response_message weixin_user_id: @current_weixin_user.id
+    current_response_message.create_reply item_id: @item.id, item_type: @item.class.to_s if @item.present?
   end
 
   def reply_with_default
