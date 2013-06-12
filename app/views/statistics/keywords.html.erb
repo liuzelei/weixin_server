@@ -10,7 +10,7 @@
   <tbody>
     <% @req_stats.each do |it| %>
       <tr>
-        <td><%=it.content%></td>
+        <td><%=it.lower_content%></td>
         <td><%=it.cnt%></td>
       </tr>
     <% end %>
