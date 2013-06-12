@@ -51,7 +51,7 @@
   <br />
   <%= f.link_to_add raw("<i class='icon-plus'></i>添加回复"), :replies, class: "btn", id: "add_reply"%>
   &nbsp; &nbsp; &nbsp;
-  <%= f.submit "提交", class: "btn btn-primary" %>
+  <%= f.submit "提交", disable_with: "提交中...", class: "btn btn-primary" %>
 
 <% end %>
 
