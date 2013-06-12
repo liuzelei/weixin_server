@@ -130,32 +130,32 @@ class MessageController < ApplicationController
   end
   def save_request_detail_data_of_text
     @request_text_content = params[:xml][:Content].to_s
-    @current_request_message.wx_texts.create \
+    @current_request_message.create_wx_text \
       weixin_user_id: @current_weixin_user.id,
       content: @request_text_content
   end
   def save_request_detail_data_of_image
     pic_url = params[:xml][:PicUrl]
-    @current_request_message.wx_images.create \
+    @current_request_message.create_wx_image \
       weixin_user_id: @current_weixin_user.id,
       pic_url: pic_url
   end
   def save_request_detail_data_of_location
-    @current_request_message.wx_locations.create \
+    @current_request_message.create_wx_location \
       weixin_user_id: @current_weixin_user.id,
       latitude: params[:xml][:Location_X],
       longitude: params[:xml][:Location_Y],
       scale: params[:xml][:Scale]
   end
   def save_request_detail_data_of_link
-    @current_request_message.wx_links.create \
+    @current_request_message.create_wx_link \
       weixin_user_id: @current_weixin_user.id,
       title: params[:xml][:Title],
       description: params[:xml][:Description],
       url: params[:xml][:Url]
   end
   def save_request_detail_data_of_event
-    @current_request_message.wx_events.create \
+    @current_request_message.create_wx_event \
       weixin_user_id: @current_weixin_user.id,
       event: params[:xml][:Event],
       event_key: params[:xml][:EventKey]
