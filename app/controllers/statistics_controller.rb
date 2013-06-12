@@ -57,7 +57,7 @@ class StatisticsController < ApplicationController
   end
 
   def weixin_users_dates
-    @req_stats = current_user.request_messages.includes(:weixin_user).group("weixin_user_id, date(created_at)").select("count(id) as cnt, weixin_user_id, date(created_at) as created_date").order("created_date desc")
+    @req_stats = current_user.request_messages.includes(:weixin_user).group("weixin_user_id, created_date").select("count(weixin_user_id) as cnt, weixin_user_id, date(request_messages.created_at) as created_date").order("created_date desc")
   end
 
   def weixin_users

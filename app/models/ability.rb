@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     can :read, :all
     can [:manage], Setting do |it|
-      user and user.id==it.user_id
+      user and (user.id==it.user_id or it.new_record?)
     end
     # Define abilities for the passed in user here. For example:
     #
