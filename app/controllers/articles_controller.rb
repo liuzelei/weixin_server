@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  skip_before_filter :authenticate_user!, only: [:pres]
+
   # GET /articles
   # GET /articles.json
   def index
@@ -23,7 +25,8 @@ class ArticlesController < ApplicationController
   end
 
   def pres
-    @article = current_user.articles.find(params[:id])
+    #@article = current_user.articles.find(params[:id])
+    @article = Article.find(params[:id])
 
     render layout: "presentation"
   end
