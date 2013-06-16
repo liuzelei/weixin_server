@@ -47,6 +47,13 @@ $(document).on 'nested:fieldAdded', (event) ->
   uploader_ele = $('.news_fileupload')
   bucket = uploader_ele.data("bucket")
   uploader_ele.fileupload (
+    progress: (e, data) ->
+      $(this).hide()
+      progress = parseInt(data.loaded / data.total * 100, 10)
+      if $("#upload_progress").length > 0
+        $("#upload_progress").text "#{progress}%"
+      else
+        $(this).after("<span id='upload_progress'></span>")
     done: (e, data) ->
       pic_uuid = data.result.key
       pic_url_origin = "http://#{bucket}.qiniudn.com/#{pic_uuid}"
@@ -57,7 +64,7 @@ $(document).on 'nested:fieldAdded', (event) ->
       $("#preview_news_pic").find("img").remove()
       $("#preview_news_pic").find("p").hide()
       $("#preview_news_pic").append("<img src=\"http://#{bucket}.qiniudn.com/#{pic_uuid}-large\"  alt='' />")
-      $(this).hide()
+      #$(this).hide()
   )
 @upload_news_item_pic = () ->
   uploader_ele = $('.news_fileupload')

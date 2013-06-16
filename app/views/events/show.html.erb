@@ -1,0 +1,14 @@
+
+<%= render "shared/events_menu" %>
+
+<div class="row-fluid">
+  <div class="span4">
+		<%= render "preview", {news: @event}%>
+  </div>
+
+	<div class="span8">
+		<%= link_to raw(" <i class='icon-edit'></i>编辑 "), edit_event_path(@event), class: "btn btn-primary" %>
+		&nbsp;
+		<%=link_to raw("<i class='icon-remove'></i>删除"), @event, method: :delete, data: {confirm: "确认删除？"}, class: "btn" %>
+	</div>
+</div>

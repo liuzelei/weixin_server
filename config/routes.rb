@@ -53,6 +53,13 @@ DemoWeixin::Application.routes.draw do
     end
   end
   resources :activities
+
+  resources :event_types, only: [:index]
+  resources :events do
+    collection do
+      get :list
+    end
+  end
   resources :coupons do
     collection  do
       get :search
