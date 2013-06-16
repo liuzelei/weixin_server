@@ -54,17 +54,22 @@ DemoWeixin::Application.routes.draw do
   end
   resources :activities
 
+
   resources :event_types, only: [:index]
   resources :events do
     collection do
       get :list
     end
   end
+  namespace :hd do
+    resources :scratch_cards, only: [:show, :index]
+  end
   resources :coupons do
     collection  do
       get :search
     end
   end
+
   resources :articles do
     member do
       get "pres"

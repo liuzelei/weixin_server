@@ -1,0 +1,31 @@
+<h1>Listing hd_scratch_cards</h1>
+
+<table>
+  <tr>
+    <th>Weixin user</th>
+    <th>Sn code</th>
+    <th>Status</th>
+    <th>Used at</th>
+    <th>Prize</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @hd_scratch_cards.each do |hd_scratch_card| %>
+  <tr>
+    <td><%= hd_scratch_card.weixin_user_id %></td>
+    <td><%= hd_scratch_card.sn_code %></td>
+    <td><%= hd_scratch_card.status %></td>
+    <td><%= hd_scratch_card.used_at %></td>
+    <td><%= hd_scratch_card.prize %></td>
+    <td><%= link_to 'Show', hd_scratch_card %></td>
+    <td><%= link_to 'Edit', edit_hd_scratch_card_path(hd_scratch_card) %></td>
+    <td><%= link_to 'Destroy', hd_scratch_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Scratch card', new_hd_scratch_card_path %>

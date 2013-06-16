@@ -1,7 +1,5 @@
 module EventsHelper
-  def specified_activity(event)
-
-    return "url..."
+  def specified_activity_url(item)
   end
 end
 

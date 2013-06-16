@@ -12,6 +12,7 @@ class WeixinUser < ActiveRecord::Base
   has_many :wx_events
   has_many :response_messages
 
+  has_many :scratch_cards, class_name: "Hd::ScratchCard"
   has_many :coupons
 
   has_one :ownership, as: :item, dependent: :destroy

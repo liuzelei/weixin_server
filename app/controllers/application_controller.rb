@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   private
   def undetected_user_error(exception=nil)
     logger.error "Exception: #{exception.class}: #{exception.message}" if exception
-    binding.pry
     respond_to do |format|
       format.html { render text: 'can not detect user', status: 500 }
       format.xml { render "message/undetected_user", status: 200 }

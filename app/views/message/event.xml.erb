@@ -5,7 +5,7 @@
       <Title><![CDATA[<%=item.title%>]]></Title> 
       <Description><![CDATA[<%=item.description.to_s.truncate(100)%>]]></Description>
       <PicUrl><![CDATA[<%=item.pic_url%>]]></PicUrl>
-      <Url><![CDATA[<%=specified_activity(item)%>]]></Url>
+      <Url><![CDATA[<%=hd_scratch_card_url(item.generate_activity({weixin_user_id: @current_weixin_user.id}).id)%>]]></Url>
     </item>
   </Articles>
 
