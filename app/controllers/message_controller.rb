@@ -19,7 +19,7 @@ class MessageController < ApplicationController
       render "text", formats: :xml
     elsif @keyword_reply = current_user.keyword_replies.where(keyword: @request_text_content.to_s.downcase).first
       @item = @keyword_reply.replies.order("random()").first.item
-      render @item.class.to_s.underscore, formats: :xml, locals: {item: @item}
+      render "messages/#{@item.class.to_s.underscore}", formats: :xml, locals: {item: @item}
       #send "reply_with_#{item.class.to_s.underscore}".to_sym, @item
     elsif @activity = current_user.activities.where("keyword like ?", "#{@request_text_content.split.first.to_s.downcase}%").first
       if @request_text_content.length < 4
@@ -39,10 +39,7 @@ class MessageController < ApplicationController
   end
 
   def input_image
-    #render "reply", formats: :xml
-    @current_weixin_user.update_attributes weixin_id: @request_text_content.gsub(@activity.keyword,"").gsub('+',"")
-    @coupon = generate_coupon
-    render "news_coupon", formats: :xml
+    reply_with_default
   end
 
   def input_location
@@ -58,10 +55,7 @@ class MessageController < ApplicationController
   end
 
   def input_link
-    #render "reply", formats: :xml
-    @current_weixin_user.update_attributes weixin_id: @request_text_content.gsub(@activity.keyword,"").gsub('+',"")
-    @coupon = generate_coupon
-    render "news_coupon", formats: :xml
+    reply_with_default
   end
 
   def input_event
@@ -74,10 +68,11 @@ class MessageController < ApplicationController
       when /unsubscribe/
         "用户已退订，无法回复消息。"
       else
-        "Unknown"
+        "Unknown Weixin Event"
       end
 
-    render "event", formats: :xml
+    reply_or_default
+    #render "event", formats: :xml
   end
 
   def input_others
@@ -167,6 +162,10 @@ class MessageController < ApplicationController
     current_response_message.create_reply item_id: @item.id, item_type: @item.class.to_s if @item.present?
   end
 
+  def reply_or_default
+    @response_text_content ||= current_user.setting.try :default_message
+    render "text", formats: :xml
+  end
   def reply_with_default
     #@response_text_content = Setting.find_by_name("default_message").try :content 
     @response_text_content = current_user.setting.try :default_message
