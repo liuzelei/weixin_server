@@ -4,7 +4,8 @@ class Hd::ScratchCardsController < ApplicationController
   # GET /hd/scratch_cards.json
   def index
     #@hd_scratch_cards = Hd::ScratchCard.all
-    @hd_scratch_cards = current_user.scratch_cards
+    @per_page = params[:per_page].present? ? params[:per_page].to_i : 100
+    @hd_scratch_cards = current_user.scratch_cards.order("hd_scratch_cards.updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
 
     respond_to do |format|
       format.html # index.html.erb

@@ -3,7 +3,8 @@ class CouponsController < ApplicationController
   # GET /coupons
   # GET /coupons.json
   def index
-    @coupons = current_user.coupons.all
+    @per_page = params[:per_page].present? ? params[:per_page].to_i : 100
+    @coupons = current_user.coupons.order("coupons.updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
 
     respond_to do |format|
       format.html # index.html.erb
