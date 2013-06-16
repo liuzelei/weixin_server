@@ -2,9 +2,10 @@
   <ArticleCount>1</ArticleCount>
   <Articles>
     <item>
-      <Title><![CDATA[<%=@activity.title%>]]></Title> 
-      <Description><![CDATA[<%=@activity.description.to_s.truncate(100)%>]]></Description>
-      <PicUrl><![CDATA[<%=@activity.pic_url%>]]></PicUrl>
-      <Url><![CDATA[<%=others_djq_url(sn_code: @coupon.sn_code)%>]]></Url>
+      <Title><![CDATA[<%=item.title%>]]></Title> 
+      <Description><![CDATA[<%=item.description.to_s.truncate(100)%>]]></Description>
+      <PicUrl><![CDATA[<%=item.pic_url%>]]></PicUrl>
+      <Url><![CDATA[<%=specified_activity(item)%>]]></Url>
     </item>
   </Articles>
+

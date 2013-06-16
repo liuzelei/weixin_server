@@ -5,18 +5,18 @@
       <Title><![CDATA[<%=@activity.title%>]]></Title> 
       <Description><![CDATA[<%=@activity.description.to_s.truncate(100)%>]]></Description>
       <PicUrl><![CDATA[<%=@activity.pic_url%>]]></PicUrl>
-      <Url><![CDATA[<%=others_djq_url(sn_code: @coupon.sn_code)%>]]></Url>
+      <Url><![CDATA[<%=djq_others_url(sn_code: @coupon.sn_code)%>]]></Url>
     </item>
     <item>
       <Title><![CDATA[您可以发送您的地址信息查看附近的门店，上门兑换代金券哦！]]></Title> 
       <Description><![CDATA[]]></Description>
       <PicUrl><![CDATA[<%="http://images.bbtang.com/uploads/image/body/1730/djq_mini.png"%>]]></PicUrl>
-      <Url><![CDATA[<%=others_djq_url(sn_code: @coupon.sn_code)%>]]></Url>
+      <Url><![CDATA[<%=djq_others_url(sn_code: @coupon.sn_code)%>]]></Url>
     </item>
     <item>
       <Title><![CDATA[发送【zl】，录入您的个人资料，成为我们的忠实粉丝，会有更多惊喜等着你哦]]></Title> 
       <Description><![CDATA[]]></Description>
       <PicUrl><![CDATA[<%="http://images.bbtang.com/uploads/image/body/1730/djq_mini.png"%>]]></PicUrl>
-      <Url><![CDATA[<%=others_djq_url(sn_code: @coupon.sn_code)%>]]></Url>
+      <Url><![CDATA[<%=djq_others_url(sn_code: @coupon.sn_code)%>]]></Url>
     </item>
   </Articles>

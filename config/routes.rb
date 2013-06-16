@@ -95,7 +95,12 @@ DemoWeixin::Application.routes.draw do
     end
   end
 
-  get "others/djq"
+  resource :others, only: [:index] do
+    collection do
+      get :djq
+      get :scratch_card
+    end
+  end
 
   #root to: 'welcome#index'
   #root to: 'statistics#index'

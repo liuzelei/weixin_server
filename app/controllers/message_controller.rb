@@ -76,10 +76,7 @@ class MessageController < ApplicationController
   end
 
   def input_others
-    @current_weixin_user.update_attributes weixin_id: @request_text_content.gsub(@activity.keyword,"").gsub('+',"")
-    @coupon = generate_coupon
-    render "news_coupon", formats: :xml
-    #render "reply", formats: :xml
+    reply_or_default
   end
 
   private
