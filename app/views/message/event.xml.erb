@@ -1,11 +1,13 @@
   <MsgType><![CDATA[news]]></MsgType>
   <ArticleCount>1</ArticleCount>
   <Articles>
+    <%# @activity = current_user.scratch_cards.generate_activity({event_id: item.id, weixin_user_id: @current_weixin_user.id}) %>
+    <% @activity = generate_event_activity(item) %>
     <item>
       <Title><![CDATA[<%=item.title%>]]></Title> 
       <Description><![CDATA[<%=item.description.to_s.truncate(100)%>]]></Description>
       <PicUrl><![CDATA[<%=item.pic_url%>]]></PicUrl>
-      <Url><![CDATA[<%=hd_scratch_card_url(item.generate_activity({weixin_user_id: @current_weixin_user.id}).id)%>]]></Url>
+      <Url><![CDATA[<%=hd_scratch_card_url(@activity.id)%>]]></Url>
     </item>
   </Articles>
 

@@ -3,4 +3,6 @@ class Hd::ScratchCard < ActiveRecord::Base
 
   belongs_to :event, class_name: "Event"
   belongs_to :weixin_user, class_name: "WeixinUser"
+
+  has_one :ownership, as: :item, dependent: :destroy
 end

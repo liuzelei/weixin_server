@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   ItemTypes.each do |item_type|
     has_many item_type.underscore.pluralize.to_sym, through: :ownerships, source: "item", source_type: item_type
   end
+  EventTypes = ["ScratchCard"]
+  EventTypes .each do |item_type|
+    has_many item_type.underscore.pluralize.to_sym, through: :ownerships, source: "item", source_type: "Hd::#{item_type}"
+  end
 
   has_one :setting, dependent: :destroy
 
