@@ -1,31 +1,30 @@
-<h1>Listing hd_scratch_cards</h1>
+<%= render "shared/events_menu" %>
 
-<table>
-  <tr>
-    <th>Weixin user</th>
-    <th>Sn code</th>
-    <th>Status</th>
-    <th>Used at</th>
-    <th>Prize</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @hd_scratch_cards.each do |hd_scratch_card| %>
-  <tr>
-    <td><%= hd_scratch_card.weixin_user_id %></td>
-    <td><%= hd_scratch_card.sn_code %></td>
-    <td><%= hd_scratch_card.status %></td>
-    <td><%= hd_scratch_card.used_at %></td>
-    <td><%= hd_scratch_card.prize %></td>
-    <td><%= link_to 'Show', hd_scratch_card %></td>
-    <td><%= link_to 'Edit', edit_hd_scratch_card_path(hd_scratch_card) %></td>
-    <td><%= link_to 'Destroy', hd_scratch_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>微信用户ID</th>
+      <th>SN码</th>
+      <th>获奖</th>
+      <th>状态</th>
+      <th>使用日期</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <% @hd_scratch_cards.each do |it| %>
+      <tr>
+        <td><%= it.id %></td>
+        <td><%= it.weixin_user_id %></td>
+        <td><%= it.sn_code %></td>
+        <td><%= it.prize %></td>
+        <td><%= it.status %></td>
+        <td><%= it.used_at.strftime("%Y-%m-%d %H:%M") if it.used_at %></td>
+        <td><%= link_to raw("<i class='icon-folder-open'></i>"), it %></td>
+      </tr>
+    <% end %>
+    </tr>
+  </tbody>
 </table>
-
-<br />
-
-<%= link_to 'New Scratch card', new_hd_scratch_card_path %>

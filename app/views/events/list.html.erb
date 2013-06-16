@@ -10,6 +10,8 @@
       <th>标题</th>
       <th>描述</th>
       <th>图文回复的大图</th>
+      <th>预计人次</th>
+      <th>奖数量</th>
       <th></th>
     </tr>
   </thead>
@@ -22,6 +24,8 @@
         <td><%= it.title %></td>
         <td><%= it.description %></td>
         <td><%= image_tag it.pic_url, alt: "" %></td>
+        <td><%= it.max_random %></td>
+        <td><%= it.max_luck %></td>
         <td><%= link_to raw("<i class='icon-search'></i>"), it %>&nbsp;<%= link_to raw("<i class='icon-edit'></i>"), edit_event_path(it) %>&nbsp;<%= link_to raw("<i class='icon-remove'></i>"), it, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

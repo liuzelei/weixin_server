@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Event < ActiveRecord::Base
-  attr_accessible :category, :description, :pic_uuid, :title, :url
+  attr_accessible :category, :description, :pic_uuid, :title, :url, :max_random, :max_luck
 
   has_many :replies, as: :item, dependent: :destroy
   has_one :ownership, as: :item, dependent: :destroy
@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
 
   has_many :scratch_cards, class_name: "Hd::ScratchCard"
 
-  validates_presence_of :category, :description, :pic_uuid, :title
+  validates_presence_of :category, :description, :pic_uuid, :title, :max_random, :max_luck
 
   def safe_url
     url.present? ? url : "#nogo"
