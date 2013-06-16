@@ -3,8 +3,8 @@ class KeywordReply < ActiveRecord::Base
   attr_accessible :keyword, :replies_attributes
 
   has_many :replies, as: :target, dependent: :destroy
-  ItemTypesForSelect = [["文本","ReplyText"], ["音频","Audio"], ["图文","News"]]
-  ItemTypes = ["ReplyText","News","Audio","Activity","ResponseMessage"]
+  ItemTypesForSelect = [["文本","ReplyText"], ["音频","Audio"], ["图文","News"], ["活动","Event"]]
+  ItemTypes = ["ReplyText","News","Audio","Event","Activity","ResponseMessage"]
   ItemTypes.each do |item_type|
     has_many item_type.underscore.pluralize.to_sym, through: :replies, source: "item", source_type: item_type
   end

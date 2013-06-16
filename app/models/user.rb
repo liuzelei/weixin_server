@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   has_many :ownerships
   #ItemTypes = ["WeixinUser","QaStep","KeywordReply","News","Audio","ReplyText","Article","Video","Picture","Activity","Coupon","Shop","ResponseMessage","RequestMessage"]
-  ItemTypes = ["WeixinUser","QaStep","KeywordReply","News","Audio","ReplyText","Article","Video","Picture","Activity","Coupon","Shop","RequestMessage"]
+  ItemTypes = ["WeixinUser","QaStep","KeywordReply","News","Audio","Event","ReplyText","Article","Video","Picture","Activity","Coupon","Shop","RequestMessage"]
   ItemTypes.each do |item_type|
     has_many item_type.underscore.pluralize.to_sym, through: :ownerships, source: "item", source_type: item_type
   end
