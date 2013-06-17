@@ -13,7 +13,7 @@ class MessageController < ApplicationController
   def input_text
     #per_page = params[:per_page].present? ? params[:per_page].to_i : 19
     #last_response_message = current_user.response_messages.where(weixin_user_id: @current_weixin_user.id).order("created_at desc").first.try :content
-    last_response_message = @current_weixin_user.response_messages.order("created_at desc").first.try :content
+    last_response_message = @current_weixin_user.response_messages.order("created_at desc").first.try(:reply).try(:outline_content)
     if @qa_step = current_user.qa_steps.where(question: last_response_message).first
       @response_text_content = weixin_user_info_recording
       render "text", formats: :xml
@@ -43,7 +43,7 @@ class MessageController < ApplicationController
   end
 
   def input_location
-    last_response_message = @current_weixin_user.response_messages.order("created_at desc").first.try :content
+    last_response_message = @current_weixin_user.response_messages.order("created_at desc").first.try(:reply).try(:outline_content)
     @qa_step = current_user.qa_steps.where(question: last_response_message).first
     if @qa_step.present?
       @response_text_content = weixin_user_info_recording
