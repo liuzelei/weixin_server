@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130616142617) do
+ActiveRecord::Schema.define(:version => 20130617071949) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -131,11 +131,10 @@ ActiveRecord::Schema.define(:version => 20130616142617) do
   end
 
   create_table "replies", :force => true do |t|
-    t.integer  "keyword_reply_id"
     t.integer  "item_id"
     t.string   "item_type"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "target_id"
     t.string   "target_type"
   end
@@ -155,18 +154,13 @@ ActiveRecord::Schema.define(:version => 20130616142617) do
   end
 
   create_table "response_messages", :force => true do |t|
-    t.text     "content"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.integer  "weixin_user_id"
-    t.string   "msg_type"
-    t.integer  "news_id"
     t.integer  "request_message_id"
   end
 
   create_table "settings", :force => true do |t|
-    t.string   "name"
-    t.text     "content"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.string   "weixin_id"
