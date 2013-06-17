@@ -95,6 +95,7 @@ DemoWeixin::Application.routes.draw do
       get "msg_types"
       get "dates"
       get "weixin_users"
+      get "weixin_users_cnt_dates"
       get "weixin_users_dates"
       get "keywords"
     end

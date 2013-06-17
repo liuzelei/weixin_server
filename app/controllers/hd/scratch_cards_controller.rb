@@ -26,10 +26,7 @@ class Hd::ScratchCardsController < ApplicationController
   def show
     @hd_scratch_card = Hd::ScratchCard.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @hd_scratch_card }
-    end
+    render layout: false
   end
 
 end

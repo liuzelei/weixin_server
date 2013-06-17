@@ -1,0 +1,20 @@
+<%= render "shared/statistics_menu" %>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>微信帐号</th>
+      <th>微信用户ID</th>
+      <th>回头率</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @req_stats.each do |it| %>
+      <tr>
+        <td><%=it.weixin_user.try :name%></td>
+        <td><%=it.weixin_user_id%></td>
+        <td><%=[it.cnt.to_i - 1,0].max%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
