@@ -36,10 +36,21 @@
 				<%= f.label :pic, "图片", class: ""%>
 				<%=render "shared/file_uploader", {f: f, qiniu_file_uuid: SecureRandom.uuid}%> 
 				<br />
+
+				<hr />
+
+				<%= f.label :max_random, "预计参与人次", class: ""%>
+				<%= f.number_field :max_random,  class: "input-small"%>
+				<br />
+				<br />
+				<%= f.label :max_luck, "奖项总数", class: ""%>
+				<%= f.number_field :max_luck, class: "input-small"%>
 				<br />
 
-				<%= f.submit "完成", class: "btn btn-primary btn-large right" %>
 			</fieldset>
+
+			<br />
+			<%= f.submit "完成", class: "btn btn-primary btn-large pull-left" %>
 
     <% end %>
   </div>
