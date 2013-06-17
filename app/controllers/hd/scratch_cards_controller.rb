@@ -5,7 +5,15 @@ class Hd::ScratchCardsController < ApplicationController
   def index
     #@hd_scratch_cards = Hd::ScratchCard.all
     @per_page = params[:per_page].present? ? params[:per_page].to_i : 100
-    @hd_scratch_cards = current_user.scratch_cards.order("hd_scratch_cards.updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
+
+    if params[:prize]
+      @hd_scratch_cards = current_user.scratch_cards.where("prize is not null").order("hd_scratch_cards.updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
+    else
+      @hd_scratch_cards = current_user.scratch_cards.order("hd_scratch_cards.updated_at desc").page([params[:page].to_i,1].max).per(@per_page)
+    end
+
+		@cnt_all_scratch_cards = current_user.scratch_cards.count
+		@cnt_got_prize = current_user.scratch_cards.where("prize is not null").count
 
     respond_to do |format|
       format.html # index.html.erb

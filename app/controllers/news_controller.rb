@@ -49,7 +49,7 @@ class NewsController < ApplicationController
     @news = current_user.news.new(params[:news])
 
     respond_to do |format|
-      if current_user.news.save
+      if current_user.save
         format.html { redirect_to @news, notice: 'News was successfully created.' }
         format.json { render json: @news, status: :created, location: @news }
       else
