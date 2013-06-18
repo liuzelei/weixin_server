@@ -61,7 +61,9 @@ DemoWeixin::Application.routes.draw do
       get :list
     end
   end
+
   namespace :hd do
+    resources :ggks
     resources :scratch_cards, only: [:show, :index]
   end
   resources :coupons do

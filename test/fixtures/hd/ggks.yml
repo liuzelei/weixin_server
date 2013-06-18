@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  description: MyText
+  pic_uuid: MyString
+  url: MyString
+  max_random: 1
+  max_luck: 1
+
+two:
+  title: MyString
+  description: MyText
+  pic_uuid: MyString
+  url: MyString
+  max_random: 1
+  max_luck: 1

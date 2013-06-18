@@ -1,0 +1,2 @@
+module Hd::GgksHelper
+end

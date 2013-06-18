@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @hd_ggk.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @hd_ggk.description %>
+</p>
+
+<p>
+  <b>Pic uuid:</b>
+  <%= @hd_ggk.pic_uuid %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @hd_ggk.url %>
+</p>
+
+<p>
+  <b>Max random:</b>
+  <%= @hd_ggk.max_random %>
+</p>
+
+<p>
+  <b>Max luck:</b>
+  <%= @hd_ggk.max_luck %>
+</p>
+
+
+<%= link_to 'Edit', edit_hd_ggk_path(@hd_ggk) %> |
+<%= link_to 'Back', hd_ggks_path %>
