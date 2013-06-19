@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Hd::GgkHistoriesHelper
   def generate_ggk_history(item)
     history = item.ggk_histories.where("prize is not null and used_at is null").where(weixin_user_id: @current_weixin_user.id).first
