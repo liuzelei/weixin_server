@@ -1,9 +1,0 @@
-<% unless news.new_record? %>
-	<p class="news_toolbar">
-		<span class="badge badge-success"><%=news.id%></span>
-		<%=link_to raw("<i class='icon-remove'></i>"), news, method: :delete, data: {confirm: "确认删除？"} %>
-		<%=link_to raw("<i class='icon-plus'></i>"), new_news_item_path(news)%>
-		<%=link_to raw("<i class='icon-edit'></i>"), edit_news_path(news)%>
-		<%=link_to raw("<i class='icon-folder-open'></i>"), news%>
-	</p>
-<% end %>
