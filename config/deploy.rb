@@ -18,8 +18,8 @@ set :use_sudo, false
 set :deploy_via, :remote_cache
 set :deploy_env, 'production'
 
-#set :bundle_cmd, proc {"cd #{current_release} && bundle"}
-set :bundle_cmd, 'source $HOME/.bash_profile && bundle'
+set :bundle_cmd, proc {"cd #{current_release} && bundle"}
+#set :bundle_cmd, 'source $HOME/.bash_profile && bundle'
 
 require 'sidekiq/capistrano'
 set :sidekiq_cmd, "#{bundle_cmd} exec sidekiq"
