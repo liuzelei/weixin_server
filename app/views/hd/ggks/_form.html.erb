@@ -1,41 +1,57 @@
-<%= form_for(@hd_ggk) do |f| %>
-  <% if @hd_ggk.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@hd_ggk.errors.count, "error") %> prohibited this hd_ggk from being saved:</h2>
+<div class="row-fluid">
+  <div class="span4">
+		<%= render "shared/news_preview", {news: @hd_ggk}%>
+  </div>
 
-      <ul>
-      <% @hd_ggk.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+  <div class="span8">
+    <%= form_for @hd_ggk, html: {class: "news_form"} do |f| %>
+      <% if @hd_ggk.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@hd_ggk.errors.count, "error") %> prohibited this hd_ggk from being saved:</h2>
+
+          <ul>
+            <% @hd_ggk.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+			<fieldset>
+				<%= f.label :title, "标题", class: "" %>
+				<%= f.text_field :title, placeholder: "请输入标题", id: "news_title", class: "input-large"%>
+				<br />
+				<br />
+
+				<%= f.label :description, "描述", class: ""%>
+				<%= f.text_area :description, id: "news_desc", class: "news_desc", rows: 2%>
+				<br />
+				<br />
+
+				<%= f.label :pic, "图片", class: ""%>
+				<%=render "shared/file_uploader", {f: f, qiniu_file_uuid: SecureRandom.uuid}%> 
+				<br />
+
+				<hr />
+
+				<%= f.label :max_random, "预计参与人次", class: ""%>
+				<%= f.number_field :max_random,  class: "input-small"%>
+				<br />
+				<br />
+				<%= f.label :max_luck, "奖项总数", class: ""%>
+				<%= f.number_field :max_luck, class: "input-small"%>
+				<br />
+
+			</fieldset>
+
+			<br />
+			<%= f.submit "完成", class: "btn btn-primary btn-large pull-left" %>
+
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :pic_uuid %><br />
-    <%= f.text_field :pic_uuid %>
-  </div>
-  <div class="field">
-    <%= f.label :url %><br />
-    <%= f.text_field :url %>
-  </div>
-  <div class="field">
-    <%= f.label :max_random %><br />
-    <%= f.number_field :max_random %>
-  </div>
-  <div class="field">
-    <%= f.label :max_luck %><br />
-    <%= f.number_field :max_luck %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+</div>
+
+<%= javascript_tag do %>
+  upload_news_pic()
+  auto_preview_news()
 <% end %>

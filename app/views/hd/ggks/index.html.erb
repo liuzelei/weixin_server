@@ -1,33 +1,32 @@
-<h1>Listing hd_ggks</h1>
+<%= render "shared/events_menu" %>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Pic uuid</th>
-    <th>Url</th>
-    <th>Max random</th>
-    <th>Max luck</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @hd_ggks.each do |hd_ggk| %>
-  <tr>
-    <td><%= hd_ggk.title %></td>
-    <td><%= hd_ggk.description %></td>
-    <td><%= hd_ggk.pic_uuid %></td>
-    <td><%= hd_ggk.url %></td>
-    <td><%= hd_ggk.max_random %></td>
-    <td><%= hd_ggk.max_luck %></td>
-    <td><%= link_to 'Show', hd_ggk %></td>
-    <td><%= link_to 'Edit', edit_hd_ggk_path(hd_ggk) %></td>
-    <td><%= link_to 'Destroy', hd_ggk, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
+<%=link_to raw(" <i class='icon-plus'></i>新增 "), new_hd_ggk_path, class: "btn btn-primary right"%>
 <br />
+<br />
+<div style="clear:both;"></div>
 
-<%= link_to 'New Ggk', new_hd_ggk_path %>
+<div class="news_waterfall">
+	<% @hd_ggks.each do |it| %>
+		<div class="thumbnail">
+			<%= render "toolbar", {news: it} %>
+			<h6><%=link_to it.title, it.url%></h6>
+			<%= image_tag it.pic_url, data: {src: "holder.js/639x359"}, alt: ""%>
+      <table class="table table-hover news_items_table">
+        <tr>
+          <td>
+            <p id="preview_news_desc">
+              <%=it.description%>
+            </p>
+          </td>
+        </tr>
+      </table>
+		</div>
+	<% end %>
+</div>
+
+<%#=paginate @hd_ggks%>
+
+<%= javascript_tag do %>
+	auto_show_news_toolbar()
+	news_waterfall()
+<% end %>
