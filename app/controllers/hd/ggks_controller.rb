@@ -16,6 +16,9 @@ class Hd::GgksController < ApplicationController
   def show
     @hd_ggk = current_user.ggks.find(params[:id])
 
+    @cnt_histories = @hd_ggk.ggk_histories.count
+    @cnt_got_prize = @hd_ggk.ggk_histories.where("prize is not null").count
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @hd_ggk }

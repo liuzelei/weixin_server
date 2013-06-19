@@ -18,14 +18,14 @@
 					<td>预计参与人次</td>
 					<td><%=@hd_ggk.max_random%></td>
 					<td>实际参与人次</td>
-					<td></td>
+					<td><%=@cnt_histories%></td>
 					<td><%=link_to raw("<i class='icon-list'></i>"), hd_ggk_ggk_histories_path(@hd_ggk.id)%></td>
 				</tr>
 				<tr>
 					<td>预设奖项数量</td>
 					<td><%=@hd_ggk.max_luck%></td>
 					<td>已发奖项数量</td>
-					<td></td>
+					<td><%=@cnt_got_prize%></td>
 					<td><%=link_to raw("<i class='icon-list'></i>"), hd_ggk_ggk_histories_path(@hd_ggk.id, prize: true)%></td>
 				</tr>
 			</table>
