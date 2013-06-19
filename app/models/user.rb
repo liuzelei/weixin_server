@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
   ItemTypes.each do |it|
     has_many it.underscore.pluralize.to_sym, through: :ownerships, source: "item", source_type: it
   end
-  #EventTypes = ["ScratchCard"]
   EventTypes = ["Ggk"]
   EventTypes.each do |it|
     has_many it.underscore.pluralize.to_sym, through: :ownerships, source: "item", source_type: "Hd::#{it}"

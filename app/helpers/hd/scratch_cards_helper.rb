@@ -1,2 +1,0 @@
-module Hd::ScratchCardsHelper
-end
