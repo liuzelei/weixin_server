@@ -10,5 +10,25 @@
 		<%= link_to raw(" <i class='icon-edit'></i>编辑 "), edit_polymorphic_path(@hd_ggk), class: "btn btn-primary" %>
 		&nbsp;
 		<%=link_to raw("<i class='icon-remove'></i>删除"), @hd_ggk, method: :delete, data: {confirm: "确认删除？"}, class: "btn" %>
+		<hr />
+		
+		<div class="">
+			<table class="table table-bordered">
+				<tr>
+					<td>预计参与人次</td>
+					<td><%=@hd_ggk.max_random%></td>
+					<td>实际参与人次</td>
+					<td></td>
+					<td><%=link_to raw("<i class='icon-list'></i>"), "#nogo"%></td>
+				</tr>
+				<tr>
+					<td>预设奖项数量</td>
+					<td><%=@hd_ggk.max_luck%></td>
+					<td>已发奖项数量</td>
+					<td></td>
+					<td><%=link_to raw("<i class='icon-list'></i>"), "#nogo"%></td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </div>

@@ -7,20 +7,7 @@
 
 <div class="news_waterfall">
 	<% @hd_ggks.each do |it| %>
-		<div class="thumbnail">
-			<%= render "toolbar", {news: it} %>
-			<h6><%=link_to it.title, it.url%></h6>
-			<%= image_tag it.pic_url, data: {src: "holder.js/639x359"}, alt: ""%>
-      <table class="table table-hover news_items_table">
-        <tr>
-          <td>
-            <p id="preview_news_desc">
-              <%=it.description%>
-            </p>
-          </td>
-        </tr>
-      </table>
-		</div>
+		<%= render "shared/news_preview", {news: it}%>
 	<% end %>
 </div>
 
