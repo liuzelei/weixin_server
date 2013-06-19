@@ -17,7 +17,7 @@ class MessageController < ApplicationController
     if @qa_step = current_user.qa_steps.where(question: last_response_message).first
       @response_text_content = weixin_user_info_recording
       render "text", formats: :xml
-    elsif @keyword_reply = current_user.keyword_replies.where(keyword: @request_text_content.to_s.downcase).first
+    elsif @keyword_reply = current_user.keyword_replies.where(keyword: @request_text_content.to_s.split(",").first.downcase).first
       @item = @keyword_reply.replies.order("random()").first.item
       render "message/#{@item.class.to_s.underscore}", formats: :xml, locals: {item: @item}
       #send "reply_with_#{item.class.to_s.underscore}".to_sym, @item
