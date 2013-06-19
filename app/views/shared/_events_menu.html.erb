@@ -3,8 +3,7 @@
     <li><%=link_to raw(" 活动管理 "), "#", class: "nav-header"%></li>
     <li class="<%=current_nav_item_state('event_types')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>活动类型介绍 "), event_types_path, class: ""%></li>
     <li class="<%=current_nav_item_state(['hd/ggks','hd/ggk_histories'])%>"><%=link_to raw(" <i class='icon-chevron-right'></i>刮刮卡 "), hd_ggks_path, class: ""%></li>
-    <li class="<%=current_menu_item_state('index','activities')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>活动(旧版) "), activities_path, class: ""%></li>
-		<li class="<%=current_menu_item_state('index','hd/scratch_cards')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>刮刮卡记录 "), hd_scratch_cards_path, class: ""%></li>
-    <li class="<%=current_menu_item_state('index','coupons')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>优惠券记录 "), coupons_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('index','activities')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>代金券(旧版) "), activities_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('index','coupons')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>代金券记录 "), coupons_path, class: ""%></li>
   </ul>
 <% end %>
