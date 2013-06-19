@@ -8,7 +8,7 @@ class Reply < ActiveRecord::Base
   validates_presence_of :item_id, :item_type
 
   def outline_content
-    send "#{item.class.to_s.underscore}_outline_content".to_sym, item
+    send "#{item.class.to_s.split(":").last.underscore}_outline_content".to_sym, item
   rescue => e
     logger.error e.to_s
     "unknown content"
@@ -21,8 +21,8 @@ class Reply < ActiveRecord::Base
   def audio_outline_content(item)
     "音频(ID: #{item.id})\n#{item.title}"
   end
-  def event_outline_content(item)
-    "活动(ID: #{item.id})\n#{item.title}"
+  def ggk_outline_content(item)
+    "刮刮卡(ID: #{item.id})\n#{item.title}"
   end
   def activity_outline_content(item)
     "活动..."

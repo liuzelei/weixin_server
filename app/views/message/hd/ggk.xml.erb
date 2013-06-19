@@ -1,0 +1,12 @@
+  <MsgType><![CDATA[news]]></MsgType>
+  <ArticleCount>1</ArticleCount>
+  <Articles>
+    <% @history = generate_ggk_history(item) %>
+    <item>
+      <Title><![CDATA[<%=item.title%>]]></Title> 
+      <Description><![CDATA[<%=item.description.to_s.truncate(100)%>]]></Description>
+      <PicUrl><![CDATA[<%=item.pic_url%>]]></PicUrl>
+      <Url><![CDATA[<%=hd_ggk_ggk_history_url(item.id, @history.id)%>]]></Url>
+    </item>
+  </Articles>
+
