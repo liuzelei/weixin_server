@@ -29,10 +29,7 @@ class Hd::GgkHistoriesController < ApplicationController
     @hd_ggk = Hd::Ggk.find params[:ggk_id]
     @hd_ggk_history = @hd_ggk.ggk_histories.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @hd_ggk_history }
-    end
+    render layout: false
   end
 
   # GET /hd/ggk_histories/new

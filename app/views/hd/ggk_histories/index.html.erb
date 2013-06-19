@@ -34,7 +34,7 @@
         <td><%= it.status %></td>
         <td><%= it.used_at.strftime("%Y-%m-%d %H:%M") if it.used_at %></td>
         <td><%= it.created_at.strftime("%Y-%m-%d %H:%M") %></td>
-        <td><%= link_to raw("<i class='icon-folder-open'></i>"), it %></td>
+        <td><%= link_to raw("<i class='icon-folder-open'></i>"), hd_ggk_ggk_history_path(@hd_ggk.id, it.id) %></td>
       </tr>
     <% end %>
     </tr>
