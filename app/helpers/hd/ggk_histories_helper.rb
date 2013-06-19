@@ -1,0 +1,2 @@
+module Hd::GgkHistoriesHelper
+end

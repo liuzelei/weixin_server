@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  weixin_user_id: 1
+  sn_code: MyString
+  status: MyString
+  used_at: 2013-06-19 16:05:26
+  prize: MyString
+
+two:
+  weixin_user_id: 1
+  sn_code: MyString
+  status: MyString
+  used_at: 2013-06-19 16:05:26
+  prize: MyString

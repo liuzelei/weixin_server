@@ -1,0 +1,37 @@
+<%= form_for(@hd_ggk_history) do |f| %>
+  <% if @hd_ggk_history.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@hd_ggk_history.errors.count, "error") %> prohibited this hd_ggk_history from being saved:</h2>
+
+      <ul>
+      <% @hd_ggk_history.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :weixin_user_id %><br />
+    <%= f.number_field :weixin_user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sn_code %><br />
+    <%= f.text_field :sn_code %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :used_at %><br />
+    <%= f.datetime_select :used_at %>
+  </div>
+  <div class="field">
+    <%= f.label :prize %><br />
+    <%= f.text_field :prize %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

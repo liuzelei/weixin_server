@@ -5,7 +5,7 @@ class Hd::Ggk < ActiveRecord::Base
   has_many :replies, as: :item, dependent: :destroy
   has_one :ownership, as: :item, dependent: :destroy
 
-  #has_many :ggk_histories, class_name: "Hd::GgkHistory"
+  has_many :ggk_histories, class_name: "Hd::GgkHistory"
 
   validates_presence_of :max_luck, :max_random, :pic_uuid, :title
 

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Weixin user:</b>
+  <%= @hd_ggk_history.weixin_user_id %>
+</p>
+
+<p>
+  <b>Sn code:</b>
+  <%= @hd_ggk_history.sn_code %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @hd_ggk_history.status %>
+</p>
+
+<p>
+  <b>Used at:</b>
+  <%= @hd_ggk_history.used_at %>
+</p>
+
+<p>
+  <b>Prize:</b>
+  <%= @hd_ggk_history.prize %>
+</p>
+
+
+<%= link_to 'Edit', edit_hd_ggk_history_path(@hd_ggk_history) %> |
+<%= link_to 'Back', hd_ggk_histories_path %>

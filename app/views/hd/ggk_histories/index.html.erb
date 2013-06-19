@@ -1,0 +1,44 @@
+<%= render "shared/events_menu" %>
+
+<div>
+	<p class="lead">
+		<%=link_to raw("活动：#{@hd_ggk.title}"), @hd_ggk%>
+		&nbsp; &nbsp;
+		<%=link_to raw("总数：#{@cnt_all}"), hd_ggk_ggk_histories_path(@hd_ggk.id)%>
+		&nbsp; &nbsp;
+		<%=link_to raw("中奖：#{@cnt_got_prize}"), hd_ggk_ggk_histories_path(@hd_ggk.id, prize: true)%>
+	</p>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>SN码</th>
+      <th>微信用户ID</th>
+      <th>获奖</th>
+      <th>状态</th>
+      <th>使用日期</th>
+      <th>发卡日期</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <% @histories.each do |it| %>
+      <tr>
+        <td><%= it.id %></td>
+        <td><%= it.sn_code %></td>
+        <td><%= it.weixin_user_id %></td>
+        <td><%= it.prize %></td>
+        <td><%= it.status %></td>
+        <td><%= it.used_at.strftime("%Y-%m-%d %H:%M") if it.used_at %></td>
+        <td><%= it.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+        <td><%= link_to raw("<i class='icon-folder-open'></i>"), it %></td>
+      </tr>
+    <% end %>
+    </tr>
+  </tbody>
+</table>
+
+<%= paginate @histories %>
