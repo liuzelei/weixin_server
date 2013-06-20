@@ -1,0 +1,19 @@
+<%= render "shared/events_menu" %>
+
+<%=link_to raw(" <i class='icon-plus'></i>新增 "), new_hd_dzp_path, class: "btn btn-primary right"%>
+<br />
+<br />
+<div style="clear:both;"></div>
+
+<div class="news_waterfall">
+	<% @hd_dzps.each do |it| %>
+		<%= render "shared/news_preview", {news: it}%>
+	<% end %>
+</div>
+
+<%#=paginate @hd_dzps%>
+
+<%= javascript_tag do %>
+	auto_show_news_toolbar()
+	news_waterfall()
+<% end %>

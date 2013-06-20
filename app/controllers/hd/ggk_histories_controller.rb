@@ -26,7 +26,7 @@ class Hd::GgkHistoriesController < ApplicationController
   # GET /hd/ggk_histories/1
   # GET /hd/ggk_histories/1.json
   def show
-    @hd_ggk = Hd::Ggk.find params[:ggk_id]
+    @hd_ggk = current_user.ggks.find params[:ggk_id]
     @hd_ggk_history = @hd_ggk.ggk_histories.find(params[:id])
 
     render layout: false

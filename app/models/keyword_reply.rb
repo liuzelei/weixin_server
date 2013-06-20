@@ -3,12 +3,12 @@ class KeywordReply < ActiveRecord::Base
   attr_accessible :keyword, :replies_attributes
 
   has_many :replies, as: :target, dependent: :destroy
-  ItemTypesForSelect = [["文本","ReplyText"], ["音频","Audio"], ["图文","News"], ["刮刮卡","Hd::Ggk"]]
+  ItemTypesForSelect = [["文本","ReplyText"], ["音频","Audio"], ["图文","News"], ["刮刮卡","Hd::Ggk"],["大转盘","Hd::Dzp"]]
   ItemTypes = ["ReplyText","News","Audio","Activity","ResponseMessage"]
   ItemTypes.each do |it|
     has_many it.underscore.pluralize.to_sym, through: :replies, source: "item", source_type: it
   end
-  EventTypes = ["Ggk"]
+  EventTypes = ["Ggk","Dzp"]
   EventTypes.each do |it|
     has_many it.underscore.pluralize.to_sym, through: :replies, source: "item", source_type: "Hd::#{it}"
   end

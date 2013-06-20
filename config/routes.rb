@@ -66,7 +66,9 @@ DemoWeixin::Application.routes.draw do
     resources :ggks do
       resources :ggk_histories, only: [:show, :index]
     end
-    resources :scratch_cards, only: [:show, :index]
+    resources :dzps do
+      resources :dzp_histories, only: [:index, :show]
+    end
   end
   resources :coupons do
     collection  do

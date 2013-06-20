@@ -24,6 +24,9 @@ class Reply < ActiveRecord::Base
   def ggk_outline_content(item)
     "刮刮卡(ID: #{item.id})\n#{item.title}"
   end
+  def dzp_outline_content(item)
+    "大转盘(ID: #{item.id})\n#{item.title}"
+  end
   def activity_outline_content(item)
     "活动..."
   end

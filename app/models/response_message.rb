@@ -6,7 +6,7 @@ class ResponseMessage < ActiveRecord::Base
   belongs_to :weixin_user
 
   has_one :reply, as: :target, dependent: :destroy
-  ItemTypes = ["ReplyText","News","Audio","Activity"]
+  ItemTypes = ["ReplyText","News","Audio"]
   ItemTypes.each do |item_type|
     has_one item_type.underscore.to_sym, through: :reply, source: "item", source_type: item_type
   end
