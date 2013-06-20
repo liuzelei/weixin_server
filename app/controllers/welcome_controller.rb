@@ -16,7 +16,7 @@ class WelcomeController < ApplicationController
     #WeixinWeb.delay.steal_weixin_user_info
     #detect_current_user
     #@it = Audio.last
-    render :test_template, format: :html, locals: {abc: "bcd"}
+    render :test_template, format: :html, locals: {abc: "bcd"}, layout: "baidu_map"
   end
 
   def test1

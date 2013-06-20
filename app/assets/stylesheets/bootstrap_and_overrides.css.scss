@@ -23,9 +23,9 @@ figure, embed, audio, video, canvas {
 	*zoom: 1;
 }
 
-body {
-  //background-image: url(bg.jpg);
-}
+// for baidu map
+html{height:100%}    
+body{height:100%;margin:0px;padding:0px}    
 
 .right {
 	float: right;

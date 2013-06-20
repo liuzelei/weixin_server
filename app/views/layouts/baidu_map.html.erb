@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WeiXin</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%#= stylesheet_link_tag    "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "http://api.map.baidu.com/api?v=1.5&ak=98d3d130e53e5dfd2e214c121cfdd149" %>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+
+	<%= favicon_link_tag image_path('favicon.ico')%>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <%= yield %>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+
