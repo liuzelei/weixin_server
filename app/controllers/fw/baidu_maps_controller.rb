@@ -1,4 +1,6 @@
 class Fw::BaiduMapsController < ApplicationController
+  skip_before_filter :authenticate_user!, only: [:serve]
+
   # GET /fw/baidu_maps
   # GET /fw/baidu_maps.json
   def index
@@ -11,7 +13,7 @@ class Fw::BaiduMapsController < ApplicationController
   end
 
   def serve
-    @fw_baidu_map = current_user.baidu_maps.find(params[:id])
+    @fw_baidu_map = Fw::BaiduMap.find(params[:id])
 
     render layout: "baidu_map"
   end

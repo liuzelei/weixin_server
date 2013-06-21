@@ -3,7 +3,11 @@
   <Articles>
     <item>
       <Title><![CDATA[<%=item.title%>]]></Title> 
-      <Description><![CDATA[<%=item.description.to_s.truncate(100)%>]]></Description>
+      <% if @request_text_content and @request_text_content.to_s.split(/,|，/).length>=3 %>
+        <Description><![CDATA[<%=item.description.to_s.truncate(100)%>]]></Description>
+      <% else %>
+        <Description><![CDATA[很抱歉没有找到地址，输入更详细的地址试试呢？<br/>格式：关键词,起始地址,终点地址]]></Description>
+      <% end %>
       <PicUrl><![CDATA[<%=item.pic_url%>]]></PicUrl>
       <Url><![CDATA[<%=serve_fw_baidu_map_url(item.id, wx_text_content: @request_text_content)%>]]></Url>
     </item>
