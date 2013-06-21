@@ -1,9 +1,11 @@
 @load_baidu_map_and_navigate = () ->
   map = new BMap.Map("baidu_map")          # 创建地图实例
 
-  wx_text_content = purl().param('wx_text_content')
-  from_address = wx_text_content.replace("，",",").split(',')[1]
-  to_address = wx_text_content.replace("，",",").split(',')[2]
+  #wx_text_content = purl().param('wx_text_content')
+  #from_address = wx_text_content.replace("，",",").split(',')[1]
+  #to_address = wx_text_content.replace("，",",").split(',')[2]
+  from_address = purl().param('from_address')
+  to_address = purl().param('to_address')
   my_geo = new BMap.Geocoder()
   my_geo.getPoint(to_address, (point) ->
     if point and from_address and to_address
