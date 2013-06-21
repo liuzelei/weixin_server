@@ -64,7 +64,11 @@ DemoWeixin::Application.routes.draw do
   end
   resources :service_types, only: [:index]
   namespace :fw do
-    resources :baidu_maps
+    resources :baidu_maps do
+      member do
+        get "serve"
+      end
+    end
   end
   resources :activities
   resources :coupons do

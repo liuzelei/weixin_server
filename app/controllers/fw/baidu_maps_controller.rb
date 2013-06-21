@@ -10,6 +10,12 @@ class Fw::BaiduMapsController < ApplicationController
     end
   end
 
+  def serve
+    @fw_baidu_map = current_user.baidu_maps.find(params[:id])
+
+    render layout: "baidu_map"
+  end
+
   # GET /fw/baidu_maps/1
   # GET /fw/baidu_maps/1.json
   def show
