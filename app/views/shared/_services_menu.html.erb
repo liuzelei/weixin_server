@@ -1,0 +1,7 @@
+<% content_for :menu do %>
+  <ul class="nav nav-list bs-docs-sidenav affix">
+    <li><%=link_to raw(" 服务管理 "), "#", class: "nav-header"%></li>
+    <li class="<%=current_nav_item_state('service_types')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>服务类型介绍 "), service_types_path, class: ""%></li>
+    <li class="<%=current_menu_item_state('index','fw/baidu_maps')%>"><%=link_to raw(" <i class='icon-chevron-right'></i>地图服务 "), fw_baidu_maps_path, class: ""%></li>
+  </ul>
+<% end %>

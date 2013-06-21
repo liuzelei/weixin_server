@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
   EventTypes.each do |it|
     has_many it.underscore.pluralize.to_sym, through: :ownerships, source: "item", source_type: "Hd::#{it}"
   end
+  ServiceTypes = ["BaiduMap"]
+  ServiceTypes.each do |it|
+    has_many it.underscore.pluralize.to_sym, through: :ownerships, source: "item", source_type: "Fw::#{it}"
+  end
 
   has_one :setting, dependent: :destroy
 

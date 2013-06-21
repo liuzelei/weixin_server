@@ -1,0 +1,19 @@
+<%= render "shared/services_menu" %>
+
+<%=link_to raw(" <i class='icon-plus'></i>新增 "), new_fw_baidu_map_path, class: "btn btn-primary right"%>
+<br />
+<br />
+<div style="clear:both;"></div>
+
+<div class="news_waterfall">
+	<% @fw_baidu_maps.each do |it| %>
+		<%= render "shared/news_preview", {news: it}%>
+	<% end %>
+</div>
+
+<%#=paginate @fw_baidu_maps%>
+
+<%= javascript_tag do %>
+	auto_show_news_toolbar()
+	news_waterfall()
+<% end %>

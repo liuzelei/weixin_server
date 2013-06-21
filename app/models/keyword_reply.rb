@@ -3,7 +3,7 @@ class KeywordReply < ActiveRecord::Base
   attr_accessible :keyword, :replies_attributes
 
   has_many :replies, as: :target, dependent: :destroy
-  ItemTypesForSelect = [["文本","ReplyText"], ["音频","Audio"], ["图文","News"], ["刮刮卡","Hd::Ggk"],["大转盘","Hd::Dzp"]]
+  ItemTypesForSelect = [["文本","ReplyText"], ["音频","Audio"], ["图文","News"], ["刮刮卡","Hd::Ggk"],["大转盘","Hd::Dzp"],["地图","Fw::BaiduMap"]]
   ItemTypes = ["ReplyText","News","Audio","Activity","ResponseMessage"]
   ItemTypes.each do |it|
     has_many it.underscore.pluralize.to_sym, through: :replies, source: "item", source_type: it
@@ -11,6 +11,10 @@ class KeywordReply < ActiveRecord::Base
   EventTypes = ["Ggk","Dzp"]
   EventTypes.each do |it|
     has_many it.underscore.pluralize.to_sym, through: :replies, source: "item", source_type: "Hd::#{it}"
+  end
+  ServiceTypes = ["BaiduMap"]
+  ServiceTypes.each do |it|
+    has_many it.underscore.pluralize.to_sym, through: :replies, source: "item", source_type: "Fw::#{it}"
   end
 
   has_one :ownership, as: :item, dependent: :destroy

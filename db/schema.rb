@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130620033032) do
+ActiveRecord::Schema.define(:version => 20130621051101) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -59,6 +59,15 @@ ActiveRecord::Schema.define(:version => 20130620033032) do
     t.string   "url"
     t.integer  "max_random"
     t.integer  "max_luck"
+  end
+
+  create_table "fw_baidu_maps", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "pic_uuid"
+    t.string   "url"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "hd_dzp_histories", :force => true do |t|

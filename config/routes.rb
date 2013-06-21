@@ -52,16 +52,8 @@ DemoWeixin::Application.routes.draw do
       get "list"
     end
   end
-  resources :activities
-
 
   resources :event_types, only: [:index]
-  resources :events do
-    collection do
-      get :list
-    end
-  end
-
   namespace :hd do
     resources :ggks do
       resources :ggk_histories, only: [:show, :index]
@@ -70,6 +62,11 @@ DemoWeixin::Application.routes.draw do
       resources :dzp_histories, only: [:index, :show]
     end
   end
+  resources :service_types, only: [:index]
+  namespace :fw do
+    resources :baidu_maps
+  end
+  resources :activities
   resources :coupons do
     collection  do
       get :search

@@ -1,0 +1,47 @@
+<div class="row-fluid">
+  <div class="span4">
+		<%= render "shared/news_preview", {news: @fw_baidu_map}%>
+  </div>
+
+  <div class="span8">
+    <%= form_for @fw_baidu_map, html: {class: "news_form"} do |f| %>
+      <% if @fw_baidu_map.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@fw_baidu_map.errors.count, "error") %> prohibited this fw_baidu_map from being saved:</h2>
+
+          <ul>
+            <% @fw_baidu_map.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+			<fieldset>
+				<%= f.label :title, "标题", class: "" %>
+				<%= f.text_field :title, placeholder: "请输入标题", id: "news_title", class: "input-large"%>
+				<br />
+				<br />
+
+				<%= f.label :description, "描述", class: ""%>
+				<%= f.text_area :description, id: "news_desc", class: "news_desc", rows: 2%>
+				<br />
+				<br />
+
+				<%= f.label :pic, "图片", class: ""%>
+				<%=render "shared/file_uploader", {f: f, qiniu_file_uuid: SecureRandom.uuid}%> 
+				<br />
+
+			</fieldset>
+
+			<br />
+			<%= f.submit "完成", class: "btn btn-primary btn-large pull-left" %>
+
+    <% end %>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+  upload_news_pic()
+  auto_preview_news()
+<% end %>
