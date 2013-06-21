@@ -9,7 +9,7 @@
         <Description><![CDATA[很抱歉没有找到地址，输入更详细的地址试试呢？\n格式：关键词,起始地址,终点地址]]></Description>
       <% end %>
       <PicUrl><![CDATA[<%=item.pic_url%>]]></PicUrl>
-      <Url><![CDATA[<%=serve_fw_baidu_map_url(item.id, from_address: @request_text_content.to_s.split(/,|，/)[1], to_address: @request_text_content.to_s.split(/,|，/)[2])%>]]></Url>
+      <Url><![CDATA[<%=serve_fw_baidu_map_url(item.id, wx_text_content: @request_text_content)%>]]></Url>
     </item>
   </Articles>
 
